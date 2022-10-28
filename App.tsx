@@ -10,6 +10,7 @@ import {
 } from "@react-native-community/hooks";
 import WelcomeScreen from "./app/screens/WelcomeScreen";
 import ViewImageScreen from "./app/screens/ViewImageScreen";
+import SalesList from "./app/components/SalesList";
 
 export default function App() {
     const isLoadingComplete = useCachedResources();
@@ -22,7 +23,8 @@ export default function App() {
         return (
             <SafeAreaProvider>
                 <SafeAreaView style={styles.container}>
-                    <WelcomeScreen />
+                    <SalesList />
+                    {/* <WelcomeScreen /> */}
                     {/* <ViewImageScreen /> */}
                 </SafeAreaView>
                 {/* <Navigation colorScheme={colorScheme} /> */}
