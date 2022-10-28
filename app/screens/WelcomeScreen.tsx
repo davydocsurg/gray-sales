@@ -7,6 +7,7 @@ export default function WelcomeScreen() {
     return (
         <>
             <ImageBackground
+                blurRadius={6}
                 style={styles.background}
                 source={require("../assets/images/landing-bg.jpg")}
             >
