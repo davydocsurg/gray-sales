@@ -18,22 +18,35 @@ export default function Card({
                 style={styles.image}
                 source={require("../assets/images/landing-bg.jpg")}
             />
-            <AppText style={{ fontWeight: "700" }}>{title}</AppText>
-            <AppText>{subtitle}</AppText>
+            <View style={styles.detailsContainer}>
+                <AppText style={{ fontWeight: "700" }}>{title}</AppText>
+                <AppText style={[styles.subTitle]}>{subtitle}</AppText>
+            </View>
         </View>
     );
 }
 
 const styles = StyleSheet.create({
     card: {
-        padding: 10,
+        // padding: 10,
+        overflow: "hidden",
         borderRadius: 15,
         backgroundColor: colors.white,
         marginBottom: 20,
     },
 
     image: {
+        borderRadius: 10,
         width: "100%",
         height: 200,
+    },
+
+    subTitle: {
+        color: colors.secondary,
+        fontWeight: "bold",
+    },
+
+    detailsContainer: {
+        padding: 20,
     },
 });

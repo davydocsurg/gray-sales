@@ -11,6 +11,7 @@ import {
 import WelcomeScreen from "./app/screens/WelcomeScreen";
 import ViewImageScreen from "./app/screens/ViewImageScreen";
 import SalesList from "./app/components/SalesList";
+import ListingDetailsScreen from "./app/screens/ListingDetailsScreen";
 
 export default function App() {
     const isLoadingComplete = useCachedResources();
@@ -23,7 +24,8 @@ export default function App() {
         return (
             <SafeAreaProvider>
                 <SafeAreaView style={styles.container}>
-                    <SalesList />
+                    <ListingDetailsScreen />
+                    {/* <SalesList /> */}
                     {/* <WelcomeScreen /> */}
                     {/* <ViewImageScreen /> */}
                 </SafeAreaView>
