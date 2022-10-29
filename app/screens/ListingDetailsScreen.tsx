@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, Image, StyleSheet } from "react-native";
 import AppText from "../commons/AppText";
+import ListItem from "../components/ListItem";
 import colors from "../utils/colors";
 
 export default function ListingDetailsScreen() {
@@ -13,6 +14,12 @@ export default function ListingDetailsScreen() {
             <View style={styles.detailsContainer}>
                 <AppText style={styles.title}>Lorem ipsum</AppText>
                 <AppText style={styles.price}>$100</AppText>
+
+                <ListItem
+                    image="../assets/images/landing-bg.jpg"
+                    title="Lorem Ipsum"
+                    subTitle="5 Listings"
+                />
             </View>
         </View>
     );
