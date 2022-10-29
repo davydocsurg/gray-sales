@@ -10,14 +10,11 @@ export default function Card({
 }: {
     title: string;
     subtitle: string;
-    image?: string;
+    image?: any;
 }) {
     return (
         <View style={styles.card}>
-            <Image
-                style={styles.image}
-                source={require("../assets/images/landing-bg.jpg")}
-            />
+            <Image style={styles.image} source={image} />
             <View style={styles.detailsContainer}>
                 <AppText style={{ fontWeight: "700" }}>{title}</AppText>
                 <AppText style={[styles.subTitle]}>{subtitle}</AppText>

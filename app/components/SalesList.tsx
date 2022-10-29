@@ -9,7 +9,7 @@ export default function SalesList() {
             <Card
                 title="Lorem"
                 subtitle="$100"
-                image={"../assets/images/chair.jpg"}
+                image={require("../assets/images/chair.jpg")}
             />
         </View>
     );

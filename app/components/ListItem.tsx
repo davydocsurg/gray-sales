@@ -8,16 +8,13 @@ export default function ListItem({
     title,
     subTitle,
 }: {
-    image?: string;
+    image?: any;
     title: string;
     subTitle: string;
 }) {
     return (
         <View style={styles.container}>
-            <Image
-                style={styles.image}
-                source={require("../assets/images/landing-bg.jpg")}
-            />
+            <Image style={styles.image} source={image} />
             <View style={styles.detailsContainer}>
                 <AppText style={styles.title}>{title}</AppText>
                 <AppText style={styles.subTitle}>{subTitle}</AppText>
