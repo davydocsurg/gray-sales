@@ -16,8 +16,8 @@ export default function ListingDetailsScreen() {
                 <AppText style={styles.price}>$100</AppText>
 
                 <ListItem
-                    image={require("../assets/images/chair.jpg")}
-                    title="Lorem Ipsum"
+                    image={require("../assets/images/avatar.jpg")}
+                    title="David Avas"
                     subTitle="5 Listings"
                 />
             </View>

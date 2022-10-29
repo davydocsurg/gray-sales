@@ -9,7 +9,7 @@ export default function Card({
     image,
 }: {
     title: string;
-    subtitle: string;
+    subtitle: any;
     image?: any;
 }) {
     return (

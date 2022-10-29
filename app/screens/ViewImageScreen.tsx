@@ -1,6 +1,6 @@
-import { Image } from "react-native";
+import { Image, View } from "react-native";
 import { StyleSheet } from "react-native";
-import { View } from "../components/Themed";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 // locals
 import colors from "../utils/colors";
@@ -8,8 +8,12 @@ import colors from "../utils/colors";
 export default function ViewImageScreens() {
     return (
         <View style={styles.container}>
-            <View style={styles.closeIcon}></View>
-            <View style={styles.deleteIcon}></View>
+            <View style={styles.closeIcon}>
+                <MaterialCommunityIcons name="close" color="white" size={35} />
+            </View>
+            <View style={styles.deleteIcon}>
+                <MaterialCommunityIcons name="delete" color="white" size={35} />
+            </View>
             <Image
                 resizeMode="contain"
                 style={styles.image}
@@ -21,18 +25,12 @@ export default function ViewImageScreens() {
 
 const styles = StyleSheet.create({
     closeIcon: {
-        backgroundColor: colors.primary,
-        height: 50,
-        width: 50,
         position: "absolute",
         top: 40,
         left: 30,
     },
 
     deleteIcon: {
-        backgroundColor: colors.secondary,
-        height: 50,
-        width: 50,
         position: "absolute",
         top: 40,
         right: 30,
