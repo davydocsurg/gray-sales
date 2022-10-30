@@ -1,5 +1,12 @@
 import React from "react";
-import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
+import {
+    View,
+    Text,
+    StyleSheet,
+    Image,
+    TouchableHighlight,
+} from "react-native";
+import { Swipeable } from "react-native-gesture-handler";
 import AppText from "../commons/AppText";
 import colors from "../utils/colors";
 
@@ -7,21 +14,33 @@ export default function ListItem({
     image,
     title,
     subTitle,
+    listAction,
+    renderActions,
+    IconComponent,
 }: {
     image?: any;
     title: string;
-    subTitle: string;
+    subTitle?: string;
+    listAction?: any;
+    renderActions?: any;
+    IconComponent?: any;
 }) {
     return (
-        <TouchableOpacity>
-            <View style={styles.container}>
-                <Image style={styles.image} source={image} />
-                <View style={styles.detailsContainer}>
-                    <AppText style={styles.title}>{title}</AppText>
-                    <AppText style={styles.subTitle}>{subTitle}</AppText>
+        <Swipeable renderRightActions={renderActions}>
+            <TouchableHighlight
+                underlayColor={colors.light}
+                onPress={listAction}
+            >
+                <View style={styles.container}>
+                    {IconComponent}
+                    {image && <Image style={styles.image} source={image} />}
+                    <View style={styles.detailsContainer}>
+                        <AppText style={styles.title}>{title}</AppText>
+                        <AppText style={styles.subTitle}>{subTitle}</AppText>
+                    </View>
                 </View>
-            </View>
-        </TouchableOpacity>
+            </TouchableHighlight>
+        </Swipeable>
     );
 }
 

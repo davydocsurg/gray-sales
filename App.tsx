@@ -15,6 +15,7 @@ import ListingDetailsScreen from "./app/screens/ListingDetailsScreen";
 import ListingsScreen from "./app/screens/ListingsScreen";
 import Screen from "./app/components/Screen";
 import MessagesScreen from "./app/screens/MessagesScreen";
+import AccountScreen from "./app/screens/AccountScreen";
 
 export default function App() {
     const isLoadingComplete = useCachedResources();
@@ -27,7 +28,8 @@ export default function App() {
         return (
             <SafeAreaProvider>
                 <Screen style={styles.container}>
-                    <MessagesScreen />
+                    <AccountScreen />
+                    {/* <MessagesScreen /> */}
                     {/* <ListingDetailsScreen /> */}
                     {/* <ListingsScreen /> */}
                     {/* <SalesList /> */}
