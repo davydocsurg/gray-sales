@@ -16,6 +16,8 @@ import ListingsScreen from "./app/screens/ListingsScreen";
 import Screen from "./app/components/Screen";
 import MessagesScreen from "./app/screens/MessagesScreen";
 import AccountScreen from "./app/screens/AccountScreen";
+import AppTextInput from "./app/components/AppTextInput";
+import AppPicker from "./app/components/AppPicker";
 
 export default function App() {
     const isLoadingComplete = useCachedResources();
@@ -28,7 +30,9 @@ export default function App() {
         return (
             <SafeAreaProvider>
                 <Screen style={styles.container}>
-                    <AccountScreen />
+                    <AppPicker />
+                    {/* <AppTextInput icon="email" placeholder="Email" /> */}
+                    {/* <AccountScreen /> */}
                     {/* <MessagesScreen /> */}
                     {/* <ListingDetailsScreen /> */}
                     {/* <ListingsScreen /> */}

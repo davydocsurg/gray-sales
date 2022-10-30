@@ -5,11 +5,11 @@ import AppText from "./AppText";
 
 export default function Card({
     title,
-    subtitle,
+    description: subtitle,
     image,
 }: {
     title: string;
-    subtitle: any;
+    description: any;
     image?: any;
 }) {
     return (
@@ -17,7 +17,7 @@ export default function Card({
             <Image style={styles.image} source={image} />
             <View style={styles.detailsContainer}>
                 <AppText style={{ fontWeight: "700" }}>{title}</AppText>
-                <AppText style={[styles.subTitle]}>{subtitle}</AppText>
+                <AppText style={[styles.description]}>{subtitle}</AppText>
             </View>
         </View>
     );
@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
         height: 200,
     },
 
-    subTitle: {
+    description: {
         color: colors.secondary,
         fontWeight: "bold",
     },

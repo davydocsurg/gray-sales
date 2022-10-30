@@ -8,7 +8,7 @@ export default function SalesList() {
         <View style={styles.container}>
             <Card
                 title="Lorem"
-                subtitle="$100"
+                description="$100"
                 image={require("../assets/images/chair.jpg")}
             />
         </View>

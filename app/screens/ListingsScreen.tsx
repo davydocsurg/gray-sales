@@ -30,7 +30,7 @@ export default function ListingsScreen() {
                     renderItem={({ item }) => (
                         <Card
                             title={item.title}
-                            subTitle={"$" + item.price}
+                            description={"$" + item.price}
                             image={item.image}
                         />
                     )}
