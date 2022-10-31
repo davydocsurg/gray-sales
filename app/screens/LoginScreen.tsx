@@ -10,7 +10,7 @@ import colors from "../utils/colors";
 
 const validationSchema = Yup.object().shape({
     email: Yup.string().required().email().label("Email"),
-    password: Yup.string().required().min(4).label("Password"),
+    password: Yup.string().required().min(8).label("Password"),
 });
 
 export default function LoginScreen() {
@@ -53,7 +53,7 @@ export default function LoginScreen() {
 
 const styles = StyleSheet.create({
     container: {
-        padding: 10,
+        padding: 16,
     },
     logo: {
         width: 80,

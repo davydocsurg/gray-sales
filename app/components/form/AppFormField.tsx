@@ -4,59 +4,32 @@ import { View, Text, TextInputProps, TextInput } from "react-native";
 import AppTextInput from "./AppTextInput";
 import ErrorMessage from "./ErrorMessage";
 
-const AppFormField = (props: any) => {
-    const {
-        placeholder,
-        field: { name, onBlur, onChange, value },
-        form: { errors, touched, setFieldTouched },
-        ...inputProps
-    } = props;
+interface FormValues {
+    name: string;
+    rest: any;
+}
 
-    const hasError = errors[name] && touched[name];
+interface OtherProps {
+    message: string;
+}
+
+export default function AppFormField({ name, ...rest }: any) {
+    // const { errors, touched } = props;
+    // const { setFieldTouched, handleChange } = useFormikContext();
+    const { setFieldTouched, handleChange, errors, touched } =
+        useFormikContext();
+
+    // const hasError = errors[name] && touched[name];
     return (
         <>
-            <TextInput
-                placeholder={placeholder}
-                onChangeText={(text) => onChange(name)(text)}
+            <AppTextInput
                 onBlur={() => {
                     setFieldTouched(name);
-                    onBlur(name);
                 }}
-                autoCapitalize="none"
-                autoCorrect={false}
-                value={value}
-                {...inputProps}
+                onChangeText={handleChange(name)}
+                {...rest}
             />
-            {hasError && <Text style={{ color: "red" }}>{errors[name]}</Text>}
+            <ErrorMessage error={errors[name]} visible={touched[name]} />
         </>
     );
-};
-
-export default AppFormField;
-
-// export default function AppFormField({ name, ...rest }: any) {
-//     // const {
-//     //     onBlur,
-//     //     handleChange,
-//     //     value,
-//     //     form: { errors, touched, setFieldTouched },
-//     //     ...rest
-//     // } = props;
-
-//     const { setFieldTouched, handleChange, errors, touched }: any =
-//         useFormikContext();
-
-//     // const hasError = errors[name] && touched[name];
-//     return (
-//         <>
-//             <AppTextInput
-//                 onBlur={() => {
-//                     setFieldTouched(name);
-//                 }}
-//                 onChangeText={handleChange(name)}
-//                 {...rest}
-//             />
-//             <ErrorMessage error={errors[name]} visible={touched[name]} />
-//         </>
-//     );
-// }
+}
