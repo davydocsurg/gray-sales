@@ -1,22 +1,15 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import React from "react";
+import { TextInputProps } from "react-native";
 import { View, Text, TextProps, StyleSheet, TextInput } from "react-native";
 
 import defaultStyles from "../../utils/styles";
 
-type otherProps = {
-    children: TextProps;
-};
+interface Props extends TextInputProps {
+    icon?: any;
+}
 
-export default function AppTextInput({
-    icon,
-    placeholder,
-    ...otherProps
-}: {
-    icon: any;
-    placeholder?: string;
-    otherProps?: otherProps;
-}): JSX.Element {
+export default function AppTextInput({ icon, ...rest }: Props): JSX.Element {
     return (
         <View style={styles.container}>
             {icon && (
@@ -27,7 +20,11 @@ export default function AppTextInput({
                     style={styles.icon}
                 />
             )}
-            <TextInput style={defaultStyles.text} placeholder={placeholder} />
+            <TextInput
+                placeholderTextColor={defaultStyles.colors.medium}
+                style={defaultStyles.text}
+                {...rest}
+            />
         </View>
     );
 }

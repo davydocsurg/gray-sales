@@ -19,6 +19,7 @@ import AccountScreen from "./app/screens/AccountScreen";
 import AppTextInput from "./app/components/form/AppTextInput";
 import AppPicker from "./app/components/form/AppPicker";
 import { useState } from "react";
+import LoginScreen from "./app/screens/LoginScreen";
 
 const categories = [
     { label: "Furniture", value: 1 },
@@ -39,11 +40,12 @@ export default function App() {
         return (
             <SafeAreaProvider>
                 <Screen style={styles.container}>
-                    <AppPicker
+                    <LoginScreen />
+                    {/* <AppPicker
                         selectedItem={category}
                         items={categories}
                         onSelectItem={(item: Object) => setCategory(item)}
-                    />
+                    /> */}
                     {/* <AppTextInput icon="email" placeholder="Email" /> */}
                     {/* <AccountScreen /> */}
                     {/* <MessagesScreen /> */}
