@@ -2,7 +2,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import React from "react";
 import { View, Text, TextProps, StyleSheet, TextInput } from "react-native";
 
-import defaultStyles from "../utils/styles";
+import defaultStyles from "../../utils/styles";
 
 type otherProps = {
     children: TextProps;

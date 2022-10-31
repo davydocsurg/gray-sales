@@ -16,13 +16,22 @@ import ListingsScreen from "./app/screens/ListingsScreen";
 import Screen from "./app/components/Screen";
 import MessagesScreen from "./app/screens/MessagesScreen";
 import AccountScreen from "./app/screens/AccountScreen";
-import AppTextInput from "./app/components/AppTextInput";
-import AppPicker from "./app/components/AppPicker";
+import AppTextInput from "./app/components/form/AppTextInput";
+import AppPicker from "./app/components/form/AppPicker";
+import { useState } from "react";
+
+const categories = [
+    { label: "Furniture", value: 1 },
+    { label: "Clothing", value: 2 },
+    { label: "Cameras", value: 3 },
+];
 
 export default function App() {
     const isLoadingComplete = useCachedResources();
     const colorScheme = useColorScheme();
     const { landscape } = useDeviceOrientation();
+
+    const [category, setCategory] = useState<Object>(categories[0]);
 
     if (!isLoadingComplete) {
         return null;
@@ -30,7 +39,11 @@ export default function App() {
         return (
             <SafeAreaProvider>
                 <Screen style={styles.container}>
-                    <AppPicker />
+                    <AppPicker
+                        selectedItem={category}
+                        items={categories}
+                        onSelectItem={(item: Object) => setCategory(item)}
+                    />
                     {/* <AppTextInput icon="email" placeholder="Email" /> */}
                     {/* <AccountScreen /> */}
                     {/* <MessagesScreen /> */}
