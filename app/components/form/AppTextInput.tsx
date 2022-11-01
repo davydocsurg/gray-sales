@@ -9,7 +9,7 @@ interface Props extends TextInputProps {
     icon?: any;
 }
 
-export default function AppTextInput({ icon, ...rest }: Props): JSX.Element {
+const AppTextInput = ({ icon, ...rest }: Props): JSX.Element => {
     return (
         <View style={styles.container}>
             {icon && (
@@ -27,7 +27,7 @@ export default function AppTextInput({ icon, ...rest }: Props): JSX.Element {
             />
         </View>
     );
-}
+};
 
 const styles = StyleSheet.create({
     container: {
@@ -42,3 +42,5 @@ const styles = StyleSheet.create({
         marginRight: 10,
     },
 });
+
+export default AppTextInput;

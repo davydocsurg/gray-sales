@@ -14,13 +14,13 @@ import AppText from "../../commons/AppText";
 import Screen from "../Screen";
 import PickerItem from "../PickerItem";
 
-export default function AppPicker({
+const AppPicker = ({
     icon,
     items,
     onSelectItem,
     placeholder,
     selectedItem,
-}: any) {
+}: any) => {
     const [modalVisible, setModalVisible] = useState(false);
 
     return (
@@ -68,7 +68,7 @@ export default function AppPicker({
             </Modal>
         </>
     );
-}
+};
 
 const styles = StyleSheet.create({
     container: {
@@ -86,3 +86,5 @@ const styles = StyleSheet.create({
         flex: 1,
     },
 });
+
+export default AppPicker;
