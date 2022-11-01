@@ -4,16 +4,12 @@ import { View, Text, TextInputProps, TextInput } from "react-native";
 import AppTextInput from "./AppTextInput";
 import ErrorMessage from "./ErrorMessage";
 
-interface FormValues {
-    email: string;
-    password: string;
+interface Props extends TextInputProps {
+    name?: any;
+    icon?: any;
 }
 
-interface OtherProps {
-    name: string;
-}
-
-export default function AppFormField({ name, ...rest }: any) {
+export default function AppFormField({ name, ...rest }: Props | any) {
     const { setFieldTouched, handleChange, errors, touched } =
         useFormikContext<FormikValues>();
 
