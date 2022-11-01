@@ -5,7 +5,7 @@ import * as Yup from "yup";
 import {
     AppForm as Form,
     AppFormField as FormField,
-    AppPicker as Picker,
+    AppFormPicker as Picker,
     SubmitButton,
 } from "../components/form";
 import { Screen } from "../components";
