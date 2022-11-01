@@ -2,7 +2,10 @@ import React from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
 import * as Yup from "yup";
 
-import { AppFormField, SubmitButton } from "../components/form/Index";
+import {
+    AppFormField as FormField,
+    SubmitButton,
+} from "../components/form/Index";
 import { Screen } from "../components";
 import AppForm from "../components/form/AppForm";
 import colors from "../utils/colors";
@@ -34,7 +37,7 @@ export default function RegisterScreen() {
                 onSubmit={(values: any) => console.log(values)}
                 validationSchema={validationSchema}
             >
-                <AppFormField
+                <FormField
                     autoCapitalize="none"
                     autoCorrect={false}
                     icon=""
@@ -43,7 +46,7 @@ export default function RegisterScreen() {
                     placeholder="First name"
                 />
 
-                <AppFormField
+                <FormField
                     autoCapitalize="none"
                     autoCorrect={false}
                     icon=""
@@ -52,7 +55,7 @@ export default function RegisterScreen() {
                     placeholder="Last name"
                 />
 
-                <AppFormField
+                <FormField
                     autoCapitalize="none"
                     autoCorrect={false}
                     icon="email"
@@ -62,7 +65,7 @@ export default function RegisterScreen() {
                     textContentType="emailAddress"
                 />
 
-                <AppFormField
+                <FormField
                     autoCapitalize="none"
                     autoCorrect={false}
                     icon="lock"
@@ -72,7 +75,7 @@ export default function RegisterScreen() {
                     textContentType="password"
                 />
 
-                <AppFormField
+                <FormField
                     autoCapitalize="none"
                     autoCorrect={false}
                     icon="lock"
