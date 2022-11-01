@@ -21,6 +21,7 @@ import AppPicker from "./app/components/form/AppPicker";
 import { useState } from "react";
 import LoginScreen from "./app/screens/LoginScreen";
 import RegisterScreen from "./app/screens/RegisterScreen";
+import ListingsEditScreen from "./app/screens/ListingsEditScreen";
 
 const categories = [
     { label: "Furniture", value: 1 },
@@ -41,7 +42,8 @@ export default function App() {
         return (
             <SafeAreaProvider>
                 <Screen style={styles.container}>
-                    <RegisterScreen />
+                    <ListingsEditScreen />
+                    {/* <RegisterScreen /> */}
                     {/* <LoginScreen /> */}
                     {/* <AppPicker
                         selectedItem={category}
