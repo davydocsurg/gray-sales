@@ -1,5 +1,6 @@
 import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, StyleSheet, TouchableOpacity } from "react-native";
+import AppText from "../commons/AppText";
 import Icon from "./Icon";
 
 const CategoryPicker = ({ item, onPress }: any) => {
@@ -12,7 +13,7 @@ const CategoryPicker = ({ item, onPress }: any) => {
                     size={80}
                 />
             </TouchableOpacity>
-            <Text style={styles.label}>{item.label}</Text>
+            <AppText style={styles.label}>{item.label}</AppText>
         </View>
     );
 };
