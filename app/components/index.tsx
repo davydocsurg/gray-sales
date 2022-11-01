@@ -4,6 +4,7 @@ import PickerItem from "./PickerItem";
 import SalesList from "./SalesList";
 import Screen from "./Screen";
 import Picker from "./Picker";
+import CategoryPicker from "./CategoryPicker";
 
 export {
     Icon,
@@ -14,4 +15,5 @@ export {
     PickerItem,
     SalesList,
     Screen,
+    CategoryPicker,
 };
