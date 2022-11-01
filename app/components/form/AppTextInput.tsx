@@ -7,11 +7,16 @@ import defaultStyles from "../../utils/styles";
 
 interface Props extends TextInputProps {
     icon?: any;
+    width?: string;
 }
 
-const AppTextInput = ({ icon, ...rest }: Props): JSX.Element => {
+const AppTextInput = ({
+    icon,
+    width = "100%",
+    ...rest
+}: Props): JSX.Element => {
     return (
-        <View style={styles.container}>
+        <View style={[styles.container, { width }]}>
             {icon && (
                 <MaterialCommunityIcons
                     name={icon}

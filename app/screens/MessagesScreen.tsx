@@ -1,22 +1,24 @@
 import React, { useState } from "react";
 import { View, Text, FlatList } from "react-native";
 import ListItem from "../components/lists/ListItem";
-import ListItemDeleteAction from "../components/ListItemDeleteAction";
-import ListItemSeparator from "../components/ListItemSeparator";
+import ListItemDeleteAction from "../components/lists/ListItemDeleteAction";
+import ListItemSeparator from "../components/lists/ListItemSeparator";
 import Screen from "../components/Screen";
 import { Message } from "../types";
 
 const initialMessages = [
     {
         id: 1,
-        title: "T1",
-        description: "D1",
+        title: "Lorem Ipsum dolor",
+        description:
+            "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Optio suscipit veritatis dolorem, magni at fugit iusto vitae aut. Quo ducimus, accusamus expedita ratione nesciunt inventore magni maiores enim! Provident, repellendus.",
         image: require("../assets/images/avatar.jpg"),
     },
     {
         id: 2,
-        title: "T2",
-        description: "D2",
+        title: "Dolor Qaecum",
+        description:
+            "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Optio suscipit veritatis dolorem, magni at fugit iusto vitae aut. Quo ducimus, accusamus expedita ratione nesciunt inventore magni maiores enim! Provident, repellendus.",
         image: require("../assets/images/avatar.jpg"),
     },
 ];

@@ -17,7 +17,7 @@ import Screen from "./app/components/Screen";
 import MessagesScreen from "./app/screens/MessagesScreen";
 import AccountScreen from "./app/screens/AccountScreen";
 import AppTextInput from "./app/components/form/AppTextInput";
-import AppPicker from "./app/components/form/AppPicker";
+import AppPicker from "./app/components/Picker";
 import { useState } from "react";
 import LoginScreen from "./app/screens/LoginScreen";
 import RegisterScreen from "./app/screens/RegisterScreen";
@@ -42,7 +42,7 @@ export default function App() {
         return (
             <SafeAreaProvider>
                 <Screen style={styles.container}>
-                    {/* <ListingsEditScreen /> */}
+                    <ListingsEditScreen />
                     {/* <RegisterScreen /> */}
                     {/* <LoginScreen /> */}
                     {/* <AppPicker
@@ -52,7 +52,7 @@ export default function App() {
                     /> */}
                     {/* <AppTextInput icon="email" placeholder="Email" /> */}
                     {/* <AccountScreen /> */}
-                    <MessagesScreen />
+                    {/* <MessagesScreen /> */}
                     {/* <ListingDetailsScreen /> */}
                     {/* <ListingsScreen /> */}
                     {/* <SalesList /> */}

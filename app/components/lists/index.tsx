@@ -1,3 +1,5 @@
 import ListItem from "./ListItem";
+import ListItemDeleteAction from "./ListItemDeleteAction";
+import ListItemSeparator from "./ListItemSeparator";
 
-export { ListItem };
+export { ListItem, ListItemDeleteAction, ListItemSeparator };

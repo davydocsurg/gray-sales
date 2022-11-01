@@ -11,7 +11,7 @@ export default function Screen({
 }) {
     return (
         <SafeAreaView style={[styles.screen, style]}>
-            <View style={style}>{children}</View>
+            <View style={[style, styles.view]}>{children}</View>
         </SafeAreaView>
     );
 }
@@ -19,6 +19,9 @@ export default function Screen({
 const styles = StyleSheet.create({
     screen: {
         paddingTop: Constants.statusBarHeight,
+        flex: 1,
+    },
+    view: {
         flex: 1,
     },
 });

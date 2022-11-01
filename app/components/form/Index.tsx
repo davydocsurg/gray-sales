@@ -1,6 +1,6 @@
 import AppForm from "./AppForm";
 import AppFormField from "./AppFormField";
-import AppPicker from "./AppPicker";
+import AppPicker from "../Picker";
 import AppTextInput from "./AppTextInput";
 import ErrorMessage from "./ErrorMessage";
 import SubmitButton from "./SubmitButton";

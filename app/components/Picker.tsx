@@ -9,24 +9,25 @@ import {
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-import defaultStyles from "../../utils/styles";
-import AppText from "../../commons/AppText";
-import Screen from "../Screen";
-import PickerItem from "../PickerItem";
+import defaultStyles from "../utils/styles";
+import AppText from "../commons/AppText";
+import Screen from "./Screen";
+import PickerItem from "./PickerItem";
 
-const AppPicker = ({
+const Picker = ({
     icon,
     items,
     onSelectItem,
     placeholder,
     selectedItem,
+    width = "100%",
 }: any) => {
     const [modalVisible, setModalVisible] = useState(false);
 
     return (
         <>
             <TouchableWithoutFeedback onPress={() => setModalVisible(true)}>
-                <View style={styles.container}>
+                <View style={[styles.container, { width }]}>
                     {icon && (
                         <MaterialCommunityIcons
                             name={icon}
@@ -97,4 +98,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default AppPicker;
+export default Picker;
