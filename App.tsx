@@ -42,7 +42,7 @@ export default function App() {
         return (
             <SafeAreaProvider>
                 <Screen style={styles.container}>
-                    <ListingsEditScreen />
+                    {/* <ListingsEditScreen /> */}
                     {/* <RegisterScreen /> */}
                     {/* <LoginScreen /> */}
                     {/* <AppPicker
@@ -52,7 +52,7 @@ export default function App() {
                     /> */}
                     {/* <AppTextInput icon="email" placeholder="Email" /> */}
                     {/* <AccountScreen /> */}
-                    {/* <MessagesScreen /> */}
+                    <MessagesScreen />
                     {/* <ListingDetailsScreen /> */}
                     {/* <ListingsScreen /> */}
                     {/* <SalesList /> */}

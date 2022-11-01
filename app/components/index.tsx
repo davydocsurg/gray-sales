@@ -1,5 +1,5 @@
 import Icon from "./Icon";
-import ListItem from "./ListItem";
+import { ListItem } from "./lists";
 import ListItemDeleteAction from "./ListItemDeleteAction";
 import ListItemSeparator from "./ListItemSeparator";
 import ListingDetailsScreen from "../screens/ListingDetailsScreen";
