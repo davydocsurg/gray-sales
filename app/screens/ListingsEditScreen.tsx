@@ -90,7 +90,7 @@ const ListingsEditScreen = () => {
     };
 
     return (
-        <Formik
+        <Form
             initialValues={{
                 title: "",
                 price: "",
@@ -99,62 +99,47 @@ const ListingsEditScreen = () => {
                 images: [],
             }}
             validationSchema={validationSchema}
-            onSubmit={(values) => submitForm(values)}
+            onSubmit={(values: any) => submitForm(values)}
         >
-            {({ handleChange, handleSubmit, handleBlur, values, errors }) => (
-                <Screen style={styles.container}>
-                    <FormImagePicker name="images" />
-                    {errors && (
+            {/* {({ handleBlur, values, errors }) => ( */}
+            <Screen style={styles.container}>
+                <FormImagePicker name="images" />
+                {/* {errors && (
                         <ErrorMessage
                             error={errors.images}
                             visible={handleBlur("images")}
                         />
-                    )}
+                    )} */}
 
-                    <FormField
-                        onChangeText={handleChange("title")}
-                        maxLength={255}
-                        onBlur={handleBlur("title")}
-                        name="title"
-                        placeholder="Title"
-                        value={values.title}
-                    />
+                <FormField maxLength={255} name="title" placeholder="Title" />
 
-                    <FormField
-                        onChangeText={handleChange("price")}
-                        keyboardType="numeric"
-                        maxLength={8}
-                        name="price"
-                        placeholder="Price"
-                        value={values.price}
-                    />
+                <FormField
+                    keyboardType="numeric"
+                    maxLength={8}
+                    name="price"
+                    placeholder="Price"
+                />
 
-                    <Picker
-                        PickerItemComponent={CategoryPicker}
-                        numberOfColumns={3}
-                        items={categories}
-                        name="category"
-                        placeholder="Category"
-                    />
+                <Picker
+                    PickerItemComponent={CategoryPicker}
+                    numberOfColumns={3}
+                    items={categories}
+                    name="category"
+                    placeholder="Category"
+                />
 
-                    <FormField
-                        onChangeText={handleChange("description")}
-                        maxLength={255}
-                        multiline
-                        name="description"
-                        numberOfLines={3}
-                        placeholder="Description"
-                        value={values.description}
-                    />
+                <FormField
+                    maxLength={255}
+                    multiline
+                    name="description"
+                    numberOfLines={3}
+                    placeholder="Description"
+                />
 
-                    <SubmitButton
-                        title="Submit"
-                        color={colors.orange}
-                        handleSubmit={() => handleSubmit()}
-                    />
-                </Screen>
-            )}
-        </Formik>
+                <SubmitButton title="Submit" color={colors.orange} />
+            </Screen>
+            {/* )} */}
+        </Form>
     );
 };
 

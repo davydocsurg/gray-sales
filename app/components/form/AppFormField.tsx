@@ -30,11 +30,23 @@ export default function AppFormField({
 
     ...rest
 }: Props) {
-    const { errors, setFieldValue, touched, values } =
-        useFormikContext<FormikValues>();
+    const {
+        errors,
+        setFieldValue,
+        touched,
+        values,
+        handleChange,
+        setFieldTouched,
+    } = useFormikContext<FormikValues>();
     return (
         <>
-            <AppTextInput width={width} {...rest} />
+            <AppTextInput
+                width={width}
+                onBlur={() => setFieldTouched(name)}
+                onChangeText={handleChange(name)}
+                value={values[name]}
+                {...rest}
+            />
             <ErrorMessage error={errors[name]} visible={touched[name]} />
         </>
     );
