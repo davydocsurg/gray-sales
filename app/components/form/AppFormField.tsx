@@ -11,10 +11,15 @@ interface Props extends TextInputProps {
 }
 
 export default function AppFormField({ name, width, ...rest }: Props | any) {
-    const { setFieldTouched, handleChange, errors, touched } =
-        useFormikContext<FormikValues>();
+    const {
+        setFieldTouched,
+        handleChange,
+        errors,
+        touched,
+        isSubmitting,
+        isValidating,
+    } = useFormikContext<FormikValues>();
 
-    // const hasError = errors[name] && touched[name];
     return (
         <>
             <AppTextInput

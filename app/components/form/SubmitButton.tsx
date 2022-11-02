@@ -10,7 +10,8 @@ interface SubmitButtonProps {
 }
 
 const SubmitButton = ({ color, title }: SubmitButtonProps) => {
-    const { handleSubmit } = useFormikContext();
+    const { isSubmitting, setSubmitting, isValidating, handleSubmit } =
+        useFormikContext();
 
     return <AppButton color={color} onPress={handleSubmit} title={title} />;
 };
