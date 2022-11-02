@@ -6,7 +6,7 @@ export default function Screen({
     children,
     style,
 }: {
-    children: any;
+    children: JSX.Element | JSX.Element[];
     style?: any;
 }) {
     return (

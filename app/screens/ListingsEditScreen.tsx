@@ -1,21 +1,30 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Button } from "react-native";
 import * as Yup from "yup";
 
 import {
     AppForm as Form,
     AppFormField as FormField,
     AppFormPicker as Picker,
+    ErrorMessage,
     SubmitButton,
 } from "../components/form";
 import { Screen, CategoryPicker, FormImagePicker } from "../components";
 import colors from "../utils/colors";
+import {
+    Formik,
+    FormikValues,
+    useFormikContext,
+    yupToFormErrors,
+} from "formik";
+import AppText from "../commons/AppText";
 
 const validationSchema = Yup.object().shape({
     title: Yup.string().required().min(1).label("Title"),
     price: Yup.number().required().min(1).max(10000).label("Price"),
     description: Yup.string().required().label("Description"),
     category: Yup.object().required().nullable().label("Category"),
+    images: Yup.array().min(1, "Please select at least one image."),
 });
 
 const categories = [
@@ -75,55 +84,98 @@ const categories = [
     },
 ];
 
-const handleListSubmit = (values: any) => {
-    console.log(values);
-};
-
 const ListingsEditScreen = () => {
+    const submitForm = async (values: any) => {
+        console.log(values);
+    };
+
     return (
-        <Screen style={styles.container}>
-            <Form
-                initialValues={{
-                    title: "",
-                    price: "",
-                    description: "",
-                    category: null,
-                }}
-                onSubmit={async (values: any) => {
-                    await new Promise((r) => setTimeout(r, 500));
-                    alert(JSON.stringify(values, null, 2));
-                }}
-                validationSchema={validationSchema}
-            >
-                <FormImagePicker name="images" />
+        <Formik
+            initialValues={{
+                title: "",
+                price: "",
+                description: "",
+                category: null,
+            }}
+            validationSchema={validationSchema}
+            onSubmit={(values) => submitForm(values)}
+        >
+            {({ handleChange, handleSubmit, handleBlur, values, errors }) => (
+                <Screen style={styles.container}>
+                    <FormImagePicker name="images" />
+                    <FormField
+                        onChangeText={handleChange("title")}
+                        maxLength={255}
+                        onBlur={handleBlur("title")}
+                        name="title"
+                        placeholder="Title"
+                        value={values.title}
+                        errors={errors}
+                    />
+                    {errors && (
+                        <ErrorMessage
+                            error={errors.title}
+                            visible={handleBlur("title")}
+                        />
+                    )}
 
-                <FormField maxLength={255} name="title" placeholder="Title" />
+                    <FormField
+                        onChangeText={handleChange("price")}
+                        keyboardType="numeric"
+                        maxLength={8}
+                        name="price"
+                        placeholder="Price"
+                        value={values.price}
+                        errors={errors}
+                    />
 
-                <FormField
-                    keyboardType="numeric"
-                    maxLength={8}
-                    name="price"
-                    placeholder="Price"
-                />
+                    {errors && (
+                        <ErrorMessage
+                            error={errors.price}
+                            visible={handleBlur("price")}
+                        />
+                    )}
 
-                <Picker
-                    PickerItemComponent={CategoryPicker}
-                    numberOfColumns={3}
-                    items={categories}
-                    name="category"
-                    placeholder="Category"
-                />
+                    <Picker
+                        PickerItemComponent={CategoryPicker}
+                        numberOfColumns={3}
+                        items={categories}
+                        name="category"
+                        placeholder="Category"
+                    />
 
-                <FormField
-                    maxLength={255}
-                    multiline
-                    name="description"
-                    numberOfLines={3}
-                    placeholder="Description"
-                />
-                <SubmitButton color={colors.orange} title="Post" />
-            </Form>
-        </Screen>
+                    {errors && (
+                        <ErrorMessage
+                            error={errors.category}
+                            visible={handleBlur("category")}
+                        />
+                    )}
+
+                    <FormField
+                        onChangeText={handleChange("description")}
+                        maxLength={255}
+                        multiline
+                        name="description"
+                        numberOfLines={3}
+                        placeholder="Description"
+                        value={values.description}
+                        errors={errors}
+                    />
+
+                    {errors && (
+                        <ErrorMessage
+                            error={errors.description}
+                            visible={handleBlur("description")}
+                        />
+                    )}
+                    <SubmitButton
+                        title="Submit"
+                        color={colors.orange}
+                        handleSubmit={() => handleSubmit()}
+                    />
+                </Screen>
+            )}
+        </Formik>
     );
 };
 

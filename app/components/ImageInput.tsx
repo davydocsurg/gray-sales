@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
     View,
     StyleSheet,
@@ -12,7 +12,7 @@ import colors from "../utils/colors";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 interface ImageInputProps {
-    imageUri?: string;
+    imageUri?: any;
     onChangeImage: Function;
 }
 
@@ -22,7 +22,7 @@ const ImageInput = ({ imageUri, onChangeImage }: ImageInputProps) => {
     }, []);
 
     const requestPermission = async () => {
-        const { granted } = await ImagePicker.requestCameraPermissionsAsync();
+        const { granted } = await ImagePicker.getMediaLibraryPermissionsAsync();
         if (!granted)
             alert("You need to enable permission to access the library.");
     };
@@ -44,8 +44,11 @@ const ImageInput = ({ imageUri, onChangeImage }: ImageInputProps) => {
         try {
             const result = await ImagePicker.launchImageLibraryAsync({
                 mediaTypes: ImagePicker.MediaTypeOptions.Images,
-                quality: 0.5,
+                allowsEditing: false,
+                // aspect: [4, 3],
+                quality: 1,
             });
+
             if (!result.cancelled) onChangeImage(result.uri);
         } catch (error) {
             console.log("Error reading an image", error);

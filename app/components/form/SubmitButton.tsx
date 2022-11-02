@@ -5,14 +5,12 @@ import AppButton from "../../commons/AppButton";
 import colors from "../../utils/colors";
 
 interface SubmitButtonProps {
+    handleSubmit: Function;
     color: string;
     title: string;
 }
 
-const SubmitButton = ({ color, title }: SubmitButtonProps) => {
-    const { isSubmitting, setSubmitting, isValidating, handleSubmit } =
-        useFormikContext();
-
+const SubmitButton = ({ color, title, handleSubmit }: SubmitButtonProps) => {
     return <AppButton color={color} onPress={handleSubmit} title={title} />;
 };
 
