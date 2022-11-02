@@ -96,6 +96,7 @@ const ListingsEditScreen = () => {
                 price: "",
                 description: "",
                 category: null,
+                images: [],
             }}
             validationSchema={validationSchema}
             onSubmit={(values) => submitForm(values)}
@@ -103,6 +104,13 @@ const ListingsEditScreen = () => {
             {({ handleChange, handleSubmit, handleBlur, values, errors }) => (
                 <Screen style={styles.container}>
                     <FormImagePicker name="images" />
+                    {errors && (
+                        <ErrorMessage
+                            error={errors.images}
+                            visible={handleBlur("images")}
+                        />
+                    )}
+
                     <FormField
                         onChangeText={handleChange("title")}
                         maxLength={255}
@@ -110,14 +118,7 @@ const ListingsEditScreen = () => {
                         name="title"
                         placeholder="Title"
                         value={values.title}
-                        errors={errors}
                     />
-                    {errors && (
-                        <ErrorMessage
-                            error={errors.title}
-                            visible={handleBlur("title")}
-                        />
-                    )}
 
                     <FormField
                         onChangeText={handleChange("price")}
@@ -126,15 +127,7 @@ const ListingsEditScreen = () => {
                         name="price"
                         placeholder="Price"
                         value={values.price}
-                        errors={errors}
                     />
-
-                    {errors && (
-                        <ErrorMessage
-                            error={errors.price}
-                            visible={handleBlur("price")}
-                        />
-                    )}
 
                     <Picker
                         PickerItemComponent={CategoryPicker}
@@ -144,13 +137,6 @@ const ListingsEditScreen = () => {
                         placeholder="Category"
                     />
 
-                    {errors && (
-                        <ErrorMessage
-                            error={errors.category}
-                            visible={handleBlur("category")}
-                        />
-                    )}
-
                     <FormField
                         onChangeText={handleChange("description")}
                         maxLength={255}
@@ -159,15 +145,8 @@ const ListingsEditScreen = () => {
                         numberOfLines={3}
                         placeholder="Description"
                         value={values.description}
-                        errors={errors}
                     />
 
-                    {errors && (
-                        <ErrorMessage
-                            error={errors.description}
-                            visible={handleBlur("description")}
-                        />
-                    )}
                     <SubmitButton
                         title="Submit"
                         color={colors.orange}

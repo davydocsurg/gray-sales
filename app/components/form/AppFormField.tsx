@@ -19,22 +19,23 @@ interface Props extends TextInputProps {
     name: string;
     icon?: any;
     // errors: string;
-    errors: FormikErrors<Obj>;
-    touched?: any;
+    // errors: FormikErrors<Obj>;
+    // touched?: any;
     width?: string;
 }
 
 export default function AppFormField({
     name,
     width,
-    errors,
-    touched,
+
     ...rest
 }: Props) {
+    const { errors, setFieldValue, touched, values } =
+        useFormikContext<FormikValues>();
     return (
         <>
             <AppTextInput width={width} {...rest} />
-            {/* <ErrorMessage error={error} /> */}
+            <ErrorMessage error={errors[name]} visible={touched[name]} />
         </>
     );
 }
