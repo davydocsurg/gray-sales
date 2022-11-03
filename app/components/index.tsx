@@ -5,6 +5,8 @@ import SalesList from "./SalesList";
 import Screen from "./Screen";
 import Picker from "./Picker";
 import CategoryPicker from "./CategoryPicker";
+import ImageInput from "./ImageInput";
+import ImageInputList from "./ImageInputList";
 
 export {
     Icon,
@@ -16,4 +18,6 @@ export {
     SalesList,
     Screen,
     CategoryPicker,
+    ImageInput,
+    ImageInputList,
 };

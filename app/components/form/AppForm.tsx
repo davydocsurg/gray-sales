@@ -9,6 +9,8 @@ const AppForm = ({
 }: any) => {
     return (
         <Formik
+            // isSubmitting={true}
+            // isValidating={true}
             initialValues={initialValues}
             onSubmit={onSubmit}
             validationSchema={validationSchema}

@@ -1,20 +1,25 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Button } from "react-native";
 import * as Yup from "yup";
 
 import {
     AppForm as Form,
     AppFormField as FormField,
     AppFormPicker as Picker,
+    ErrorMessage,
     SubmitButton,
 } from "../components/form";
 import { Screen, CategoryPicker } from "../components";
 import colors from "../utils/colors";
+import { FormImagePicker } from "../components/form";
+import { useLocation } from "../hooks";
+
 const validationSchema = Yup.object().shape({
-    title: Yup.string().required().min(1).label("Title"),
-    price: Yup.number().required().min(1).max(10000).label("Price"),
-    description: Yup.string().label("Description"),
+    title: Yup.string().required().min(3).label("Title"),
+    price: Yup.number().required().min(3).max(10000).label("Price"),
+    description: Yup.string().min(5).required().label("Description"),
     category: Yup.object().required().nullable().label("Category"),
+    images: Yup.array().min(1, "Please select at least one image."),
 });
 
 const categories = [
@@ -75,18 +80,34 @@ const categories = [
 ];
 
 const ListingsEditScreen = () => {
+    const location = useLocation();
+
+    const submitForm = async (values: any) => {
+        console.log(values, location);
+    };
+
     return (
-        <Screen style={styles.container}>
-            <Form
-                initialValues={{
-                    title: "",
-                    price: "",
-                    description: "",
-                    category: null,
-                }}
-                onSubmit={(values: any) => console.log(values)}
-                validationSchema={validationSchema}
-            >
+        <Form
+            initialValues={{
+                title: "",
+                price: "",
+                description: "",
+                category: null,
+                images: [],
+            }}
+            validationSchema={validationSchema}
+            onSubmit={(values: any) => submitForm(values)}
+        >
+            {/* {({ handleBlur, values, errors }) => ( */}
+            <Screen style={styles.container}>
+                <FormImagePicker fieldName="images" />
+                {/* {errors && (
+                        <ErrorMessage
+                            error={errors.images}
+                            visible={handleBlur("images")}
+                        />
+                    )} */}
+
                 <FormField maxLength={255} name="title" placeholder="Title" />
 
                 <FormField
@@ -111,9 +132,11 @@ const ListingsEditScreen = () => {
                     numberOfLines={3}
                     placeholder="Description"
                 />
-                <SubmitButton color={colors.orange} title="Post" />
-            </Form>
-        </Screen>
+
+                <SubmitButton title="Submit" color={colors.orange} />
+            </Screen>
+            {/* )} */}
+        </Form>
     );
 };
 

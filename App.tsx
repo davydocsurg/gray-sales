@@ -1,4 +1,11 @@
-import { SafeAreaView, StyleSheet, Text, View } from "react-native";
+import {
+    Button,
+    Image,
+    SafeAreaView,
+    StyleSheet,
+    Text,
+    View,
+} from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
 import useCachedResources from "./app/hooks/useCachedResources";
@@ -22,6 +29,7 @@ import { useState } from "react";
 import LoginScreen from "./app/screens/LoginScreen";
 import RegisterScreen from "./app/screens/RegisterScreen";
 import ListingsEditScreen from "./app/screens/ListingsEditScreen";
+import * as ImagePicker from "expo-image-picker";
 
 const categories = [
     { label: "Furniture", value: 1 },
