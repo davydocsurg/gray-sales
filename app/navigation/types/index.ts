@@ -5,6 +5,11 @@ import type {
 import type { StackScreenProps } from "@react-navigation/stack";
 import type { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
 
+type Welcome = {
+    Login: undefined;
+    Register: undefined;
+};
+
 export type RootStackParamList = {
     Home: NavigatorScreenParams<HomeTabParamList>;
     PostDetails: { id: string };
@@ -15,7 +20,7 @@ export type RootStackScreenProps<T extends keyof RootStackParamList> =
     StackScreenProps<RootStackParamList, T>;
 
 export type HomeTabParamList = {
-    Popular: undefined;
+    Popular: Welcome;
     Latest: undefined;
 };
 

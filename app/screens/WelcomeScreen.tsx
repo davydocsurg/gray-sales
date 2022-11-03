@@ -3,9 +3,7 @@ import AppButton from "../commons/AppButton";
 import type { HomeTabScreenProps } from "../navigation/types";
 import colors from "../utils/colors";
 
-export default function WelcomeScreen({
-    navigation,
-}: HomeTabScreenProps<"Popular">) {
+export default function WelcomeScreen({ navigation }: any) {
     return (
         <>
             <ImageBackground
@@ -26,7 +24,11 @@ export default function WelcomeScreen({
                         color={colors.orange}
                         onPress={() => navigation.navigate("Login")}
                     />
-                    <AppButton title="Register" color={colors.brown} />
+                    <AppButton
+                        onPress={() => navigation.navigate("Register")}
+                        title="Register"
+                        color={colors.brown}
+                    />
                 </View>
             </ImageBackground>
         </>
