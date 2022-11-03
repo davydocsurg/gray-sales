@@ -11,8 +11,8 @@ import {
 } from "../components/form";
 import { Screen, CategoryPicker } from "../components";
 import colors from "../utils/colors";
-
 import { FormImagePicker } from "../components/form";
+import { useLocation } from "../hooks";
 
 const validationSchema = Yup.object().shape({
     title: Yup.string().required().min(3).label("Title"),
@@ -80,8 +80,10 @@ const categories = [
 ];
 
 const ListingsEditScreen = () => {
+    const location = useLocation();
+
     const submitForm = async (values: any) => {
-        console.log(values);
+        console.log(values, location);
     };
 
     return (

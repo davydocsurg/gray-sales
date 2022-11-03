@@ -16,7 +16,7 @@ function ImageInputList({
     const scrollView = useRef();
 
     return (
-        <View style={styles.container}>
+        <View>
             <ScrollView
                 ref={scrollView}
                 horizontal
