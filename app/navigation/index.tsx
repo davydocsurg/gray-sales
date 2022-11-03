@@ -135,5 +135,6 @@
 
 import AuthNavigator from "./AuthNavigator";
 import navigationTheme from "./navigationTheme";
+import AppNavigator from "./AppNavigator";
 
-export { AuthNavigator, navigationTheme };
+export { AuthNavigator, AppNavigator, navigationTheme };

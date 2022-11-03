@@ -17,7 +17,8 @@
         },
         "assetBundlePatterns": ["**/*"],
         "ios": {
-            "supportsTablet": true
+            "supportsTablet": true,
+            "backgroundColor": "#ffffff"
         },
         "android": {
             "adaptiveIcon": {

@@ -3,15 +3,17 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import { AuthNavigator } from ".";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import FeedNavigator from "./FeedNavigator";
+import { RootTabParamList } from "../../types";
 
-const Tab = createBottomTabNavigator();
+const Tab = createBottomTabNavigator<RootTabParamList>();
 
 const AppNavigator = () => {
     return (
         <Tab.Navigator>
             <Tab.Screen
                 name="Feed"
-                component={AuthNavigator}
+                component={FeedNavigator}
                 options={{
                     tabBarIcon: ({ color, size }) => (
                         <MaterialCommunityIcons

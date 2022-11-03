@@ -20,7 +20,7 @@ const listings = [
     },
 ];
 
-export default function ListingsScreen() {
+export default function ListingsScreen({ navigation }: any) {
     return (
         <SafeAreaView>
             <Screen style={styles.screen}>
@@ -32,6 +32,9 @@ export default function ListingsScreen() {
                             title={item.title}
                             description={"$" + item.price}
                             image={item.image}
+                            onPress={() =>
+                                navigation.navigate("ListingDetails", item)
+                            }
                         />
                     )}
                 />
@@ -43,6 +46,6 @@ export default function ListingsScreen() {
 const styles = StyleSheet.create({
     screen: {
         padding: 20,
-        backgroundColor: colors.light,
+        backgroundColor: colors.gray,
     },
 });
