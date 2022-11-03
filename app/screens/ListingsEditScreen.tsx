@@ -9,15 +9,10 @@ import {
     ErrorMessage,
     SubmitButton,
 } from "../components/form";
-import { Screen, CategoryPicker, FormImagePicker } from "../components";
+import { Screen, CategoryPicker } from "../components";
 import colors from "../utils/colors";
-import {
-    Formik,
-    FormikValues,
-    useFormikContext,
-    yupToFormErrors,
-} from "formik";
-import AppText from "../commons/AppText";
+
+import { FormImagePicker } from "../components/form";
 
 const validationSchema = Yup.object().shape({
     title: Yup.string().required().min(3).label("Title"),
@@ -103,7 +98,7 @@ const ListingsEditScreen = () => {
         >
             {/* {({ handleBlur, values, errors }) => ( */}
             <Screen style={styles.container}>
-                <FormImagePicker name="images" />
+                <FormImagePicker fieldName="images" />
                 {/* {errors && (
                         <ErrorMessage
                             error={errors.images}

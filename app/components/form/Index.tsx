@@ -5,6 +5,7 @@ import AppTextInput from "./AppTextInput";
 import ErrorMessage from "./ErrorMessage";
 import SubmitButton from "./SubmitButton";
 import AppFormPicker from "./FormPicker";
+import FormImagePicker from "./FormImagePicker";
 
 export {
     AppForm,
@@ -14,6 +15,7 @@ export {
     ErrorMessage,
     SubmitButton,
     AppFormPicker,
+    FormImagePicker,
 };
 
 // export { default as SubmitButton } from "./SubmitButton";

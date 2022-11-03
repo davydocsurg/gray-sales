@@ -7,7 +7,6 @@ import Picker from "./Picker";
 import CategoryPicker from "./CategoryPicker";
 import ImageInput from "./ImageInput";
 import ImageInputList from "./ImageInputList";
-import FormImagePicker from "./FormImagePicker";
 
 export {
     Icon,
@@ -21,5 +20,4 @@ export {
     CategoryPicker,
     ImageInput,
     ImageInputList,
-    FormImagePicker,
 };

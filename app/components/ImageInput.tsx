@@ -49,7 +49,9 @@ const ImageInput = ({ imageUri, onChangeImage }: ImageInputProps) => {
                 quality: 1,
             });
 
-            if (!result.cancelled) onChangeImage(result.uri);
+            if (!result.cancelled) {
+                onChangeImage(result.uri);
+            }
         } catch (error) {
             console.log("Error reading an image", error);
         }
