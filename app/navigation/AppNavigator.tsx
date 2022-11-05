@@ -1,16 +1,14 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
-import {
-    AuthNavigator,
-    AccountNavigator,
-    NewListingButton,
-    FeedNavigator,
-    routes,
-} from ".";
+// import { NewListingButton, routes } from ".";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { RootTabParamList } from "../../types";
 import { ListingsEditScreen } from "../screens";
+import FeedNavigator from "./FeedNavigator";
+import NewListingButton from "./NewListingButton";
+import routes from "./routes";
+import AccountNavigator from "./AccountNavigator";
 
 const Tab = createBottomTabNavigator<RootTabParamList>();
 

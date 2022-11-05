@@ -1,9 +1,12 @@
 import type {
     CompositeScreenProps,
     NavigatorScreenParams,
+    CompositeNavigationProp,
+    RouteProp,
 } from "@react-navigation/native";
 import type { StackScreenProps } from "@react-navigation/stack";
 import type { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 type Welcome = {
     Login: undefined;
@@ -20,9 +23,28 @@ export type RootStackScreenProps<T extends keyof RootStackParamList> =
     StackScreenProps<RootStackParamList, T>;
 
 export type HomeTabParamList = {
-    Popular: Welcome;
-    Latest: undefined;
+    Feed: undefined;
+    ListingsEdit: undefined;
+    Account: undefined;
+    Details: Details;
 };
+
+type Details = {
+    id: number;
+    title: string;
+    price: number;
+    image: any;
+};
+
+export type HomeScreenNavigationProp = NativeStackNavigationProp<
+    HomeTabParamList,
+    "Feed"
+>;
+
+export type DetailsScreenRouteProp = NativeStackNavigationProp<
+    HomeTabParamList,
+    "Feed"
+>;
 
 export type HomeTabScreenProps<T extends keyof HomeTabParamList> =
     CompositeScreenProps<
