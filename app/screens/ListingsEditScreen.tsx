@@ -100,12 +100,6 @@ const ListingsEditScreen = () => {
             {/* {({ handleBlur, values, errors }) => ( */}
             <Screen style={styles.container}>
                 <FormImagePicker fieldName="images" />
-                {/* {errors && (
-                        <ErrorMessage
-                            error={errors.images}
-                            visible={handleBlur("images")}
-                        />
-                    )} */}
 
                 <FormField maxLength={255} name="title" placeholder="Title" />
 

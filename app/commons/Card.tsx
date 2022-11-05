@@ -12,18 +12,18 @@ import AppText from "./AppText";
 export default function Card({
     title,
     description: subtitle,
-    image,
+    imageUrl,
     onPress,
 }: {
     title: string;
     description: any;
-    image?: any;
+    imageUrl?: any;
     onPress?: any;
 }) {
     return (
         <TouchableWithoutFeedback onPress={onPress}>
             <View style={styles.card}>
-                <Image style={styles.image} source={image} />
+                <Image style={styles.image} source={imageUrl} />
                 <View style={styles.detailsContainer}>
                     <AppText style={{ fontWeight: "700" }}>{title}</AppText>
                     <AppText style={[styles.description]}>{subtitle}</AppText>

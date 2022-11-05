@@ -4,28 +4,17 @@ import { Platform, SafeAreaView } from "react-native";
 import { FlatList, StyleSheet } from "react-native";
 import { Screen } from "react-native-screens";
 import { getListings } from "../api/listings";
+import AppButton from "../commons/AppButton";
+import AppText from "../commons/AppText";
 import Card from "../commons/Card";
+import { APIUtils } from "../constants/ApiUtils";
 import { routes } from "../navigation";
 import { ListingsApiRes } from "../types/listings";
 import colors from "../utils/colors";
 
-const listings = [
-    {
-        id: 1,
-        title: "Red jacket for sale",
-        price: 100,
-        image: require("../assets/images/jacket.jpg"),
-    },
-    {
-        id: 2,
-        title: "Couch in great condition",
-        price: 1000,
-        image: require("../assets/images/couch.jpg"),
-    },
-];
-
 export default function ListingsScreen({ navigation }: any) {
     const [listings, setListings] = useState<ListingsApiRes | any>();
+    const [error, setError] = useState<Boolean>(false);
 
     useEffect(() => {
         loadListings();
@@ -33,18 +22,26 @@ export default function ListingsScreen({ navigation }: any) {
 
     const loadListings = async () => {
         const response = await getListings();
+        if (!response.ok) {
+            setError(true);
+        }
 
         setListings(response?.data?.data.stocks);
     };
 
     return (
         <SafeAreaView>
-            <Screen
-                style={[
-                    styles.screen,
-                    { marginTop: Platform.OS === "ios" ? 50 : 0 },
-                ]}
-            >
+            {error && (
+                <Screen style={styles.error}>
+                    <AppText>Couldn't fetch listings.</AppText>
+                    <AppButton
+                        title="Retry"
+                        color={colors.orange}
+                        onPress={loadListings}
+                    />
+                </Screen>
+            )}
+            <Screen style={[styles.screen]}>
                 <FlatList
                     data={listings}
                     keyExtractor={(listing) => listing?._id.toString()}
@@ -52,7 +49,9 @@ export default function ListingsScreen({ navigation }: any) {
                         <Card
                             title={item?.title}
                             description={"$" + item?.price}
-                            image={require("../assets/images/jacket.jpg")}
+                            imageUrl={{
+                                uri: APIUtils.localHost + item?.images,
+                            }}
                             onPress={() =>
                                 navigation.navigate(
                                     routes.LISTING_DETAILS,
@@ -71,5 +70,12 @@ const styles = StyleSheet.create({
     screen: {
         padding: 20,
         backgroundColor: colors.gray,
+    },
+
+    error: {
+        padding: 35,
+        paddingTop: 80,
+        alignItems: "center",
+        justifyContent: "center",
     },
 });

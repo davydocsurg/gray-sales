@@ -41,7 +41,7 @@ export default function MessagesScreen() {
                     <ListItem
                         title={item.title}
                         subTitle={item.description}
-                        image={item.image}
+                        imageUrl={item.image}
                         listAction={() => {
                             return;
                         }}

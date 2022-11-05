@@ -6,14 +6,14 @@ import AppText from "../../commons/AppText";
 import colors from "../../utils/colors";
 
 export default function ListItem({
-    image,
+    imageUrl: image,
     title,
     subTitle,
     listAction,
     renderActions,
     IconComponent,
 }: {
-    image?: any;
+    imageUrl?: any;
     title: string;
     subTitle?: string;
     listAction?: any;
