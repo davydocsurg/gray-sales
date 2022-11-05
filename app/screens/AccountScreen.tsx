@@ -33,7 +33,7 @@ export default function AccountScreen({ navigation }: any) {
                 <ListItem
                     title="David Ndubuisi"
                     subTitle="davydocsurg@gmail.com"
-                    imageUrl={require("../assets/images/avatar.jpg")}
+                    image={require("../assets/images/avatar.jpg")}
                 />
             </View>
             <View style={styles.container}>

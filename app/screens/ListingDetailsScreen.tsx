@@ -19,7 +19,7 @@ export default function ListingDetailsScreen({ route }: any) {
                 <AppText style={styles.price}>${listing.price}</AppText>
 
                 <ListItem
-                    imageUrl={require("../assets/images/avatar.jpg")}
+                    image={require("../assets/images/avatar.jpg")}
                     title="David Avas"
                     subTitle="5 Listings"
                 />
