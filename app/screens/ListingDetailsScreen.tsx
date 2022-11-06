@@ -1,19 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { View, Text, Image, StyleSheet } from "react-native";
 import AppText from "../commons/AppText";
 import ListItem from "../components/lists/ListItem";
+import { APIUtils } from "../constants/ApiUtils";
 import colors from "../utils/colors";
 
-export default function ListingDetailsScreen() {
+export default function ListingDetailsScreen({ route }: any) {
+    const listing = route.params;
+
     return (
         <View>
             <Image
                 style={styles.image}
-                source={require("../assets/images/landing-bg.jpg")}
+                source={{ uri: APIUtils.localHost + listing?.images }}
             />
             <View style={styles.detailsContainer}>
-                <AppText style={styles.title}>Lorem ipsum</AppText>
-                <AppText style={styles.price}>$100</AppText>
+                <AppText style={styles.title}>{listing.title}</AppText>
+                <AppText style={styles.price}>${listing.price}</AppText>
 
                 <ListItem
                     image={require("../assets/images/avatar.jpg")}

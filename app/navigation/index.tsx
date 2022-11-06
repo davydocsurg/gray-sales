@@ -133,7 +133,20 @@
 //     return <FontAwesome size={30} style={{ marginBottom: -3 }} {...props} />;
 // }
 
-import AuthNavigator from "./AuthNavigator";
+// import AuthNavigator from "./AuthNavigator";
 import navigationTheme from "./navigationTheme";
+// import AppNavigator from "./AppNavigator";
+import AccountNavigator from "./AccountNavigator";
+import NewListingButton from "./NewListingButton";
+import FeedNavigator from "./FeedNavigator";
+import routes from "./routes";
 
-export { AuthNavigator, navigationTheme };
+export {
+    // AuthNavigator,
+    // AppNavigator,
+    AccountNavigator,
+    NewListingButton,
+    FeedNavigator,
+    navigationTheme,
+    routes,
+};

@@ -1,11 +1,10 @@
 import { StyleSheet, ImageBackground, Image, View } from "react-native";
 import AppButton from "../commons/AppButton";
+import { routes } from "../navigation";
 import type { HomeTabScreenProps } from "../navigation/types";
 import colors from "../utils/colors";
 
-export default function WelcomeScreen({
-    navigation,
-}: HomeTabScreenProps<"Popular">) {
+export default function WelcomeScreen({ navigation }: any) {
     return (
         <>
             <ImageBackground
@@ -24,9 +23,13 @@ export default function WelcomeScreen({
                     <AppButton
                         title="Login"
                         color={colors.orange}
-                        onPress={() => navigation.navigate("Login")}
+                        onPress={() => navigation.navigate(routes.LOGIN)}
                     />
-                    <AppButton title="Register" color={colors.brown} />
+                    <AppButton
+                        onPress={() => navigation.navigate(routes.REGISTER)}
+                        title="Register"
+                        color={colors.brown}
+                    />
                 </View>
             </ImageBackground>
         </>
