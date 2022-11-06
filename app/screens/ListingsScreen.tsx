@@ -13,17 +13,21 @@ import LoadingIndicator from "../components/LoadingIndicator";
 import { APIUtils } from "../constants/ApiUtils";
 import useApi from "../hooks/useApi";
 import routes from "../navigation/routes";
-import { ListingsApiRes } from "../types/listings";
+import { ListingsApiRes, Stock } from "../types/listings";
 import colors from "../utils/colors";
 
 export default function ListingsScreen({ navigation }: any) {
     const getListingsApi = useApi(listings.getListings);
-    const [stocks, setStocks] = useState([]);
+    const [stocks, setStocks] = useState<ListingsApiRes | any>();
 
     useEffect(() => {
-        getListingsApi.request();
-        setStocks(getListingsApi.data);
+        setUpStocks();
     }, []);
+
+    const setUpStocks = async () => {
+        await getListingsApi.request();
+        setStocks(getListingsApi.data?.data?.stocks);
+    };
 
     return (
         <SafeAreaView>
@@ -40,11 +44,11 @@ export default function ListingsScreen({ navigation }: any) {
             <Screen style={styles.animation}>
                 <LoadingIndicator visible={getListingsApi.loading} />
             </Screen>
-            <Screen style={[styles.screen]}>
+            <Screen style={styles.screen}>
                 <FlatList
                     data={stocks}
-                    keyExtractor={(stock) => stock?._id.toString()}
-                    renderItem={({ item }) => (
+                    keyExtractor={(stock: Stock) => stock?._id.toString()}
+                    renderItem={({ item }: any) => (
                         <Card
                             title={item?.title}
                             description={"$" + item?.price}

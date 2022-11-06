@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { ApiFunc } from "../types/api";
+import type { ListingsApiRes } from "../types/listings";
 
 const useApi = (apiFunc: any) => {
-    const [data, setData] = useState([]);
+    const [data, setData] = useState();
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(false);
 
@@ -14,7 +15,7 @@ const useApi = (apiFunc: any) => {
         if (!response.ok) return setError(true);
 
         setError(false);
-        setData(response.data);
+        setData(response?.data);
     };
 
     return { data, error, loading, request };
