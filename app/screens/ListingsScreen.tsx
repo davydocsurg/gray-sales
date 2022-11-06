@@ -3,56 +3,47 @@ import React, { useEffect, useState } from "react";
 import { ActivityIndicator, Platform, SafeAreaView } from "react-native";
 import { FlatList, StyleSheet } from "react-native";
 import { Screen } from "react-native-screens";
-import { getListings } from "../api/listings";
+import listings from "../api/listings";
+
+// locals
 import AppButton from "../commons/AppButton";
 import AppText from "../commons/AppText";
 import Card from "../commons/Card";
 import LoadingIndicator from "../components/LoadingIndicator";
 import { APIUtils } from "../constants/ApiUtils";
-import { routes } from "../navigation";
+import useApi from "../hooks/useApi";
+import routes from "../navigation/routes";
 import { ListingsApiRes } from "../types/listings";
 import colors from "../utils/colors";
 
 export default function ListingsScreen({ navigation }: any) {
-    const [listings, setListings] = useState<ListingsApiRes | any>();
-    const [error, setError] = useState<Boolean>(false);
-    const [loading, setLoading] = useState<Boolean | any>(false);
+    const getListingsApi = useApi(listings.getListings);
+    const [stocks, setStocks] = useState([]);
 
     useEffect(() => {
-        loadListings();
+        getListingsApi.request();
+        setStocks(getListingsApi.data);
     }, []);
-
-    const loadListings = async () => {
-        setLoading(true);
-        const response = await getListings();
-        setLoading(false);
-
-        if (!response.ok) {
-            setError(true);
-        }
-
-        setListings(response?.data?.data.stocks);
-    };
 
     return (
         <SafeAreaView>
-            {error && (
+            {getListingsApi.error && (
                 <Screen style={styles.error}>
                     <AppText>Couldn't fetch listings.</AppText>
                     <AppButton
                         title="Retry"
                         color={colors.orange}
-                        onPress={loadListings}
+                        onPress={getListingsApi.request}
                     />
                 </Screen>
             )}
             <Screen style={styles.animation}>
-                <LoadingIndicator visible={loading} />
+                <LoadingIndicator visible={getListingsApi.loading} />
             </Screen>
             <Screen style={[styles.screen]}>
                 <FlatList
-                    data={listings}
-                    keyExtractor={(listing) => listing?._id.toString()}
+                    data={stocks}
+                    keyExtractor={(stock) => stock?._id.toString()}
                     renderItem={({ item }) => (
                         <Card
                             title={item?.title}

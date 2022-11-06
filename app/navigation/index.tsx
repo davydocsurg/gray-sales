@@ -1,3 +1,21 @@
+// import AuthNavigator from "./AuthNavigator";
+// import navigationTheme from "./navigationTheme";
+// // import AppNavigator from "./AppNavigator";
+// import AccountNavigator from "./AccountNavigator";
+// import NewListingButton from "./NewListingButton";
+// import FeedNavigator from "./FeedNavigator";
+// import routes from "./routes";
+
+// export {
+//     // AuthNavigator,
+//     // AppNavigator,
+//     AccountNavigator,
+//     NewListingButton,
+//     FeedNavigator,
+//     navigationTheme,
+//     routes,
+// };
+
 // /**
 //  * If you are not familiar with React Navigation, refer to the "Fundamentals" guide:
 //  * https://reactnavigation.org/docs/getting-started
@@ -132,21 +150,3 @@
 // }) {
 //     return <FontAwesome size={30} style={{ marginBottom: -3 }} {...props} />;
 // }
-
-// import AuthNavigator from "./AuthNavigator";
-import navigationTheme from "./navigationTheme";
-// import AppNavigator from "./AppNavigator";
-import AccountNavigator from "./AccountNavigator";
-import NewListingButton from "./NewListingButton";
-import FeedNavigator from "./FeedNavigator";
-import routes from "./routes";
-
-export {
-    // AuthNavigator,
-    // AppNavigator,
-    AccountNavigator,
-    NewListingButton,
-    FeedNavigator,
-    navigationTheme,
-    routes,
-};

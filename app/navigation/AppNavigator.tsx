@@ -4,11 +4,12 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 // import { NewListingButton, routes } from ".";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { RootTabParamList } from "../../types";
-import { ListingsEditScreen } from "../screens";
+
 import FeedNavigator from "./FeedNavigator";
 import NewListingButton from "./NewListingButton";
 import routes from "./routes";
 import AccountNavigator from "./AccountNavigator";
+import { ListingsEditScreen } from "../screens";
 
 const Tab = createBottomTabNavigator<RootTabParamList>();
 

@@ -1,4 +1,8 @@
 import apiClient from "./client";
 import { endPoints } from "./endPoints";
 
-export const getListings = () => apiClient.get(endPoints.listingsEndpoint);
+const getListings = () => apiClient.get(endPoints.listingsEndpoint);
+
+export default {
+    getListings,
+};
