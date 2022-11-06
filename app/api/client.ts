@@ -1,6 +1,6 @@
 import { create } from "apisauce";
 
-const baseURL = "http://20.20.0.90:8080/api";
+export const baseURL = "http://20.20.0.90:8080/api";
 
 // export const createConnection = async () => {
 //     const apiClient = create({
@@ -13,7 +13,7 @@ const baseURL = "http://20.20.0.90:8080/api";
 // };
 
 const apiClient = create({
-    baseURL: "http://192.168.0.100:8080/api",
+    baseURL: baseURL,
 });
 
 export default apiClient;
