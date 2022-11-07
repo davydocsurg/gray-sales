@@ -1,6 +1,6 @@
 import { StyleSheet, ImageBackground, Image, View } from "react-native";
 import AppButton from "../commons/AppButton";
-import { routes } from "../navigation";
+import routes from "../navigation/routes";
 import type { HomeTabScreenProps } from "../navigation/types";
 import colors from "../utils/colors";
 

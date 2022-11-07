@@ -63,6 +63,8 @@ export default function ListingsScreen({ navigation }: any) {
                             }
                         />
                     )}
+                    // refreshing={getListingsApi.loading}
+                    // onRefresh={() => getListingsApi.request()}
                 />
             </Screen>
         </SafeAreaView>

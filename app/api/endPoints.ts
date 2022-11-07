@@ -1,3 +1,5 @@
 export const endPoints = {
-    listingsEndpoint: "/stock/fetch",
+    listings: "/stock/fetch",
+    addListing: "/stock/create",
+    fetchCategories: "/category/fetch",
 };

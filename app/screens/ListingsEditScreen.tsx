@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, Button } from "react-native";
 import * as Yup from "yup";
 
@@ -12,6 +12,9 @@ import { Screen, CategoryPicker } from "../components";
 import colors from "../utils/colors";
 import { FormImagePicker } from "../components/form";
 import { useLocation } from "../hooks";
+import useApi from "../hooks/useApi";
+import listings from "../api/listings";
+import categoryApi from "../api/categoryApi";
 
 const validationSchema = Yup.object().shape({
     title: Yup.string().required().min(3).label("Title"),
@@ -21,68 +24,88 @@ const validationSchema = Yup.object().shape({
     images: Yup.array().min(1, "Please select at least one image."),
 });
 
-const categories = [
-    {
-        backgroundColor: "#fc5c65",
-        icon: "floor-lamp",
-        label: "Furniture",
-        value: 1,
-    },
-    {
-        backgroundColor: "#fd9644",
-        icon: "car",
-        label: "Cars",
-        value: 2,
-    },
-    {
-        backgroundColor: "#fed330",
-        icon: "camera",
-        label: "Cameras",
-        value: 3,
-    },
-    {
-        backgroundColor: "#26de81",
-        icon: "cards",
-        label: "Games",
-        value: 4,
-    },
-    {
-        backgroundColor: "#2bcbba",
-        icon: "shoe-heel",
-        label: "Clothing",
-        value: 5,
-    },
-    {
-        backgroundColor: "#45aaf2",
-        icon: "basketball",
-        label: "Sports",
-        value: 6,
-    },
-    {
-        backgroundColor: "#4b7bec",
-        icon: "headphones",
-        label: "Movies & Music",
-        value: 7,
-    },
-    {
-        backgroundColor: "#a55eea",
-        icon: "book-open-variant",
-        label: "Books",
-        value: 8,
-    },
-    {
-        backgroundColor: "#778ca3",
-        icon: "application",
-        label: "Other",
-        value: 9,
-    },
-];
+// const categories = [
+//     {
+//         backgroundColor: "#fc5c65",
+//         icon: "floor-lamp",
+//         label: "Furniture",
+//         value: 1,
+//     },
+//     {
+//         backgroundColor: "#fd9644",
+//         icon: "car",
+//         label: "Cars",
+//         value: 2,
+//     },
+//     {
+//         backgroundColor: "#fed330",
+//         icon: "camera",
+//         label: "Cameras",
+//         value: 3,
+//     },
+//     {
+//         backgroundColor: "#26de81",
+//         icon: "cards",
+//         label: "Games",
+//         value: 4,
+//     },
+//     {
+//         backgroundColor: "#2bcbba",
+//         icon: "shoe-heel",
+//         label: "Clothing",
+//         value: 5,
+//     },
+//     {
+//         backgroundColor: "#45aaf2",
+//         icon: "basketball",
+//         label: "Sports",
+//         value: 6,
+//     },
+//     {
+//         backgroundColor: "#4b7bec",
+//         icon: "headphones",
+//         label: "Movies & Music",
+//         value: 7,
+//     },
+//     {
+//         backgroundColor: "#a55eea",
+//         icon: "book-open-variant",
+//         label: "Books",
+//         value: 8,
+//     },
+//     {
+//         backgroundColor: "#778ca3",
+//         icon: "application",
+//         label: "Other",
+//         value: 9,
+//     },
+// ];
 
 const ListingsEditScreen = () => {
     const location = useLocation();
+    const getCategoriesApi = useApi(categoryApi.getCategories);
+    const [categories, setCategories] = useState<any>();
 
-    const submitForm = async (values: any) => {
-        console.log(values, location);
+    useEffect(() => {
+        setUpCategories();
+        console.log(categories);
+        // console.log(getCategoriesApi.data);
+    }, []);
+
+    const setUpCategories = async () => {
+        await getCategoriesApi.request();
+        setCategories(getCategoriesApi.data?.data.categories);
+    };
+
+    const handleSubmit = async (listing: any) => {
+        console.log(listing);
+        // const result = listings.addListing({ ...listing, location });
+
+        // if (!result.ok) {
+        //     return alert("Could not save listing");
+        // }
+
+        // alert("Success");
     };
 
     return (
@@ -95,7 +118,7 @@ const ListingsEditScreen = () => {
                 images: [],
             }}
             validationSchema={validationSchema}
-            onSubmit={(values: any) => submitForm(values)}
+            onSubmit={(values: any) => handleSubmit(values)}
         >
             {/* {({ handleBlur, values, errors }) => ( */}
             <Screen style={styles.container}>
