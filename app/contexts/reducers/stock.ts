@@ -1,17 +1,28 @@
-import { SET_STOCKS_DATA, SET_STOCK_ERRORS } from "../types";
+import {
+    LOADING_STOCK_DATA,
+    SET_STOCKS_DATA,
+    SET_STOCK_ERRORS,
+} from "../types";
 
 const stockReducer = (state: Object, { payload, type }: any) => {
     switch (type) {
         case SET_STOCKS_DATA:
             return {
                 ...state,
-                data: payload,
+                stocks: payload,
+                loading: false,
             };
 
         case SET_STOCK_ERRORS:
             return {
                 ...state,
                 errors: payload,
+                loading: false,
+            };
+
+        case LOADING_STOCK_DATA:
+            return {
+                loading: true,
             };
 
         default:

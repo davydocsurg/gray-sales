@@ -11,6 +11,8 @@ import AppText from "../commons/AppText";
 import Card from "../commons/Card";
 import LoadingIndicator from "../components/LoadingIndicator";
 import { APIUtils } from "../constants/ApiUtils";
+import { fetchStocks } from "../contexts/actions";
+import { useStockContext } from "../contexts/StockContext";
 import useApi from "../hooks/useApi";
 import routes from "../navigation/routes";
 import { FetchStocks } from "../services/ListingsService";
@@ -18,37 +20,41 @@ import { ListingsApiRes, Stock } from "../types/listings";
 import colors from "../utils/colors";
 
 export default function ListingsScreen({ navigation }: any) {
-    const getListingsApi = useApi(FetchStocks);
-    const [stocks, setStocks] = useState<ListingsApiRes | any>();
+    const { state, dispatch } = useStockContext();
+    // const { loading } = state;
+
+    // const getListingsApi = useApi(FetchStocks);
+    // const [stocks, setStocks] = useState<ListingsApiRes | any>();
 
     useEffect(() => {
         setUpStocks();
-        console.log(stocks);
+        console.log(state.stocks);
     }, []);
 
     const setUpStocks = async () => {
-        const getStocks = await useApi(FetchStocks);
-        setStocks(getStocks.data);
+        // const getStocks = await useApi(FetchStocks);
+        // setStocks(getStocks.data);
+        fetchStocks(dispatch);
     };
 
     return (
         <SafeAreaView>
-            {stocks == undefined && (
+            {state?.errors && (
                 <Screen style={styles.error}>
                     <AppText>Couldn't fetch listings.</AppText>
                     <AppButton
                         title="Retry"
                         color={colors.orange}
-                        onPress={setUpStocks}
+                        onPress={fetchStocks}
                     />
                 </Screen>
             )}
             <Screen style={styles.animation}>
-                <LoadingIndicator visible={getListingsApi.loading} />
+                <LoadingIndicator visible={state?.loading} />
             </Screen>
             <Screen style={styles.screen}>
                 <FlatList
-                    data={stocks}
+                    data={state?.stocks}
                     keyExtractor={(stock: Stock) => stock?._id.toString()}
                     renderItem={({ item }: any) => (
                         <Card

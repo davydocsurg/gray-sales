@@ -5,6 +5,7 @@ import navigationTheme from "./app/navigation/navigationTheme";
 import useCachedResources from "./app/hooks/useCachedResources";
 import AppNavigator from "./app/navigation/AppNavigator";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import { StockProvider } from "./app/contexts/StockContext";
 
 export default function App() {
     const isLoadingComplete = useCachedResources();
@@ -13,11 +14,13 @@ export default function App() {
         return null;
     } else {
         return (
-            <NavigationContainer theme={navigationTheme}>
-                {/* <SafeAreaProvider> */}
-                <AppNavigator />
-                {/* </SafeAreaProvider> */}
-            </NavigationContainer>
+            <StockProvider>
+                <NavigationContainer theme={navigationTheme}>
+                    {/* <SafeAreaProvider> */}
+                    <AppNavigator />
+                    {/* </SafeAreaProvider> */}
+                </NavigationContainer>
+            </StockProvider>
         );
     }
 }
