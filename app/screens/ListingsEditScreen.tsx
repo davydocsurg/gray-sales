@@ -88,8 +88,6 @@ const ListingsEditScreen = () => {
 
     useEffect(() => {
         setUpCategories();
-        console.log(categories);
-        // console.log(getCategoriesApi.data);
     }, []);
 
     const setUpCategories = async () => {
@@ -98,14 +96,14 @@ const ListingsEditScreen = () => {
     };
 
     const handleSubmit = async (listing: any) => {
-        console.log(listing);
-        // const result = listings.addListing({ ...listing, location });
+        const result = await listings.addListing(listing);
+        // console.log(result.data.errors);
 
-        // if (!result.ok) {
-        //     return alert("Could not save listing");
-        // }
+        if (!result.ok) {
+            return alert("Could not save listing");
+        }
 
-        // alert("Success");
+        alert("Success");
     };
 
     return (
@@ -139,6 +137,7 @@ const ListingsEditScreen = () => {
                     items={categories}
                     name="category"
                     placeholder="Category"
+                    onPress={setUpCategories}
                 />
 
                 <FormField

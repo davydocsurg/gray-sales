@@ -9,7 +9,9 @@ const useApi = (apiFunc: any) => {
 
     const request = async (...args: any) => {
         setLoading(true);
+
         const response = await apiFunc(...args);
+
         setLoading(false);
 
         if (!response.ok) return setError(true);

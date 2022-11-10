@@ -13,20 +13,20 @@ import LoadingIndicator from "../components/LoadingIndicator";
 import { APIUtils } from "../constants/ApiUtils";
 import useApi from "../hooks/useApi";
 import routes from "../navigation/routes";
+import { FetchStocks } from "../services/ListingsService";
 import { ListingsApiRes, Stock } from "../types/listings";
 import colors from "../utils/colors";
 
 export default function ListingsScreen({ navigation }: any) {
-    const getListingsApi = useApi(listings.getListings);
+    const getListingsApi = useApi(FetchStocks);
     const [stocks, setStocks] = useState<ListingsApiRes | any>();
 
     useEffect(() => {
         setUpStocks();
     }, []);
 
-    const setUpStocks = async () => {
-        await getListingsApi.request();
-        setStocks(getListingsApi.data?.data?.stocks);
+    const setUpStocks = () => {
+        setStocks(getListingsApi.data);
     };
 
     return (

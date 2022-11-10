@@ -1,19 +1,13 @@
 import { create } from "apisauce";
+import { BASE_URL } from "./constants";
 
-export const baseURL = "http://192.168.0.100:8080/api";
-
-// export const createConnection = async () => {
-//     const apiClient = create({
-//         baseURL: baseURL,
-//     });
-
-//     const response = await apiClient.get("/fetch");
-//     if (!response.ok) {
-//     }
-// };
+export const baseURL = BASE_URL + "api";
 
 const apiClient = create({
     baseURL: baseURL,
+    // headers: {
+    //     "Content-Type": "multipart/form-data;",
+    // },
 });
 
 export default apiClient;
