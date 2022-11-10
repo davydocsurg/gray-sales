@@ -1,18 +1,15 @@
 import { useNavigation } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
-import { ActivityIndicator, Platform, SafeAreaView, Text } from "react-native";
+import { SafeAreaView, Text } from "react-native";
 import { FlatList, StyleSheet } from "react-native";
-import { SafeAreaProvider } from "react-native-safe-area-context";
 import { Screen } from "react-native-screens";
 import { BASE_URL } from "../api/constants";
-import listings from "../api/listings";
 
 // locals
 import AppButton from "../commons/AppButton";
 import AppText from "../commons/AppText";
 import Card from "../commons/Card";
 import LoadingIndicator from "../components/LoadingIndicator";
-import { View } from "../components/Themed";
 import { fetchStocks } from "../contexts/actions";
 import { useStockContext } from "../contexts/StockContext";
 import routes from "../navigation/routes";
@@ -24,12 +21,9 @@ export default function ListingsScreen({ navigation }: any) {
 
     useEffect(() => {
         setUpStocks();
-        setTimeout(() => {
-            setUpStocks;
-        }, 1000);
     }, []);
 
-    const setUpStocks = async () => {
+    const setUpStocks = () => {
         fetchStocks(dispatch);
     };
 

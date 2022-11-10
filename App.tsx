@@ -1,11 +1,10 @@
 import { NavigationContainer } from "@react-navigation/native";
 
-import useColorScheme from "./app/hooks/useColorScheme";
 import navigationTheme from "./app/navigation/navigationTheme";
 import useCachedResources from "./app/hooks/useCachedResources";
 import AppNavigator from "./app/navigation/AppNavigator";
-import { SafeAreaProvider } from "react-native-safe-area-context";
 import { StockProvider } from "./app/contexts/StockContext";
+import { CategoryProvider } from "./app/contexts/CategoryContext";
 
 export default function App() {
     const isLoadingComplete = useCachedResources();
@@ -14,13 +13,15 @@ export default function App() {
         return null;
     } else {
         return (
-            <StockProvider>
-                <NavigationContainer theme={navigationTheme}>
-                    {/* <SafeAreaProvider> */}
-                    <AppNavigator />
-                    {/* </SafeAreaProvider> */}
-                </NavigationContainer>
-            </StockProvider>
+            <CategoryProvider>
+                <StockProvider>
+                    <NavigationContainer theme={navigationTheme}>
+                        {/* <SafeAreaProvider> */}
+                        <AppNavigator />
+                        {/* </SafeAreaProvider> */}
+                    </NavigationContainer>
+                </StockProvider>
+            </CategoryProvider>
         );
     }
 }

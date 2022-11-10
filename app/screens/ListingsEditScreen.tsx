@@ -15,6 +15,8 @@ import { useLocation } from "../hooks";
 import useApi from "../hooks/useApi";
 import listings from "../api/listings";
 import categoryApi from "../api/categoryApi";
+import { useCategoryContext } from "../contexts/CategoryContext";
+import { fetchCategories } from "../contexts/actions/fetchCategories";
 
 const validationSchema = Yup.object().shape({
     title: Yup.string().required().min(3).label("Title"),
@@ -82,24 +84,21 @@ const validationSchema = Yup.object().shape({
 // ];
 
 const ListingsEditScreen = () => {
-    const location = useLocation();
-    const getCategoriesApi = useApi(categoryApi.getCategories);
-    const [categories, setCategories] = useState<any>();
+    const { state, dispatch } = useCategoryContext();
 
     useEffect(() => {
         setUpCategories();
     }, []);
 
-    const setUpCategories = async () => {
-        await getCategoriesApi.request();
-        setCategories(getCategoriesApi.data?.data.categories);
+    const setUpCategories = () => {
+        fetchCategories(dispatch);
     };
 
     const handleSubmit = async (listing: any) => {
         const result = await listings.addListing(listing);
         // console.log(result.data.errors);
 
-        if (!result.ok) {
+        if (!result?.ok) {
             return alert("Could not save listing");
         }
 
@@ -134,7 +133,7 @@ const ListingsEditScreen = () => {
                 <Picker
                     PickerItemComponent={CategoryPicker}
                     numberOfColumns={3}
-                    items={categories}
+                    items={state.categories}
                     name="category"
                     placeholder="Category"
                     onPress={setUpCategories}
