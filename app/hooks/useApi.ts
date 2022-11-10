@@ -9,6 +9,7 @@ const useApi = (apiFunc: any) => {
 
     const request = async (...args: any) => {
         setLoading(true);
+        console.log("got here too");
 
         const response = await apiFunc(...args);
 

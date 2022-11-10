@@ -23,21 +23,23 @@ export default function ListingsScreen({ navigation }: any) {
 
     useEffect(() => {
         setUpStocks();
+        console.log(stocks);
     }, []);
 
-    const setUpStocks = () => {
-        setStocks(getListingsApi.data);
+    const setUpStocks = async () => {
+        const getStocks = await useApi(FetchStocks);
+        setStocks(getStocks.data);
     };
 
     return (
         <SafeAreaView>
-            {getListingsApi.error && (
+            {stocks == undefined && (
                 <Screen style={styles.error}>
                     <AppText>Couldn't fetch listings.</AppText>
                     <AppButton
                         title="Retry"
                         color={colors.orange}
-                        onPress={getListingsApi.request}
+                        onPress={setUpStocks}
                     />
                 </Screen>
             )}
