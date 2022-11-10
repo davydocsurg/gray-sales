@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { View, Text, Image, StyleSheet } from "react-native";
+import { BASE_URL } from "../api/constants";
 import AppText from "../commons/AppText";
 import ListItem from "../components/lists/ListItem";
 import { APIUtils } from "../constants/ApiUtils";
@@ -12,7 +13,7 @@ export default function ListingDetailsScreen({ route }: any) {
         <View>
             <Image
                 style={styles.image}
-                source={{ uri: APIUtils.localHost + listing?.images }}
+                source={{ uri: BASE_URL + listing?.images }}
             />
             <View style={styles.detailsContainer}>
                 <AppText style={styles.title}>{listing.title}</AppText>

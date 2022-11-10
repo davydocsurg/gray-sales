@@ -1,13 +1,13 @@
 import axios from "axios";
 import {
-    BASE_URL,
+    API_URL,
     NOT_FOUND,
     SERVER_ERROR,
     SERVICE_UNAVAILABLE,
 } from "./constants";
 
 const api = axios.create({
-    baseURL: BASE_URL,
+    baseURL: API_URL,
 });
 
 api.interceptors.response.use(
