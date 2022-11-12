@@ -10,6 +10,7 @@ const StockContext = createContext<StockContextType>({
         stocks: [],
         errors: [],
         loading: false,
+        success: false,
     },
     dispatch: () => {},
 });

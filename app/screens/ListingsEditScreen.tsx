@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, Button } from "react-native";
+import { Alert, StyleSheet } from "react-native";
 import * as Yup from "yup";
 
 import {
@@ -11,12 +11,9 @@ import {
 import { Screen, CategoryPicker } from "../components";
 import colors from "../utils/colors";
 import { FormImagePicker } from "../components/form";
-import { useLocation } from "../hooks";
-import useApi from "../hooks/useApi";
-import listings from "../api/listings";
-import categoryApi from "../api/categoryApi";
 import { useCategoryContext } from "../contexts/CategoryContext";
-import { fetchCategories } from "../contexts/actions/fetchCategories";
+import { createStock, fetchCategories } from "../contexts/actions";
+import UploadScreen from "./UploadScreen";
 
 const validationSchema = Yup.object().shape({
     title: Yup.string().required().min(3).label("Title"),
@@ -85,6 +82,9 @@ const validationSchema = Yup.object().shape({
 
 const ListingsEditScreen = () => {
     const { state, dispatch } = useCategoryContext();
+    const [image, setImage] = useState(null);
+    const [uploadVisible, setUploadVisible] = useState(false);
+    const [progress, setProgress] = useState(0);
 
     useEffect(() => {
         setUpCategories();
@@ -94,31 +94,61 @@ const ListingsEditScreen = () => {
         fetchCategories(dispatch);
     };
 
-    const handleSubmit = async (listing: any) => {
-        const result = await listings.addListing(listing);
-        // console.log(result.data.errors);
+    const handleSubmit = async (stock: any) => {
+        setProgress(0);
+        setUploadVisible(true);
+        const result = await createStock(
+            dispatch,
+            stock,
+            image,
+            (progress: number) => setProgress(progress)
+        );
 
-        if (!result?.ok) {
-            return alert("Could not save listing");
+        console.log("====================================");
+        console.log(result, "result");
+        console.log("====================================");
+
+        if (!state?.success) {
+            setUploadVisible(false);
+            return Alert.alert(
+                "Something Went Wrong",
+                "Couldn't save stocks",
+                [
+                    {
+                        text: "Cancel",
+                        style: "cancel",
+                    },
+                ],
+                {
+                    cancelable: true,
+                    onDismiss: () => {},
+                }
+            );
         }
 
         alert("Success");
     };
 
     return (
-        <Form
-            initialValues={{
-                title: "",
-                price: "",
-                description: "",
-                category: null,
-                images: [],
-            }}
-            validationSchema={validationSchema}
-            onSubmit={(values: any) => handleSubmit(values)}
-        >
-            {/* {({ handleBlur, values, errors }) => ( */}
-            <Screen style={styles.container}>
+        <Screen style={styles.container}>
+            <UploadScreen
+                onDone={() => setUploadVisible(false)}
+                progress={progress}
+                visible={uploadVisible}
+            />
+
+            <Form
+                initialValues={{
+                    title: "",
+                    price: "",
+                    description: "",
+                    category: null,
+                    images: [],
+                }}
+                validationSchema={validationSchema}
+                onSubmit={(values: any) => handleSubmit(values)}
+            >
+                {/* {({ handleBlur, values, errors }) => ( */}
                 <FormImagePicker fieldName="images" />
 
                 <FormField maxLength={255} name="title" placeholder="Title" />
@@ -133,7 +163,7 @@ const ListingsEditScreen = () => {
                 <Picker
                     PickerItemComponent={CategoryPicker}
                     numberOfColumns={3}
-                    items={state.categories}
+                    items={state?.categories}
                     name="category"
                     placeholder="Category"
                     onPress={setUpCategories}
@@ -148,9 +178,9 @@ const ListingsEditScreen = () => {
                 />
 
                 <SubmitButton title="Submit" color={colors.orange} />
-            </Screen>
-            {/* )} */}
-        </Form>
+                {/* )} */}
+            </Form>
+        </Screen>
     );
 };
 

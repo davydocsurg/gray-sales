@@ -2,6 +2,7 @@ import {
     LOADING_STOCK_DATA,
     SET_STOCKS_DATA,
     SET_STOCK_ERRORS,
+    SET_STOCK_SUCCESS,
 } from "../types";
 
 const stockReducer = (state: Object, { payload, type }: any) => {
@@ -23,6 +24,11 @@ const stockReducer = (state: Object, { payload, type }: any) => {
         case LOADING_STOCK_DATA:
             return {
                 loading: true,
+            };
+
+        case SET_STOCK_SUCCESS:
+            return {
+                success: true,
             };
 
         default:

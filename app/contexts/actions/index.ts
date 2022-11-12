@@ -1,3 +1,4 @@
-import { fetchStocks } from "./fetchStocks";
+import { fetchStocks, createStock } from "./stocks";
+import { fetchCategories } from "./fetchCategories";
 
-export { fetchStocks };
+export { fetchStocks, createStock, fetchCategories };
