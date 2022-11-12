@@ -6,13 +6,13 @@ import { StockState } from "./state/stocks";
 import type { initialStockType, StockContextType } from "../types";
 
 const StockContext = createContext<StockContextType>({
-    state: {
+    stockState: {
         stocks: [],
         errors: [],
         loading: false,
         success: false,
     },
-    dispatch: () => {},
+    stockDispatch: () => {},
 });
 export const useStockContext = () => useContext(StockContext);
 
@@ -21,9 +21,12 @@ const initStocks = (StockState: initialStockType) => {
 };
 
 export const StockProvider = ({ children }: any): JSX.Element => {
-    const [state, dispatch] = useReducer<any>(stockReducer, StockState);
+    const [stockState, stockDispatch] = useReducer<any>(
+        stockReducer,
+        StockState
+    );
 
-    const value = { state, dispatch };
+    const value = { stockState, stockDispatch };
 
     return (
         <StockContext.Provider value={value}>{children}</StockContext.Provider>

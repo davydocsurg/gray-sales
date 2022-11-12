@@ -14,6 +14,7 @@ import { FormImagePicker } from "../components/form";
 import { useCategoryContext } from "../contexts/CategoryContext";
 import { createStock, fetchCategories } from "../contexts/actions";
 import UploadScreen from "./UploadScreen";
+import { useStockContext } from "../contexts/StockContext";
 
 const validationSchema = Yup.object().shape({
     title: Yup.string().required().min(3).label("Title"),
@@ -82,6 +83,9 @@ const validationSchema = Yup.object().shape({
 
 const ListingsEditScreen = () => {
     const { state, dispatch } = useCategoryContext();
+
+    const { stockState, stockDispatch } = useStockContext();
+
     const [image, setImage] = useState(null);
     const [uploadVisible, setUploadVisible] = useState(false);
     const [progress, setProgress] = useState(0);
@@ -97,18 +101,11 @@ const ListingsEditScreen = () => {
     const handleSubmit = async (stock: any) => {
         setProgress(0);
         setUploadVisible(true);
-        const result = await createStock(
-            dispatch,
-            stock,
-            image,
-            (progress: number) => setProgress(progress)
+        await createStock(stockDispatch, stock, image, (progress: number) =>
+            setProgress(progress)
         );
 
-        console.log("====================================");
-        console.log(result, "result");
-        console.log("====================================");
-
-        if (!state?.success) {
+        if (!stockState?.success) {
             setUploadVisible(false);
             return Alert.alert(
                 "Something Went Wrong",

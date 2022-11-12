@@ -65,12 +65,13 @@ export const createStock = async (
                 price: stock.price,
                 categoryId: stock.category._id,
                 images: stock.images,
-            },
-            {
-                onUploadProgress: (progress) =>
-                    console.log(progress.loaded / progress.total!),
             }
+            // {
+            //     onUploadProgress: (progress) =>
+            //         onUploadProgress(progress.loaded / progress.total!),
+            // }
         );
+        console.log(response.data.success, "kmididhfivifhivhihh");
 
         if (response.data.success) {
             dispatch({

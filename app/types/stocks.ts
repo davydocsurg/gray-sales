@@ -8,6 +8,6 @@ export interface initialStockType {
 }
 
 export interface StockContextType {
-    state: initialStockType;
-    dispatch: Dispatch<any>;
+    stockState: initialStockType;
+    stockDispatch: Dispatch<any>;
 }

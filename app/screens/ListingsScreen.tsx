@@ -17,17 +17,17 @@ import { ListingsApiRes, Stock } from "../types/listings";
 import colors from "../utils/colors";
 
 export default function ListingsScreen({ navigation }: any) {
-    const { state, dispatch } = useStockContext();
+    const { stockState, stockDispatch } = useStockContext();
 
     useEffect(() => {
         setUpStocks();
     }, []);
 
     const setUpStocks = () => {
-        fetchStocks(dispatch);
+        fetchStocks(stockDispatch);
     };
 
-    if (state?.errors) {
+    if (stockState?.errors) {
         return (
             <Screen style={styles.error}>
                 <AppText>Couldn't fetch listings.</AppText>
@@ -38,16 +38,16 @@ export default function ListingsScreen({ navigation }: any) {
                 />
             </Screen>
         );
-    } else if (state?.loading) {
+    } else if (stockState?.loading) {
         <Screen style={styles.animation}>
-            <LoadingIndicator visible={state?.loading} />
+            <LoadingIndicator visible={stockState?.loading} />
         </Screen>;
     } else
         return (
             <SafeAreaView style={styles.safeArea}>
                 <Screen style={styles.screen}>
                     <FlatList
-                        data={state?.stocks}
+                        data={stockState?.stocks}
                         keyExtractor={(stock: Stock) => stock?._id.toString()}
                         renderItem={({ item }: any) => (
                             <Card
