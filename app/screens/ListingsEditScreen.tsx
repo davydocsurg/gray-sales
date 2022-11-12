@@ -105,23 +105,25 @@ const ListingsEditScreen = () => {
             setProgress(progress)
         );
 
-        if (!stockState?.success) {
-            setUploadVisible(false);
-            return Alert.alert(
-                "Something Went Wrong",
-                "Couldn't save stocks",
-                [
+        setTimeout(() => {
+            if (!stockState?.success) {
+                setUploadVisible(false);
+                return Alert.alert(
+                    "Something Went Wrong",
+                    "Couldn't save stocks",
+                    [
+                        {
+                            text: "Close",
+                            style: "cancel",
+                        },
+                    ],
                     {
-                        text: "Cancel",
-                        style: "cancel",
-                    },
-                ],
-                {
-                    cancelable: true,
-                    onDismiss: () => {},
-                }
-            );
-        }
+                        cancelable: true,
+                        onDismiss: () => {},
+                    }
+                );
+            }
+        }, 1000);
 
         alert("Success");
     };
