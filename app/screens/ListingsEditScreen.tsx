@@ -98,16 +98,16 @@ const ListingsEditScreen = () => {
         fetchCategories(dispatch);
     };
 
-    const handleSubmit = async (stock: any) => {
+    const handleSubmit = async (values: Object, { resetForm }: any) => {
         setProgress(0);
         setUploadVisible(true);
-        await createStock(stockDispatch, stock, image, (progress: number) =>
+        await createStock(stockDispatch, values, image, (progress: number) =>
             setProgress(progress)
         );
 
-        setTimeout(() => {
-            if (!stockState?.success) {
-                setUploadVisible(false);
+        if (!stockState?.success) {
+            setUploadVisible(false);
+            setTimeout(() => {
                 return Alert.alert(
                     "Something Went Wrong",
                     "Couldn't save stocks",
@@ -122,10 +122,12 @@ const ListingsEditScreen = () => {
                         onDismiss: () => {},
                     }
                 );
-            }
-        }, 1000);
+            }, 1000);
+        }
 
-        alert("Success");
+        resetForm({
+            values: "",
+        });
     };
 
     return (
@@ -145,7 +147,9 @@ const ListingsEditScreen = () => {
                     images: [],
                 }}
                 validationSchema={validationSchema}
-                onSubmit={(values: any) => handleSubmit(values)}
+                onSubmit={(values: Object, formikBag: Object) =>
+                    handleSubmit(values, formikBag)
+                }
             >
                 {/* {({ handleBlur, values, errors }) => ( */}
                 <FormImagePicker fieldName="images" />

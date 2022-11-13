@@ -30,7 +30,7 @@ const UploadScreen = ({
                         autoPlay
                         loop={false}
                         onAnimationFinish={onDone}
-                        source={require("../assets/animations/loader.json")}
+                        source={require("../assets/animations/done.json")}
                         style={styles.animation}
                     />
                 )}

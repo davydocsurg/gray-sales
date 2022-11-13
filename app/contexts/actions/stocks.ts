@@ -34,25 +34,25 @@ export const fetchStocks = async (dispatch: Dispatch<any>) => {
 
 export const createStock = async (
     dispatch: Dispatch<any>,
-    stock: any,
+    values: any,
     image: any,
     onUploadProgress: Function
 ) => {
     try {
         // const data = new FormData();
 
-        // data.append("title", stock.title);
-        // data.append("description", stock.description);
-        // data.append("price", stock.price);
-        // data.append("categoryId", stock.category._id);
+        // data.append("title", values.title);
+        // data.append("description", values.description);
+        // data.append("price", values.price);
+        // data.append("categoryId", values.category._id);
 
         // data.append("images", {
-        //     name: stock.images.fileName,
-        //     type: stock.images.type,
+        //     name: values.images.fileName,
+        //     type: values.images.type,
         //     uri:
         //         Platform.OS === "ios"
-        //             ? stock.images.uri.replace("file://", "")
-        //             : stock.images.uri,
+        //             ? values.images.uri.replace("file://", "")
+        //             : values.images.uri,
         // });
         const headers = {
             "Content-type": "application/json",
@@ -60,11 +60,11 @@ export const createStock = async (
         const response = await api.post(
             endPoints.createStock,
             {
-                title: stock.title,
-                description: stock.description,
-                price: stock.price,
-                categoryId: stock.category._id,
-                images: stock.images,
+                title: values.title,
+                description: values.description,
+                price: values.price,
+                categoryId: values.category._id,
+                images: values.images,
             },
             {
                 onUploadProgress: (progress) =>
