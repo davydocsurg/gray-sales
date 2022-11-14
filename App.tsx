@@ -5,6 +5,7 @@ import useCachedResources from "./app/hooks/useCachedResources";
 import AppNavigator from "./app/navigation/AppNavigator";
 import { StockProvider } from "./app/contexts/StockContext";
 import { CategoryProvider } from "./app/contexts/CategoryContext";
+import { OfflineNotice } from "./app/components";
 
 export default function App() {
     const isLoadingComplete = useCachedResources();
@@ -13,15 +14,18 @@ export default function App() {
         return null;
     } else {
         return (
-            <CategoryProvider>
-                <StockProvider>
-                    <NavigationContainer theme={navigationTheme}>
-                        {/* <SafeAreaProvider> */}
-                        <AppNavigator />
-                        {/* </SafeAreaProvider> */}
-                    </NavigationContainer>
-                </StockProvider>
-            </CategoryProvider>
+            <>
+                <OfflineNotice />
+                <CategoryProvider>
+                    <StockProvider>
+                        <NavigationContainer theme={navigationTheme}>
+                            {/* <SafeAreaProvider> */}
+                            <AppNavigator />
+                            {/* </SafeAreaProvider> */}
+                        </NavigationContainer>
+                    </StockProvider>
+                </CategoryProvider>
+            </>
         );
     }
 }

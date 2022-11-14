@@ -1,4 +1,10 @@
-import { createContext, useContext, useReducer } from "react";
+import React, {
+    createContext,
+    ReactChildren,
+    useContext,
+    useMemo,
+    useReducer,
+} from "react";
 
 import { stockReducer } from "./reducers";
 import { StockState } from "./state/stocks";
@@ -27,7 +33,7 @@ export const StockProvider = ({ children }: any): JSX.Element => {
     );
 
     const value = { stockState, stockDispatch };
-
+    // const stockMemo = useMemo(() => [stockState?.stocks], [stockState.stocks]);
     return (
         <StockContext.Provider value={value}>{children}</StockContext.Provider>
     );

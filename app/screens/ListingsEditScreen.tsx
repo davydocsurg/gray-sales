@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Alert, StyleSheet } from "react-native";
+import { Alert, Platform, StyleSheet } from "react-native";
 import * as Yup from "yup";
 
 import {
@@ -131,7 +131,12 @@ const ListingsEditScreen = () => {
     };
 
     return (
-        <Screen style={styles.container}>
+        <Screen
+            style={[
+                styles.container,
+                { marginBottom: Platform.OS === "android" ? 120 : 0 },
+            ]}
+        >
             <UploadScreen
                 onDone={() => setUploadVisible(false)}
                 progress={progress}

@@ -19,7 +19,7 @@ export const fetchStocks = async (dispatch: Dispatch<any>) => {
         const response = await api.get(endPoints.stocks);
         return dispatch({
             type: SET_STOCKS_DATA,
-            payload: response.data.data.stocks,
+            payload: response?.data?.data?.stocks,
         });
     } catch (error) {
         console.error(error);

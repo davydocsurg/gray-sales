@@ -6,7 +6,7 @@ import type { CategoryContextType } from "../types";
 import { CategoryState } from "./state";
 
 const CategoryContext = createContext<CategoryContextType>({
-    state: {
+    categoryState: {
         categories: [],
         errors: [],
         loading: false,

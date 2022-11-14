@@ -23,7 +23,11 @@ export default function Card({
     return (
         <TouchableWithoutFeedback onPress={onPress}>
             <View style={styles.card}>
-                <Image style={styles.image} source={imageUrl} />
+                <Image
+                    style={styles.image}
+                    defaultSource={require("../assets/images/preview.png")}
+                    source={imageUrl}
+                />
                 <View style={styles.detailsContainer}>
                     <AppText style={{ fontWeight: "700" }}>{title}</AppText>
                     <AppText style={[styles.description]}>{subtitle}</AppText>

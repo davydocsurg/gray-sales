@@ -1,7 +1,7 @@
 import { Dispatch } from "react";
 
 export interface initialStockType {
-    stocks: Array<any>;
+    stocks: [];
     errors: Array<any>;
     loading: boolean;
     success: boolean;

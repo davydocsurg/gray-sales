@@ -1,4 +1,5 @@
 import axios from "axios";
+import cache from "./cache";
 import {
     API_URL,
     NOT_FOUND,
@@ -9,6 +10,25 @@ import {
 const api = axios.create({
     baseURL: API_URL,
 });
+
+interface apiConfig {
+    url: string;
+    params: any;
+    axiosConfig: any;
+}
+
+// const get = api.get;
+// api.get = async ({ url, params, axiosConfig }: apiConfig | any) => {
+//     const response = await get(url, params);
+
+//     if (response.data.success) {
+//         cache.storeData(url, response.data);
+//         return response;
+//     }
+
+//     const data = await cache.get(url);
+//     return data ? { data } : response;
+// };
 
 api.interceptors.response.use(
     (response) => Promise.resolve(response),

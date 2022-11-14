@@ -1,4 +1,4 @@
-import { useNavigation } from "@react-navigation/native";
+import { useIsFocused, useNavigation } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
 import { SafeAreaView, Text } from "react-native";
 import { FlatList, StyleSheet } from "react-native";
@@ -18,13 +18,16 @@ import colors from "../utils/colors";
 
 export default function ListingsScreen({ navigation }: any) {
     const { stockState, stockDispatch } = useStockContext();
+    const isFocused = useIsFocused();
 
     useEffect(() => {
-        setUpStocks();
-    }, []);
+        if (isFocused) {
+            setUpStocks();
+        }
+    }, [isFocused === true]);
 
-    const setUpStocks = () => {
-        fetchStocks(stockDispatch);
+    const setUpStocks = async () => {
+        await fetchStocks(stockDispatch);
     };
 
     if (stockState?.errors) {
@@ -41,6 +44,10 @@ export default function ListingsScreen({ navigation }: any) {
     } else if (stockState?.loading) {
         <Screen style={styles.animation}>
             <LoadingIndicator visible={stockState?.loading} />
+        </Screen>;
+    } else if (stockState?.stocks.length < 1) {
+        <Screen style={styles.animation}>
+            <Text>No Stocks found!</Text>
         </Screen>;
     } else
         return (

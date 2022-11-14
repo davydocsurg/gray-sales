@@ -7,6 +7,7 @@ import Picker from "./Picker";
 import CategoryPicker from "./CategoryPicker";
 import ImageInput from "./ImageInput";
 import ImageInputList from "./ImageInputList";
+import OfflineNotice from "./OfflineNotice";
 
 export {
     Icon,
@@ -20,4 +21,5 @@ export {
     CategoryPicker,
     ImageInput,
     ImageInputList,
+    OfflineNotice,
 };
