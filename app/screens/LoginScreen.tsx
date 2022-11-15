@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import { useIsFocused } from "@react-navigation/native";
+import React, { useEffect, useState } from "react";
 import { Alert, Image, StyleSheet, Text } from "react-native";
 import * as Yup from "yup";
+import { LoadingIndicator } from "../components";
 
 import { AppForm, AppFormField, SubmitButton } from "../components/form";
 import Screen from "../components/Screen";
@@ -19,10 +21,14 @@ export default function LoginScreen({ navigation }: any) {
     const { authState, authDispatch } = useAuthContext();
     const [uploadVisible, setUploadVisible] = useState(false);
     const [progress, setProgress] = useState(0);
+    const isFocused = useIsFocused();
+
+    // useEffect(() => {
+
+    // }, [isFocused])
 
     const handleSubmit = async (values: Object, { resetForm }: any) => {
-        setProgress(0);
-        setUploadVisible(true);
+        setProgress(1);
         await login(authDispatch, values, (progress: number) =>
             setProgress(progress)
         );
@@ -31,11 +37,17 @@ export default function LoginScreen({ navigation }: any) {
             return Alert.alert(`${authState?.errors}`);
         }
 
+        if (authState.isLoggedIn) {
+            setUploadVisible(true);
+            // navigation.navigate(routes.LISTINGS);
+        }
         // return resetForm();
     };
 
     return (
         <Screen style={styles.container}>
+            <LoadingIndicator visible={authState.loading} />
+
             <UploadScreen
                 onDone={() => setUploadVisible(false)}
                 progress={progress}

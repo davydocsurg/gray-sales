@@ -28,7 +28,12 @@ const styles = StyleSheet.create({
         backgroundColor: "#fff",
         alignItems: "center",
         justifyContent: "center",
-        flex: 1,
+        // flex: 1,
+        opacity: 0.8,
+        width: "100%",
+        height: "100%",
+        zIndex: 1,
+        position: "absolute",
     },
     buttonContainer: {
         paddingTop: 20,

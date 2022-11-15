@@ -8,6 +8,7 @@ const AuthContext = createContext<AuthContextType>({
         loading: false,
         isLoggedIn: false,
         errors: [],
+        user: [],
     },
     authDispatch: () => {},
 });

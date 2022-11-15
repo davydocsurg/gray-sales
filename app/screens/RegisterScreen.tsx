@@ -7,7 +7,7 @@ import {
     AppFormField as FormField,
     SubmitButton,
 } from "../components/form";
-import { Screen } from "../components";
+import { LoadingIndicator, Screen } from "../components";
 import colors from "../utils/colors";
 import { registerUser } from "../contexts/actions";
 import { useAuthContext } from "../contexts/AuthContext";
@@ -34,6 +34,8 @@ const RegisterScreen = ({ navigation }: any) => {
 
     return (
         <Screen style={styles.container}>
+            <LoadingIndicator visible={authState.loading} />
+
             <Image
                 style={styles.logo}
                 source={require("../assets/images/logo-orange.png")}

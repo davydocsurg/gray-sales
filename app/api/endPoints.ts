@@ -5,4 +5,5 @@ export const endPoints = {
     stocks: "/stock/fetch",
     createStock: "/stock/create",
     fetchCategories: "/category/fetch",
+    authUser: "/auth-user",
 };
