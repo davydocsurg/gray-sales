@@ -11,6 +11,7 @@ const SET_STOCK_SUCCESS = "SET_STOCK_SUCCESS";
 
 // auth
 const IS_AUTHENTICATED = "IS_AUTHENTICATED";
+const SET_AUTH_ERRORS = "SET_AUTH_ERRORS";
 
 export {
     // CATEGORIES
@@ -26,4 +27,5 @@ export {
 
     // AUTH
     IS_AUTHENTICATED,
+    SET_AUTH_ERRORS,
 };

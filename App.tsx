@@ -7,6 +7,7 @@ import { StockProvider } from "./app/contexts/StockContext";
 import { CategoryProvider } from "./app/contexts/CategoryContext";
 import { OfflineNotice } from "./app/components";
 import { AuthProvider } from "./app/contexts/AuthContext";
+import AuthNavigator from "./app/navigation/AuthNavigator";
 
 export default function App() {
     const isLoadingComplete = useCachedResources();
@@ -22,7 +23,8 @@ export default function App() {
                         <StockProvider>
                             <NavigationContainer theme={navigationTheme}>
                                 {/* <SafeAreaProvider> */}
-                                <AppNavigator />
+                                {/* <AppNavigator /> */}
+                                <AuthNavigator />
                                 {/* </SafeAreaProvider> */}
                             </NavigationContainer>
                         </StockProvider>

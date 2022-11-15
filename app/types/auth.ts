@@ -2,6 +2,7 @@ import { Dispatch } from "react";
 
 interface initialAuthType {
     isLoggedIn: boolean;
+    errors: [];
 }
 
 export interface AuthContextType {
