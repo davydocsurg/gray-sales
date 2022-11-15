@@ -1,5 +1,5 @@
 import { fetchStocks, createStock } from "./stocks";
 import { fetchCategories } from "./categories";
-import { registerUser } from "./auth";
+import { registerUser, login } from "./auth";
 
-export { fetchStocks, createStock, fetchCategories, registerUser };
+export { fetchStocks, createStock, fetchCategories, registerUser, login };

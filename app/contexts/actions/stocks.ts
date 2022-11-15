@@ -47,19 +47,21 @@ export const createStock = async (
         // data.append("categoryId", values.category._id);
 
         // data.append("images", {
-        //     name: values.images.fileName,
-        //     type: values.images.type,
-        //     uri:
-        //         Platform.OS === "ios"
-        //             ? values.images.uri.replace("file://", "")
-        //             : values.images.uri,
+        //     name: "image" + new Date(),
+        //     type: "image/*",
+        //     uri: values.images,
+        //     // Platform.OS === "ios"
+        //     //     ? values.images.replace("file://", "")
+        //     //     : values.images,
         // });
         const headers = {
-            "Content-type": "application/json",
+            "Content-Type": "multipart/form-data",
         };
+
         const response = await api.post(
             endPoints.createStock,
             {
+                // body: data,
                 title: values.title,
                 description: values.description,
                 price: values.price,
@@ -67,6 +69,7 @@ export const createStock = async (
                 images: values.images,
             },
             {
+                // headers: headers,
                 onUploadProgress: (progress) =>
                     onUploadProgress(progress.loaded / progress.total!),
             }

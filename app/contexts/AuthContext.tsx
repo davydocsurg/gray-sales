@@ -5,6 +5,7 @@ import { AuthState } from "./state";
 
 const AuthContext = createContext<AuthContextType>({
     authState: {
+        loading: false,
         isLoggedIn: false,
         errors: [],
     },

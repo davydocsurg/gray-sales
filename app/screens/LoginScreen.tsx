@@ -1,11 +1,14 @@
-import React from "react";
-import { Image, StyleSheet, Text } from "react-native";
+import React, { useState } from "react";
+import { Alert, Image, StyleSheet, Text } from "react-native";
 import * as Yup from "yup";
 
 import { AppForm, AppFormField, SubmitButton } from "../components/form";
 import Screen from "../components/Screen";
+import { login } from "../contexts/actions";
+import { useAuthContext } from "../contexts/AuthContext";
 import routes from "../navigation/routes";
 import colors from "../utils/colors";
+import UploadScreen from "./UploadScreen";
 
 const validationSchema = Yup.object().shape({
     email: Yup.string().required().email().label("Email"),
@@ -13,8 +16,32 @@ const validationSchema = Yup.object().shape({
 });
 
 export default function LoginScreen({ navigation }: any) {
+    const { authState, authDispatch } = useAuthContext();
+    const [uploadVisible, setUploadVisible] = useState(false);
+    const [progress, setProgress] = useState(0);
+
+    const handleSubmit = async (values: Object, { resetForm }: any) => {
+        setProgress(0);
+        setUploadVisible(true);
+        await login(authDispatch, values, (progress: number) =>
+            setProgress(progress)
+        );
+
+        if (authState.errors?.length > 0) {
+            return Alert.alert(`${authState?.errors}`);
+        }
+
+        // return resetForm();
+    };
+
     return (
         <Screen style={styles.container}>
+            <UploadScreen
+                onDone={() => setUploadVisible(false)}
+                progress={progress}
+                visible={uploadVisible}
+            />
+
             <Image
                 style={styles.logo}
                 source={require("../assets/images/logo-orange.png")}
@@ -22,7 +49,7 @@ export default function LoginScreen({ navigation }: any) {
             <AppForm
                 initialValues={{ email: "", password: "" }}
                 onSubmit={(values: Object, formikBag: Object) =>
-                    console.log(values)
+                    handleSubmit(values, formikBag)
                 }
                 validationSchema={validationSchema}
             >

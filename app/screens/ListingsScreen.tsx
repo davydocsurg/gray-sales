@@ -45,7 +45,7 @@ export default function ListingsScreen({ navigation }: any) {
         <Screen style={styles.animation}>
             <LoadingIndicator visible={stockState?.loading} />
         </Screen>;
-    } else if (stockState?.stocks.length < 1) {
+    } else if (stockState.stocks?.length < 1) {
         <Screen style={styles.animation}>
             <Text>No Stocks found!</Text>
         </Screen>;
