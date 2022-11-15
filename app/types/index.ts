@@ -2,6 +2,7 @@ import { Message } from "./message";
 import { initialStockType, StockContextType } from "./stocks";
 import { LoginProps } from "./form";
 import { initialCategoryType, CategoryContextType } from "./categories";
+import { AuthContextType } from "./auth";
 
 export {
     Message,
@@ -10,4 +11,5 @@ export {
     StockContextType,
     initialCategoryType,
     CategoryContextType,
+    AuthContextType,
 };

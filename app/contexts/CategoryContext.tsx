@@ -11,14 +11,17 @@ const CategoryContext = createContext<CategoryContextType>({
         errors: [],
         loading: false,
     },
-    dispatch: () => {},
+    categoryDispatch: () => {},
 });
 export const useCategoryContext = () => useContext(CategoryContext);
 
 export const CategoryProvider = ({ children }: any): JSX.Element => {
-    const [state, dispatch] = useReducer<any>(categoryReducer, CategoryState);
+    const [categoryState, categoryDispatch] = useReducer<any>(
+        categoryReducer,
+        CategoryState
+    );
 
-    const value = { state, dispatch };
+    const value = { categoryState, categoryDispatch };
 
     return (
         <CategoryContext.Provider value={value}>

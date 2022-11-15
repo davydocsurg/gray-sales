@@ -6,16 +6,24 @@ import { AppFormField as FormField, SubmitButton } from "../components/form";
 import { Screen } from "../components";
 import AppForm from "../components/form/AppForm";
 import colors from "../utils/colors";
+import { registerUser } from "../contexts/actions";
+import { useAuthContext } from "../contexts/AuthContext";
 
 const validationSchema = Yup.object().shape({
     firstName: Yup.string().required().min(3).label("First Name"),
     lastName: Yup.string().required().min(3).label("Last Name"),
     email: Yup.string().required().email().label("Email"),
     password: Yup.string().required().min(8).label("Password"),
-    confirmPassword: Yup.string().required().min(8).label("Confrim Password"),
+    confirmPassword: Yup.string().required().min(8).label("Confirm Password"),
 });
 
 export default function RegisterScreen() {
+    const { authState, authDispatch } = useAuthContext();
+
+    const handleSubmit = async (fields: Object, { resetForm }: any) => {
+        await registerUser(authDispatch, fields);
+    };
+
     return (
         <Screen style={styles.container}>
             <Image
@@ -31,7 +39,9 @@ export default function RegisterScreen() {
                     password: "",
                     confirmPassword: "",
                 }}
-                onSubmit={(values: any) => console.log(values)}
+                onSubmit={(fields: Object, formikBag: Object) =>
+                    handleSubmit(values, formikBag)
+                }
                 validationSchema={validationSchema}
             >
                 <FormField

@@ -20,7 +20,9 @@ export default function LoginScreen() {
             />
             <AppForm
                 initialValues={{ email: "", password: "" }}
-                onSubmit={(values: any) => console.log(values)}
+                onSubmit={(values: Object, formikBag: Object) =>
+                    console.log(values)
+                }
                 validationSchema={validationSchema}
             >
                 <AppFormField
