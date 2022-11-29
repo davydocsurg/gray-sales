@@ -21,12 +21,6 @@ const Stack = createStackNavigator();
 const AppNavigator = () => {
     const { authState, authDispatch } = useAuthContext();
 
-    useEffect(() => {
-        console.log("==================================== fctgfhghj");
-        console.log(authState.isLoggedIn, "from appnav.tsx");
-        console.log("====================================");
-    }, [authState.isLoggedIn]);
-
     if (!authState.isLoggedIn) {
         return <AuthNavigator />;
     } else

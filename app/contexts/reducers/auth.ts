@@ -1,6 +1,7 @@
 import {
     IS_AUTHENTICATED,
     LOADING_AUTH,
+    NOT_AUTHENTICATED,
     SET_AUTH_ERRORS,
     SET_AUTH_USER,
 } from "../types";
@@ -17,9 +18,12 @@ const authReducer = (state: Object, { payload, type }: any) => {
 
         case IS_AUTHENTICATED:
             return {
-                // ...state,
                 isLoggedIn: true,
-                // loading: false,
+            };
+
+        case NOT_AUTHENTICATED:
+            return {
+                isLoggedIn: false,
             };
 
         case SET_AUTH_ERRORS:

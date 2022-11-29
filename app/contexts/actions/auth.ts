@@ -4,6 +4,7 @@ import { endPoints } from "../../api/endPoints";
 import {
     IS_AUTHENTICATED,
     LOADING_AUTH,
+    NOT_AUTHENTICATED,
     SET_AUTH_ERRORS,
     SET_AUTH_USER,
 } from "../types";
@@ -94,5 +95,15 @@ export const getAuthUser = async (dispatch: Dispatch<any>) => {
             type: SET_AUTH_ERRORS,
             payload: error?.content,
         });
+    }
+};
+
+export const logout = (dispatch: Dispatch<any>) => {
+    try {
+        dispatch({
+            type: NOT_AUTHENTICATED,
+        });
+    } catch (error: Object | any) {
+        console.error(error);
     }
 };

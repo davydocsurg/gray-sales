@@ -23,10 +23,6 @@ export default function LoginScreen({ navigation }: any) {
     const [progress, setProgress] = useState(0);
     const isFocused = useIsFocused();
 
-    useEffect(() => {
-        console.log(authState.isLoggedIn, "from login screen");
-    }, [authState.isLoggedIn]);
-
     const handleSubmit = async (values: Object, { resetForm }: any) => {
         setProgress(1);
         await login(authDispatch, values, (progress: number) =>
@@ -39,7 +35,9 @@ export default function LoginScreen({ navigation }: any) {
 
         if (authState.isLoggedIn) {
             setUploadVisible(true);
-            navigation.navigate(routes.FEED);
+            // setTimeout(() => {
+            //     navigation.navigate(routes.FEED);
+            // }, 6000);
         }
         // return resetForm();
     };
