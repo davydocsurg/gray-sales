@@ -43,11 +43,11 @@ const App = () => {
                 <CategoryProvider>
                     <StockProvider>
                         <NavigationContainer theme={navigationTheme}>
-                            {!authState.isLoggedIn ? (
+                            {/* {!authState.isLoggedIn ? (
                                 <AuthNavigator />
                             ) : (
-                                <AppNavigator />
-                            )}
+                                )} */}
+                            <AppNavigator />
                         </NavigationContainer>
                     </StockProvider>
                 </CategoryProvider>

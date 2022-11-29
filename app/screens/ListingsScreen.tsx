@@ -86,11 +86,11 @@ const ListingsScreen = ({ navigation }: any) => {
 
 const styles = StyleSheet.create({
     safeArea: {
-        paddingTop: 30,
+        // paddingTop: 30,
         backgroundColor: colors.gray,
     },
     screen: {
-        padding: 20,
+        paddingHorizontal: 20,
         backgroundColor: colors.gray,
     },
 

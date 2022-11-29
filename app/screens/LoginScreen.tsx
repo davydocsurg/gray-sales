@@ -39,7 +39,7 @@ export default function LoginScreen({ navigation }: any) {
 
         if (authState.isLoggedIn) {
             setUploadVisible(true);
-            navigation.navigate(routes.LISTINGS);
+            navigation.navigate(routes.REGISTER);
         }
         // return resetForm();
     };
