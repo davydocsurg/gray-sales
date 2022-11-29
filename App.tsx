@@ -15,12 +15,6 @@ const App = () => {
     const { authState, authDispatch } = useAuthContext();
     const [state, setstate] = useState(false);
 
-    useEffect(() => {
-        console.log("==================================== fctgfhghj");
-        console.log(authState.isLoggedIn, "from app.tsx");
-        console.log("====================================");
-    }, [authState]);
-
     // if (!isLoadingComplete) {
     //     return null;
     // }
@@ -43,10 +37,6 @@ const App = () => {
                 <CategoryProvider>
                     <StockProvider>
                         <NavigationContainer theme={navigationTheme}>
-                            {/* {!authState.isLoggedIn ? (
-                                <AuthNavigator />
-                            ) : (
-                                )} */}
                             <AppNavigator />
                         </NavigationContainer>
                     </StockProvider>

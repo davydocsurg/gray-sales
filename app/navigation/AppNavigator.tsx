@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 // import { NewListingButton, routes } from ".";
@@ -12,82 +12,95 @@ import AccountNavigator from "./AccountNavigator";
 import { ListingsEditScreen, ListingsScreen } from "../screens";
 import { createStackNavigator } from "@react-navigation/stack";
 import colors from "../utils/colors";
+import { useAuthContext } from "../contexts/AuthContext";
+import AuthNavigator from "./AuthNavigator";
 
 const Tab = createBottomTabNavigator<RootTabParamList>();
 const Stack = createStackNavigator();
 
 const AppNavigator = () => {
-    return (
-        <Tab.Navigator
-            screenOptions={({ route }) => ({
-                // tabBarInactiveTintColor: colors.brown,
-                tabBarIcon: ({ color, size }) => {
-                    if (route.name === "Feed") {
-                        return (
-                            <MaterialCommunityIcons
-                                name="home"
-                                color={color}
-                                size={size}
-                            />
-                        );
-                    }
+    const { authState, authDispatch } = useAuthContext();
 
-                    if (route.name === "ListingsEdit") {
-                        return (
-                            <MaterialCommunityIcons
-                                name="plus-circle"
-                                color={color}
-                                size={size}
-                            />
-                        );
-                    }
+    useEffect(() => {
+        console.log("==================================== fctgfhghj");
+        console.log(authState.isLoggedIn, "from appnav.tsx");
+        console.log("====================================");
+    }, [authState.isLoggedIn]);
 
-                    if (route.name === "Account") {
-                        return (
-                            <MaterialCommunityIcons
-                                name="account"
-                                color={color}
-                                size={size}
-                            />
-                        );
-                    }
-                },
-            })}
-        >
-            {/* <Stack.Screen name="Listings" component={ListingsScreen} /> */}
-            <Tab.Screen
-                name="Feed"
-                component={FeedNavigator}
-                options={{
-                    headerShown: false,
-                    headerTitle: "Feed",
-                }}
-            />
+    if (!authState.isLoggedIn) {
+        return <AuthNavigator />;
+    } else
+        return (
+            <Tab.Navigator
+                screenOptions={({ route }) => ({
+                    // tabBarInactiveTintColor: colors.brown,
+                    tabBarIcon: ({ color, size }) => {
+                        if (route.name === "Feed") {
+                            return (
+                                <MaterialCommunityIcons
+                                    name="home"
+                                    color={color}
+                                    size={size}
+                                />
+                            );
+                        }
 
-            <Tab.Screen
-                name="ListingsEdit"
-                component={ListingsEditScreen}
-                options={({ navigation }) => ({
-                    tabBarButton: () => (
-                        <NewListingButton
-                            onPress={() =>
-                                navigation.navigate(routes.LISTING_EDIT)
-                            }
-                        />
-                    ),
+                        if (route.name === "ListingsEdit") {
+                            return (
+                                <MaterialCommunityIcons
+                                    name="plus-circle"
+                                    color={color}
+                                    size={size}
+                                />
+                            );
+                        }
+
+                        if (route.name === "Account") {
+                            return (
+                                <MaterialCommunityIcons
+                                    name="account"
+                                    color={color}
+                                    size={size}
+                                />
+                            );
+                        }
+                    },
                 })}
-            />
+            >
+                {/* <Stack.Screen name="Listings" component={ListingsScreen} /> */}
+                <Tab.Screen
+                    name="Feed"
+                    component={FeedNavigator}
+                    options={{
+                        headerShown: false,
+                        headerTitle: "Feed",
+                    }}
+                />
 
-            <Tab.Screen
-                name="Account"
-                component={AccountNavigator}
-                options={{
-                    headerShown: false,
-                    headerTitle: "Account",
-                }}
-            />
-        </Tab.Navigator>
-    );
+                <Tab.Screen
+                    name="ListingsEdit"
+                    component={ListingsEditScreen}
+                    options={({ navigation }) => ({
+                        tabBarButton: () => (
+                            <NewListingButton
+                                onPress={() =>
+                                    navigation.navigate(routes.LISTING_EDIT)
+                                }
+                            />
+                        ),
+                    })}
+                />
+
+                <Tab.Screen
+                    name="Account"
+                    component={AccountNavigator}
+                    options={{
+                        headerShown: false,
+                        headerTitle: "Account",
+                    }}
+                />
+            </Tab.Navigator>
+        );
 };
 
 export default AppNavigator;

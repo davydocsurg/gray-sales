@@ -16,6 +16,7 @@ export const fetchStocks = async (dispatch: Dispatch<any>) => {
         dispatch({
             type: LOADING_STOCK_DATA,
         });
+
         const response = await api.get(endPoints.stocks);
         return dispatch({
             type: SET_STOCKS_DATA,
