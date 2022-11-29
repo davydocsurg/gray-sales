@@ -64,7 +64,6 @@ export const login = async (
 
         dispatch({
             type: IS_AUTHENTICATED,
-            payload: true,
         });
 
         // onUploadProgress = (progress: any) =>
@@ -80,6 +79,10 @@ export const login = async (
 
 export const getAuthUser = async (dispatch: Dispatch<any>) => {
     try {
+        dispatch({
+            type: LOADING_AUTH,
+            payload: true,
+        });
         const response = await api.get(endPoints.authUser);
         dispatch({
             type: SET_AUTH_USER,

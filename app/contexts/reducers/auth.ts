@@ -17,9 +17,9 @@ const authReducer = (state: Object, { payload, type }: any) => {
 
         case IS_AUTHENTICATED:
             return {
-                ...state,
-                isLoggedIn: payload,
-                loading: false,
+                // ...state,
+                isLoggedIn: true,
+                // loading: false,
             };
 
         case SET_AUTH_ERRORS:

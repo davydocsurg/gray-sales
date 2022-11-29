@@ -1,8 +1,8 @@
 // API Constants
 
 // baseurl
-export const BASE_URL = "http://192.168.0.101:8080/";
-export const API_URL = "http://192.168.0.101:8080/api/";
+export const BASE_URL = "http://20.20.0.17:8080/";
+export const API_URL = "http://20.20.0.17:8080/api/";
 
 // HTTP 401
 export const UNAUTHORIZED = "Session expired. Please login";

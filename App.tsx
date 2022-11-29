@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 
 import navigationTheme from "./app/navigation/navigationTheme";
@@ -8,36 +9,51 @@ import { CategoryProvider } from "./app/contexts/CategoryContext";
 import { OfflineNotice } from "./app/components";
 import { AuthProvider, useAuthContext } from "./app/contexts/AuthContext";
 import AuthNavigator from "./app/navigation/AuthNavigator";
-import { useEffect } from "react";
 
-export default function App() {
+const App = () => {
     const isLoadingComplete = useCachedResources();
     const { authState, authDispatch } = useAuthContext();
+    const [state, setstate] = useState(false);
 
-    // useEffect(() => {
+    useEffect(() => {
+        console.log("==================================== fctgfhghj");
+        console.log(authState.isLoggedIn, "from app.tsx");
+        console.log("====================================");
+    }, [authState]);
 
-    // }, [authState.isLoggedIn]);
+    // if (!isLoadingComplete) {
+    //     return null;
+    // }
+    // if (authState.isLoggedIn === false) {
+    //     return (
+    //         <>
+    //             <OfflineNotice />
+    //             <AuthProvider>
+    //                 <NavigationContainer theme={navigationTheme}>
+    //                     <AuthNavigator />
+    //                 </NavigationContainer>
+    //             </AuthProvider>
+    //         </>
+    //     );
+    // } else
+    return (
+        <>
+            <OfflineNotice />
+            <AuthProvider>
+                <CategoryProvider>
+                    <StockProvider>
+                        <NavigationContainer theme={navigationTheme}>
+                            {!authState.isLoggedIn ? (
+                                <AuthNavigator />
+                            ) : (
+                                <AppNavigator />
+                            )}
+                        </NavigationContainer>
+                    </StockProvider>
+                </CategoryProvider>
+            </AuthProvider>
+        </>
+    );
+};
 
-    if (!isLoadingComplete) {
-        return null;
-    } else {
-        return (
-            <>
-                <OfflineNotice />
-                <AuthProvider>
-                    <CategoryProvider>
-                        <StockProvider>
-                            <NavigationContainer theme={navigationTheme}>
-                                {authState.isLoggedIn === false ? (
-                                    <AuthNavigator />
-                                ) : (
-                                    <AppNavigator />
-                                )}
-                            </NavigationContainer>
-                        </StockProvider>
-                    </CategoryProvider>
-                </AuthProvider>
-            </>
-        );
-    }
-}
+export default App;

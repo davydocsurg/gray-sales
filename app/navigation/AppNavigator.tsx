@@ -9,13 +9,16 @@ import FeedNavigator from "./FeedNavigator";
 import NewListingButton from "./NewListingButton";
 import routes from "./routes";
 import AccountNavigator from "./AccountNavigator";
-import { ListingsEditScreen } from "../screens";
+import { ListingsEditScreen, ListingsScreen } from "../screens";
+import { createStackNavigator } from "@react-navigation/stack";
 
 const Tab = createBottomTabNavigator<RootTabParamList>();
+const Stack = createStackNavigator();
 
 const AppNavigator = () => {
     return (
         <Tab.Navigator>
+            {/* <Stack.Screen name="Listings" component={ListingsScreen} /> */}
             <Tab.Screen
                 name="Feed"
                 component={FeedNavigator}

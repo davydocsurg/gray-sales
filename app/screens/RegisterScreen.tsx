@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { View, Text, StyleSheet, Image, Alert } from "react-native";
 import * as Yup from "yup";
 
@@ -23,6 +23,10 @@ const validationSchema = Yup.object().shape({
 
 const RegisterScreen = ({ navigation }: any) => {
     const { authState, authDispatch } = useAuthContext();
+
+    // useEffect(() => {
+    //     console.log(authState.isLoggedIn, "from register screen");
+    // }, [authState.isLoggedIn]);
 
     const handleSubmit = async (values: Object, { resetForm }: any) => {
         await registerUser(authDispatch, values);

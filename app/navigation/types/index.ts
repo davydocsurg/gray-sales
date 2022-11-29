@@ -14,9 +14,13 @@ type Welcome = {
 };
 
 export type RootStackParamList = {
-    Home: NavigatorScreenParams<HomeTabParamList>;
-    PostDetails: { id: string };
-    NotFound: undefined;
+    // Home: NavigatorScreenParams<HomeTabParamList>;
+    // PostDetails: { id: string };
+    // NotFound: undefined;
+    Feed: undefined;
+    Listings: undefined;
+    ListingsEdit: undefined;
+    Account: undefined;
 };
 
 export type RootStackScreenProps<T extends keyof RootStackParamList> =
@@ -24,6 +28,7 @@ export type RootStackScreenProps<T extends keyof RootStackParamList> =
 
 export type HomeTabParamList = {
     Feed: undefined;
+    Listings: undefined;
     ListingsEdit: undefined;
     Account: undefined;
     Details: Details;
