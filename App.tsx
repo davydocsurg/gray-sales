@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 
 import navigationTheme from "./app/navigation/navigationTheme";
@@ -6,26 +7,43 @@ import AppNavigator from "./app/navigation/AppNavigator";
 import { StockProvider } from "./app/contexts/StockContext";
 import { CategoryProvider } from "./app/contexts/CategoryContext";
 import { OfflineNotice } from "./app/components";
+import { AuthProvider, useAuthContext } from "./app/contexts/AuthContext";
+import AuthNavigator from "./app/navigation/AuthNavigator";
 
-export default function App() {
+const App = () => {
     const isLoadingComplete = useCachedResources();
+    const { authState, authDispatch } = useAuthContext();
+    const [state, setstate] = useState(false);
 
-    if (!isLoadingComplete) {
-        return null;
-    } else {
-        return (
-            <>
-                <OfflineNotice />
+    // if (!isLoadingComplete) {
+    //     return null;
+    // }
+    // if (authState.isLoggedIn === false) {
+    //     return (
+    //         <>
+    //             <OfflineNotice />
+    //             <AuthProvider>
+    //                 <NavigationContainer theme={navigationTheme}>
+    //                     <AuthNavigator />
+    //                 </NavigationContainer>
+    //             </AuthProvider>
+    //         </>
+    //     );
+    // } else
+    return (
+        <>
+            <OfflineNotice />
+            <AuthProvider>
                 <CategoryProvider>
                     <StockProvider>
                         <NavigationContainer theme={navigationTheme}>
-                            {/* <SafeAreaProvider> */}
                             <AppNavigator />
-                            {/* </SafeAreaProvider> */}
                         </NavigationContainer>
                     </StockProvider>
                 </CategoryProvider>
-            </>
-        );
-    }
-}
+            </AuthProvider>
+        </>
+    );
+};
+
+export default App;

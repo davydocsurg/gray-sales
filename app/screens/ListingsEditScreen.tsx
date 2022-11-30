@@ -82,7 +82,7 @@ const validationSchema = Yup.object().shape({
 // ];
 
 const ListingsEditScreen = () => {
-    const { state, dispatch } = useCategoryContext();
+    const { categoryState, categoryDispatch } = useCategoryContext();
 
     const { stockState, stockDispatch } = useStockContext();
 
@@ -95,7 +95,7 @@ const ListingsEditScreen = () => {
     }, []);
 
     const setUpCategories = () => {
-        fetchCategories(dispatch);
+        fetchCategories(categoryDispatch);
     };
 
     const handleSubmit = async (values: Object, { resetForm }: any) => {
@@ -171,7 +171,7 @@ const ListingsEditScreen = () => {
                 <Picker
                     PickerItemComponent={CategoryPicker}
                     numberOfColumns={3}
-                    items={state?.categories}
+                    items={categoryState?.categories}
                     name="category"
                     placeholder="Category"
                     onPress={setUpCategories}

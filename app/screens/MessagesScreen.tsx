@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { View, Text, FlatList } from "react-native";
+import { LoadingIndicator } from "../components";
 import ListItem from "../components/lists/ListItem";
 import ListItemDeleteAction from "../components/lists/ListItemDeleteAction";
 import ListItemSeparator from "../components/lists/ListItemSeparator";
 import Screen from "../components/Screen";
+import { useAuthContext } from "../contexts/AuthContext";
 import { Message } from "../types";
 
 const initialMessages = [
@@ -26,6 +28,7 @@ const initialMessages = [
 export default function MessagesScreen() {
     const [messages, setMessages] = useState(initialMessages);
     const [refreshing, setRefreshing] = useState(false);
+    const { authState, authDispatch } = useAuthContext();
 
     const handleDelete = (message: Message) => {
         // Delete the message from messages
@@ -34,6 +37,7 @@ export default function MessagesScreen() {
 
     return (
         <Screen>
+            <LoadingIndicator visible={authState.loading} />
             <FlatList
                 data={messages}
                 keyExtractor={(msg) => msg.id.toString()}

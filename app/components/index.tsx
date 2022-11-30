@@ -8,6 +8,7 @@ import CategoryPicker from "./CategoryPicker";
 import ImageInput from "./ImageInput";
 import ImageInputList from "./ImageInputList";
 import OfflineNotice from "./OfflineNotice";
+import LoadingIndicator from "./LoadingIndicator";
 
 export {
     Icon,
@@ -22,4 +23,5 @@ export {
     ImageInput,
     ImageInputList,
     OfflineNotice,
+    LoadingIndicator,
 };

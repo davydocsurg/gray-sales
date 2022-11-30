@@ -15,7 +15,7 @@ export default function WelcomeScreen({ navigation }: any) {
                 <View style={styles.logoContainer}>
                     <Image
                         style={styles.logo}
-                        source={require("../assets/images/logo.png")}
+                        source={require("../assets/images/logo-white.png")}
                     />
                     {/* <Text style={styles.titleHead}>Gray Sales</Text> */}
                 </View>
@@ -38,8 +38,9 @@ export default function WelcomeScreen({ navigation }: any) {
 
 const styles = StyleSheet.create({
     logo: {
-        width: 200,
-        height: 200,
+        marginTop: 70,
+        width: 120,
+        height: 120,
     },
 
     background: {

@@ -1,8 +1,10 @@
 import { useIsFocused, useNavigation } from "@react-navigation/native";
+import { StackScreenProps } from "@react-navigation/stack";
 import React, { useEffect, useState } from "react";
 import { SafeAreaView, Text } from "react-native";
 import { FlatList, StyleSheet } from "react-native";
 import { Screen } from "react-native-screens";
+import { RootStackScreenProps } from "../../types";
 import { BASE_URL } from "../api/constants";
 
 // locals
@@ -13,10 +15,13 @@ import LoadingIndicator from "../components/LoadingIndicator";
 import { fetchStocks } from "../contexts/actions";
 import { useStockContext } from "../contexts/StockContext";
 import routes from "../navigation/routes";
+import { RootStackParamList } from "../navigation/types";
 import { ListingsApiRes, Stock } from "../types/listings";
 import colors from "../utils/colors";
 
-export default function ListingsScreen({ navigation }: any) {
+type ListingsProps = StackScreenProps<RootStackParamList, "Listings">;
+
+const ListingsScreen = ({ navigation }: any) => {
     const { stockState, stockDispatch } = useStockContext();
     const isFocused = useIsFocused();
 
@@ -45,7 +50,7 @@ export default function ListingsScreen({ navigation }: any) {
         <Screen style={styles.animation}>
             <LoadingIndicator visible={stockState?.loading} />
         </Screen>;
-    } else if (stockState?.stocks.length < 1) {
+    } else if (stockState.stocks?.length < 1) {
         <Screen style={styles.animation}>
             <Text>No Stocks found!</Text>
         </Screen>;
@@ -77,15 +82,15 @@ export default function ListingsScreen({ navigation }: any) {
                 </Screen>
             </SafeAreaView>
         );
-}
+};
 
 const styles = StyleSheet.create({
     safeArea: {
-        paddingTop: 30,
+        // paddingTop: 30,
         backgroundColor: colors.gray,
     },
     screen: {
-        padding: 20,
+        paddingHorizontal: 20,
         backgroundColor: colors.gray,
     },
 
@@ -102,3 +107,5 @@ const styles = StyleSheet.create({
         paddingVertical: 480,
     },
 });
+
+export default ListingsScreen;

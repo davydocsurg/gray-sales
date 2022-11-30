@@ -8,5 +8,5 @@ export interface initialCategoryType {
 
 export interface CategoryContextType {
     categoryState: initialCategoryType;
-    dispatch: Dispatch<any>;
+    categoryDispatch: Dispatch<any>;
 }
