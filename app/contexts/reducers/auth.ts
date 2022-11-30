@@ -4,6 +4,7 @@ import {
     NOT_AUTHENTICATED,
     SET_AUTH_ERRORS,
     SET_AUTH_USER,
+    STOP_LOADING_AUTH,
 } from "../types";
 
 const authReducer = (state: Object, { payload, type }: any) => {
@@ -14,6 +15,11 @@ const authReducer = (state: Object, { payload, type }: any) => {
                 isLoggedIn: false,
                 errors: [],
                 loading: true,
+            };
+
+        case STOP_LOADING_AUTH:
+            return {
+                loading: false,
             };
 
         case IS_AUTHENTICATED:

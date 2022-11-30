@@ -7,6 +7,7 @@ import {
     NOT_AUTHENTICATED,
     SET_AUTH_ERRORS,
     SET_AUTH_USER,
+    STOP_LOADING_AUTH,
 } from "../types";
 
 export const registerUser = async (dispatch: Dispatch<any>, fields: any) => {
@@ -20,18 +21,18 @@ export const registerUser = async (dispatch: Dispatch<any>, fields: any) => {
             email: fields.email,
             password: fields.password,
         });
-        console.log("====================================");
-        console.log(response);
-        console.log("====================================");
-        if (response.data?.data.success) {
-            // dispatch({
-            //     type: IS_AUTHENTICATED,
-            //     payload: true,
-            // });
-            console.log("====================================");
-            console.log("registered");
-            console.log("====================================");
+
+        if (response.data?.success) {
+            dispatch({
+                type: STOP_LOADING_AUTH,
+                payload: false,
+            });
+            return true;
         }
+        dispatch({
+            type: STOP_LOADING_AUTH,
+            payload: false,
+        });
     } catch (error: Object | any) {
         // console.error(error);
         dispatch({

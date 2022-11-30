@@ -24,15 +24,15 @@ const validationSchema = Yup.object().shape({
 const RegisterScreen = ({ navigation }: any) => {
     const { authState, authDispatch } = useAuthContext();
 
-    // useEffect(() => {
-    //     console.log(authState.isLoggedIn, "from register screen");
-    // }, [authState.isLoggedIn]);
-
     const handleSubmit = async (values: Object, { resetForm }: any) => {
-        await registerUser(authDispatch, values);
+        const registered = await registerUser(authDispatch, values);
 
         if (authState.errors?.length > 0) {
             return Alert.alert(`${authState?.errors}`);
+        }
+
+        if (registered) {
+            navigation.navigate(routes.LOGIN);
         }
     };
 
