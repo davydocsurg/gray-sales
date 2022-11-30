@@ -36,44 +36,49 @@ export const fetchStocks = async (dispatch: Dispatch<any>) => {
 export const createStock = async (
     dispatch: Dispatch<any>,
     values: any,
-    image: any,
-    onUploadProgress: Function
+    image: any
+    // onUploadProgress: Function
 ) => {
     try {
-        // const data = new FormData();
+        const data = new FormData();
 
-        // data.append("title", values.title);
-        // data.append("description", values.description);
-        // data.append("price", values.price);
-        // data.append("categoryId", values.category._id);
+        data.append("title", values.title);
+        data.append("description", values.description);
+        data.append("price", values.price);
+        data.append("categoryId", values.category._id);
+        // data.append("images", values.images[0]);
 
-        // data.append("images", {
-        //     name: "image" + new Date(),
-        //     type: "image/*",
-        //     uri: values.images,
-        //     // Platform.OS === "ios"
-        //     //     ? values.images.replace("file://", "")
-        //     //     : values.images,
-        // });
-        const headers = {
-            "Content-Type": "multipart/form-data",
+        data.append("images", {
+            uri: values.images[0],
+            name: values.title.trim() + new Date().toISOString(),
+            type: "images/png",
+        });
+
+        const config = {
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "multipart/form-data",
+            },
+            body: data,
         };
+        // return console.log(data?._parts);
 
         const response = await api.post(
             endPoints.createStock,
-            {
-                // body: data,
-                title: values.title,
-                description: values.description,
-                price: values.price,
-                categoryId: values.category._id,
-                images: values.images,
-            },
-            {
-                // headers: headers,
-                onUploadProgress: (progress) =>
-                    onUploadProgress(progress.loaded / progress.total!),
-            }
+            config
+            // {
+            // body: data,
+            // title: values.title,
+            // description: values.description,
+            // price: values.price,
+            // categoryId: values.category._id,
+            // images: values.images,
+            // },
+            // {
+            // headers: headers,
+            // onUploadProgress: (progress) =>
+            //     onUploadProgress(progress.loaded / progress.total!),
+            // }
         );
 
         if (response.data.success) {

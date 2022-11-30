@@ -99,11 +99,12 @@ const ListingsEditScreen = () => {
     };
 
     const handleSubmit = async (values: Object, { resetForm }: any) => {
-        setProgress(0);
-        setUploadVisible(true);
-        await createStock(stockDispatch, values, image, (progress: number) =>
-            setProgress(progress)
-        );
+        // setProgress(0);
+        // setUploadVisible(true);
+        await createStock(stockDispatch, values, image);
+        // (progress: number)
+        //  =>
+        // setProgress(progress)
 
         if (!stockState?.success) {
             setUploadVisible(false);
@@ -125,9 +126,9 @@ const ListingsEditScreen = () => {
             }, 1000);
         }
 
-        resetForm({
-            values: "",
-        });
+        // resetForm({
+        //     values: "",
+        // });
     };
 
     return (
