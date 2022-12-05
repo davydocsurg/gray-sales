@@ -35,28 +35,30 @@ export const fetchStocks = async (dispatch: Dispatch<any>) => {
 
 export const createStock = async (
     dispatch: Dispatch<any>,
-    values: any,
-    image: any
+    values: any
     // onUploadProgress: Function
 ) => {
     try {
         const data = new FormData();
-
+        const photo: any = {
+            uri: values.images[0].uri,
+            name: values.images[0].name,
+            type: values.images[0].type,
+        };
         data.append("title", values.title);
         data.append("description", values.description);
         data.append("price", values.price);
         data.append("categoryId", values.category._id);
-        // data.append("images", values.images[0]);
+        data.append("images", photo);
 
-        data.append("images", {
-            uri: values.images[0],
-            name: values.title.trim() + new Date().toISOString(),
-            type: "images/png",
-        });
+        // data.append("images", {
+        //     uri: values.images[0],
+        //     name: values.title.trim() + new Date().toISOString(),
+        //     type: "images/png",
+        // });
 
         const config = {
             headers: {
-                Accept: "application/json",
                 "Content-Type": "multipart/form-data",
             },
             body: data,
@@ -65,7 +67,10 @@ export const createStock = async (
 
         const response = await api.post(
             endPoints.createStock,
-            config
+            data,
+            {
+                headers: { "Content-Type": "multipart/form-data" },
+            }
             // {
             // body: data,
             // title: values.title,

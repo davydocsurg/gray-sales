@@ -50,7 +50,7 @@ const ImageInput = ({ imageUri, onChangeImage }: ImageInputProps) => {
             });
 
             if (!result.cancelled) {
-                onChangeImage(result.uri);
+                onChangeImage(result);
             }
         } catch (error) {
             console.log("Error reading an image", error);

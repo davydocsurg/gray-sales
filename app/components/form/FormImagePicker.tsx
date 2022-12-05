@@ -15,7 +15,17 @@ const FormImagePicker = ({ fieldName = "" }: FieldName) => {
     const imageUris = values.images;
 
     const handleAdd = (uri: any) => {
-        setFieldValue(fieldName!, [...imageUris, uri]);
+        console.log("====================================");
+        console.log(uri);
+        let localUri = uri.uri;
+        let filename = localUri.split("/").pop();
+        // Infer the type of the image
+        let match = /\.(\w+)$/.exec(filename);
+        let type = match ? `image/${match[1]}` : `image`;
+        const photo = { uri: localUri, name: filename, type };
+        let arr = [...imageUris];
+        arr.push(photo);
+        setFieldValue(fieldName!, arr);
     };
 
     const handleRemove = (uri: any) => {

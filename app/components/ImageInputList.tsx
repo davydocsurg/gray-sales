@@ -14,7 +14,9 @@ function ImageInputList({
     onAddImage,
 }: ImageInputListProps) {
     const scrollView = useRef();
-
+    console.log("====================================");
+    console.log(imageUris);
+    console.log("====================================");
     return (
         <View>
             <ScrollView
@@ -23,11 +25,11 @@ function ImageInputList({
                 onContentSizeChange={() => scrollView.current?.scrollToEnd()}
             >
                 <View style={styles.container}>
-                    {imageUris?.map((uri: any) => (
-                        <View key={uri} style={styles.image}>
+                    {imageUris?.map((item: any, index) => (
+                        <View key={index} style={styles.image}>
                             <ImageInput
-                                imageUri={uri}
-                                onChangeImage={() => onRemoveImage(uri)}
+                                imageUri={item.uri}
+                                onChangeImage={() => onRemoveImage(item.uri)}
                             />
                         </View>
                     ))}

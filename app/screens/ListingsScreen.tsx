@@ -1,3 +1,4 @@
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useIsFocused, useNavigation } from "@react-navigation/native";
 import { StackScreenProps } from "@react-navigation/stack";
 import React, { useEffect, useState } from "react";
@@ -47,13 +48,26 @@ const ListingsScreen = ({ navigation }: any) => {
             </Screen>
         );
     } else if (stockState?.loading) {
-        <Screen style={styles.animation}>
-            <LoadingIndicator visible={stockState?.loading} />
-        </Screen>;
-    } else if (stockState.stocks?.length < 1) {
-        <Screen style={styles.animation}>
-            <Text>No Stocks found!</Text>
-        </Screen>;
+        return (
+            <Screen style={styles.animation}>
+                <LoadingIndicator visible={stockState?.loading} />
+            </Screen>
+        );
+    } else if (
+        stockState.stocks?.length < 1 ||
+        stockState.stocks == undefined
+    ) {
+        return (
+            <Screen style={styles.emptyStockContainer}>
+                <MaterialCommunityIcons
+                    name="flask-empty-minus-outline"
+                    size={60}
+                    color={colors.orange}
+                    style={styles.emptyIcon}
+                />
+                <Text style={styles.emptyStock}>No Stocks found!</Text>
+            </Screen>
+        );
     } else
         return (
             <SafeAreaView style={styles.safeArea}>
@@ -105,6 +119,22 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
         paddingVertical: 480,
+    },
+
+    emptyStockContainer: {
+        justifyContent: "center",
+        flex: 1,
+    },
+
+    emptyStock: {
+        color: colors.brown,
+        alignSelf: "center",
+        fontSize: 30,
+        fontWeight: "bold",
+    },
+
+    emptyIcon: {
+        alignSelf: "center",
     },
 });
 

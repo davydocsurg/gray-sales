@@ -15,6 +15,7 @@ import { useCategoryContext } from "../contexts/CategoryContext";
 import { createStock, fetchCategories } from "../contexts/actions";
 import UploadScreen from "./UploadScreen";
 import { useStockContext } from "../contexts/StockContext";
+import routes from "../navigation/routes";
 
 const validationSchema = Yup.object().shape({
     title: Yup.string().required().min(3).label("Title"),
@@ -81,7 +82,7 @@ const validationSchema = Yup.object().shape({
 //     },
 // ];
 
-const ListingsEditScreen = () => {
+const ListingsEditScreen = ({ navigation }: any) => {
     const { categoryState, categoryDispatch } = useCategoryContext();
 
     const { stockState, stockDispatch } = useStockContext();
@@ -101,7 +102,8 @@ const ListingsEditScreen = () => {
     const handleSubmit = async (values: Object, { resetForm }: any) => {
         // setProgress(0);
         // setUploadVisible(true);
-        await createStock(stockDispatch, values, image);
+
+        await createStock(stockDispatch, values);
         // (progress: number)
         //  =>
         // setProgress(progress)
@@ -129,6 +131,7 @@ const ListingsEditScreen = () => {
         // resetForm({
         //     values: "",
         // });
+        // navigation.navigate(routes.FEED);
     };
 
     return (
