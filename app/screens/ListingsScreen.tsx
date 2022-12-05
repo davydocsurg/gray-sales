@@ -80,7 +80,7 @@ const ListingsScreen = ({ navigation }: any) => {
                                 title={item?.title}
                                 description={"$" + item?.price}
                                 imageUrl={{
-                                    uri: BASE_URL + item?.images,
+                                    uri: BASE_URL + item?.images[0].path,
                                 }}
                                 onPress={() =>
                                     navigation.navigate(

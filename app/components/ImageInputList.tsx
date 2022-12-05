@@ -14,9 +14,7 @@ function ImageInputList({
     onAddImage,
 }: ImageInputListProps) {
     const scrollView = useRef();
-    console.log("====================================");
-    console.log(imageUris);
-    console.log("====================================");
+
     return (
         <View>
             <ScrollView

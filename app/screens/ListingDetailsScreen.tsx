@@ -13,7 +13,7 @@ export default function ListingDetailsScreen({ route }: any) {
         <View>
             <Image
                 style={styles.image}
-                source={{ uri: BASE_URL + listing?.images }}
+                source={{ uri: BASE_URL + listing?.images[0].path }}
             />
             <View style={styles.detailsContainer}>
                 <AppText style={styles.title}>{listing.title}</AppText>

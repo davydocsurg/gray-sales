@@ -10,8 +10,6 @@ import {
 } from "../types";
 
 export const fetchStocks = async (dispatch: Dispatch<any>) => {
-    // return async (dispatch: Function) => {
-
     try {
         dispatch({
             type: LOADING_STOCK_DATA,
@@ -30,7 +28,6 @@ export const fetchStocks = async (dispatch: Dispatch<any>) => {
             payload: error,
         });
     }
-    // };
 };
 
 export const createStock = async (
@@ -51,40 +48,9 @@ export const createStock = async (
         data.append("categoryId", values.category._id);
         data.append("images", photo);
 
-        // data.append("images", {
-        //     uri: values.images[0],
-        //     name: values.title.trim() + new Date().toISOString(),
-        //     type: "images/png",
-        // });
-
-        const config = {
-            headers: {
-                "Content-Type": "multipart/form-data",
-            },
-            body: data,
-        };
-        // return console.log(data?._parts);
-
-        const response = await api.post(
-            endPoints.createStock,
-            data,
-            {
-                headers: { "Content-Type": "multipart/form-data" },
-            }
-            // {
-            // body: data,
-            // title: values.title,
-            // description: values.description,
-            // price: values.price,
-            // categoryId: values.category._id,
-            // images: values.images,
-            // },
-            // {
-            // headers: headers,
-            // onUploadProgress: (progress) =>
-            //     onUploadProgress(progress.loaded / progress.total!),
-            // }
-        );
+        const response = await api.post(endPoints.createStock, data, {
+            headers: { "Content-Type": "multipart/form-data" },
+        });
 
         if (response.data.success) {
             dispatch({

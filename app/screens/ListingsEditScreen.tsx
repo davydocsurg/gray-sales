@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Alert, Platform, StyleSheet } from "react-native";
+import { Alert, Platform, ScrollView, StyleSheet } from "react-native";
 import * as Yup from "yup";
 
 import {
@@ -128,71 +128,77 @@ const ListingsEditScreen = ({ navigation }: any) => {
             }, 1000);
         }
 
-        // resetForm({
-        //     values: "",
-        // });
-        // navigation.navigate(routes.FEED);
+        resetForm({
+            values: "",
+        });
+        navigation.navigate(routes.FEED);
     };
 
     return (
-        <Screen
-            style={[
-                styles.container,
-                { marginBottom: Platform.OS === "android" ? 120 : 0 },
-            ]}
-        >
-            <UploadScreen
-                onDone={() => setUploadVisible(false)}
-                progress={progress}
-                visible={uploadVisible}
-            />
-
-            <Form
-                initialValues={{
-                    title: "",
-                    price: "",
-                    description: "",
-                    category: null,
-                    images: [],
-                }}
-                validationSchema={validationSchema}
-                onSubmit={(values: Object, formikBag: Object) =>
-                    handleSubmit(values, formikBag)
-                }
+        <ScrollView>
+            <Screen
+                style={[
+                    styles.container,
+                    { marginBottom: Platform.OS === "android" ? 120 : 0 },
+                ]}
             >
-                {/* {({ handleBlur, values, errors }) => ( */}
-                <FormImagePicker fieldName="images" />
-
-                <FormField maxLength={255} name="title" placeholder="Title" />
-
-                <FormField
-                    keyboardType="numeric"
-                    maxLength={8}
-                    name="price"
-                    placeholder="Price"
+                <UploadScreen
+                    onDone={() => setUploadVisible(false)}
+                    progress={progress}
+                    visible={uploadVisible}
                 />
 
-                <Picker
-                    PickerItemComponent={CategoryPicker}
-                    numberOfColumns={3}
-                    items={categoryState?.categories}
-                    name="category"
-                    placeholder="Category"
-                    onPress={setUpCategories}
-                />
+                <Form
+                    initialValues={{
+                        title: "",
+                        price: "",
+                        description: "",
+                        category: null,
+                        images: [],
+                    }}
+                    validationSchema={validationSchema}
+                    onSubmit={(values: Object, formikBag: Object) =>
+                        handleSubmit(values, formikBag)
+                    }
+                >
+                    {/* {({ handleBlur, values, errors }) => ( */}
+                    <FormImagePicker fieldName="images" />
 
-                <FormField
-                    maxLength={255}
-                    multiline
-                    name="description"
-                    numberOfLines={3}
-                    placeholder="Description"
-                />
+                    <FormField
+                        maxLength={255}
+                        name="title"
+                        placeholder="Title"
+                    />
 
-                <SubmitButton title="Submit" color={colors.orange} />
-                {/* )} */}
-            </Form>
-        </Screen>
+                    <FormField
+                        keyboardType="numeric"
+                        maxLength={8}
+                        name="price"
+                        placeholder="Price"
+                    />
+
+                    <Picker
+                        PickerItemComponent={CategoryPicker}
+                        numberOfColumns={3}
+                        items={categoryState?.categories}
+                        name="category"
+                        placeholder="Category"
+                        onPress={setUpCategories}
+                    />
+
+                    <FormField
+                        maxLength={255}
+                        multiline
+                        name="description"
+                        numberOfLines={3}
+                        placeholder="Description"
+                    />
+
+                    <SubmitButton title="Submit" color={colors.orange} />
+                    {/* )} */}
+                </Form>
+            </Screen>
+        </ScrollView>
     );
 };
 
