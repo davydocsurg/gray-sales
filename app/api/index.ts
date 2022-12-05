@@ -17,6 +17,7 @@ interface apiConfig {
     axiosConfig: any;
 }
 
+// cache
 // const get = api.get;
 // api.get = async ({ url, params, axiosConfig }: apiConfig | any) => {
 //     const response = await get(url, params);

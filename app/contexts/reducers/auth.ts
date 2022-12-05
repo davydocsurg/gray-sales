@@ -24,12 +24,12 @@ const authReducer = (state: Object, { payload, type }: any) => {
 
         case IS_AUTHENTICATED:
             return {
-                isLoggedIn: true,
+                isLoggedIn: payload,
             };
 
         case NOT_AUTHENTICATED:
             return {
-                isLoggedIn: false,
+                isLoggedIn: payload,
             };
 
         case SET_AUTH_ERRORS:

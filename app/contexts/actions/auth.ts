@@ -1,4 +1,7 @@
 import { Dispatch } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+// locals
 import api from "../../api";
 import { endPoints } from "../../api/endPoints";
 import {
@@ -64,8 +67,10 @@ export const login = async (
             });
         }
 
+        await storeAuthUserToken(response.data?.data.token);
         dispatch({
             type: IS_AUTHENTICATED,
+            payload: true,
         });
 
         // onUploadProgress = (progress: any) =>
@@ -76,6 +81,14 @@ export const login = async (
             type: SET_AUTH_ERRORS,
             payload: error?.content,
         });
+    }
+};
+
+const storeAuthUserToken = async (token: string) => {
+    try {
+        await AsyncStorage.setItem("authToken", token);
+    } catch (e) {
+        console.error(e);
     }
 };
 
@@ -99,12 +112,29 @@ export const getAuthUser = async (dispatch: Dispatch<any>) => {
     }
 };
 
-export const logout = (dispatch: Dispatch<any>) => {
+export const logout = async (dispatch: Dispatch<any>) => {
     try {
+        await AsyncStorage.removeItem("authToken");
         dispatch({
             type: NOT_AUTHENTICATED,
+            payload: false,
         });
     } catch (error: Object | any) {
+        console.error(error);
+    }
+};
+
+export const checkAuthUser = async (dispatch: Dispatch<any>) => {
+    try {
+        const authToken = await AsyncStorage.getItem("authToken");
+
+        if (authToken !== null) {
+            dispatch({
+                type: IS_AUTHENTICATED,
+                payload: true,
+            });
+        }
+    } catch (error: unknown) {
         console.error(error);
     }
 };

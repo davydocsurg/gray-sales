@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { View, Text, StyleSheet, Image, Alert } from "react-native";
+import { View, Text, StyleSheet, Image, Alert, ScrollView } from "react-native";
 import * as Yup from "yup";
 
 import {
@@ -37,36 +37,37 @@ const RegisterScreen = ({ navigation }: any) => {
     };
 
     return (
-        <Screen style={styles.container}>
-            <LoadingIndicator visible={authState.loading} />
+        <ScrollView>
+            <Screen style={styles.container}>
+                <LoadingIndicator visible={authState.loading} />
 
-            <Image
-                style={styles.logo}
-                source={require("../assets/images/logo-orange.png")}
-            />
-
-            <Form
-                initialValues={{
-                    name: "",
-                    email: "",
-                    password: "",
-                    confirmPassword: "",
-                }}
-                validationSchema={validationSchema}
-                onSubmit={(values: Object, formikBag: Object) =>
-                    handleSubmit(values, formikBag)
-                }
-            >
-                <FormField
-                    autoCapitalize="none"
-                    autoCorrect={false}
-                    icon="account"
-                    keyboardType="default"
-                    name="name"
-                    placeholder="Name"
+                <Image
+                    style={styles.logo}
+                    source={require("../assets/images/logo-orange.png")}
                 />
 
-                {/* <FormField
+                <Form
+                    initialValues={{
+                        name: "",
+                        email: "",
+                        password: "",
+                        confirmPassword: "",
+                    }}
+                    validationSchema={validationSchema}
+                    onSubmit={(values: Object, formikBag: Object) =>
+                        handleSubmit(values, formikBag)
+                    }
+                >
+                    <FormField
+                        autoCapitalize="none"
+                        autoCorrect={false}
+                        icon="account"
+                        keyboardType="default"
+                        name="name"
+                        placeholder="Name"
+                    />
+
+                    {/* <FormField
                     autoCapitalize="none"
                     autoCorrect={false}
                     icon=""
@@ -75,49 +76,50 @@ const RegisterScreen = ({ navigation }: any) => {
                     placeholder="Last name"
                 /> */}
 
-                <FormField
-                    autoCapitalize="none"
-                    autoCorrect={false}
-                    icon="email"
-                    keyboardType="email-address"
-                    name="email"
-                    placeholder="Email"
-                    textContentType="emailAddress"
-                />
+                    <FormField
+                        autoCapitalize="none"
+                        autoCorrect={false}
+                        icon="email"
+                        keyboardType="email-address"
+                        name="email"
+                        placeholder="Email"
+                        textContentType="emailAddress"
+                    />
 
-                <FormField
-                    autoCapitalize="none"
-                    autoCorrect={false}
-                    icon="lock"
-                    name="password"
-                    placeholder="Password"
-                    secureTextEntry
-                    textContentType="password"
-                />
+                    <FormField
+                        autoCapitalize="none"
+                        autoCorrect={false}
+                        icon="lock"
+                        name="password"
+                        placeholder="Password"
+                        secureTextEntry
+                        textContentType="password"
+                    />
 
-                <FormField
-                    autoCapitalize="none"
-                    autoCorrect={false}
-                    icon="lock"
-                    name="confirmPassword"
-                    placeholder="Confirm Password"
-                    secureTextEntry
-                    textContentType="password"
-                />
+                    <FormField
+                        autoCapitalize="none"
+                        autoCorrect={false}
+                        icon="lock"
+                        name="confirmPassword"
+                        placeholder="Confirm Password"
+                        secureTextEntry
+                        textContentType="password"
+                    />
 
-                <SubmitButton color={colors.orange} title="register" />
-            </Form>
+                    <SubmitButton color={colors.orange} title="register" />
+                </Form>
 
-            <Text style={styles.loginMsg}>
-                <Text>Already have an account? </Text>
-                <Text
-                    onPress={() => navigation.navigate(routes.LOGIN)}
-                    style={styles.loginLink}
-                >
-                    Login
+                <Text style={styles.loginMsg}>
+                    <Text>Already have an account? </Text>
+                    <Text
+                        onPress={() => navigation.navigate(routes.LOGIN)}
+                        style={styles.loginLink}
+                    >
+                        Login
+                    </Text>
                 </Text>
-            </Text>
-        </Screen>
+            </Screen>
+        </ScrollView>
     );
 };
 

@@ -19,3 +19,5 @@ export const SERVICE_UNAVAILABLE =
 
 export const PREFIX = "cache";
 export const EXPIRY_MINS = 5;
+
+export const AUTH_USER = "AUTH_USER";
