@@ -70,7 +70,7 @@ const ListingsScreen = ({ navigation }: any) => {
         );
     } else
         return (
-            <SafeAreaView style={styles.safeArea}>
+            <SafeAreaView>
                 <Screen style={styles.screen}>
                     <FlatList
                         data={stockState?.stocks}
@@ -101,10 +101,10 @@ const ListingsScreen = ({ navigation }: any) => {
 const styles = StyleSheet.create({
     safeArea: {
         // paddingTop: 30,
-        backgroundColor: colors.gray,
+        // backgroundColor: colors.gray,
     },
     screen: {
-        paddingHorizontal: 20,
+        paddingHorizontal: 10,
         backgroundColor: colors.gray,
     },
 

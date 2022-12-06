@@ -1,5 +1,8 @@
-import React from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useIsFocused } from "@react-navigation/native";
+import React, { useEffect, useState } from "react";
 import { View, StyleSheet, FlatList } from "react-native";
+import { BASE_URL } from "../api/constants";
 
 // locals
 import Icon from "../components/Icon";
@@ -8,6 +11,7 @@ import ListItemSeparator from "../components/lists/ListItemSeparator";
 import Screen from "../components/Screen";
 import { logout } from "../contexts/actions/auth";
 import { useAuthContext } from "../contexts/AuthContext";
+import { AuthUserDetails } from "../types";
 import colors from "../utils/colors";
 
 const menuItems = [
@@ -31,18 +35,31 @@ const menuItems = [
 
 export default function AccountScreen({ navigation }: any) {
     const { authDispatch } = useAuthContext();
+    const isFocused = useIsFocused();
+    const [authUserDetails, setAuthUserDetails] = useState<AuthUserDetails>();
+
+    useEffect(() => {
+        getAuthUser();
+    }, [isFocused === true]);
 
     const handleLogout = () => {
         logout(authDispatch);
+    };
+
+    const getAuthUser = async () => {
+        const authUser = await AsyncStorage.getItem("authUser");
+        // if (authUser) {
+        setAuthUserDetails(JSON.parse(authUser!));
+        // }
     };
 
     return (
         <Screen style={styles.screen}>
             <View style={styles.container}>
                 <ListItem
-                    title="David Ndubuisi"
-                    subTitle="davydocsurg@gmail.com"
-                    image={require("../assets/images/avatar.jpg")}
+                    title={authUserDetails?.name!}
+                    subTitle={authUserDetails?.email!}
+                    image={{ uri: BASE_URL + authUserDetails?.photo }}
                 />
             </View>
             <View style={styles.container}>

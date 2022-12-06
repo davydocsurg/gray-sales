@@ -13,7 +13,14 @@ import {
     STOP_LOADING_AUTH,
 } from "../types";
 
-export const registerUser = async (dispatch: Dispatch<any>, fields: any) => {
+interface Fields {
+    name: string;
+    email: string;
+    password: string;
+    passwordConfirmation: string;
+}
+
+export const registerUser = async (dispatch: Dispatch<any>, fields: Fields) => {
     try {
         dispatch({
             type: LOADING_AUTH,
@@ -23,6 +30,7 @@ export const registerUser = async (dispatch: Dispatch<any>, fields: any) => {
             name: fields.name,
             email: fields.email,
             password: fields.password,
+            passwordConfirmation: fields.passwordConfirmation,
         });
 
         if (response.data?.success) {
@@ -67,7 +75,8 @@ export const login = async (
             });
         }
 
-        await storeAuthUserToken(response.data?.data.token);
+        await storeAuthUserToken(response.data?.token);
+        await storeAuthUser(response.data?.user);
         dispatch({
             type: IS_AUTHENTICATED,
             payload: true,
@@ -89,6 +98,15 @@ const storeAuthUserToken = async (token: string) => {
         await AsyncStorage.setItem("authToken", token);
     } catch (e) {
         console.error(e);
+    }
+};
+
+const storeAuthUser = async (authUser: Object) => {
+    try {
+        const data = JSON.stringify(authUser);
+        await AsyncStorage.setItem("authUser", data);
+    } catch (error: unknown) {
+        console.error(error);
     }
 };
 

@@ -17,6 +17,9 @@ export default function ListingDetailsScreen({ route }: any) {
             />
             <View style={styles.detailsContainer}>
                 <AppText style={styles.title}>{listing.title}</AppText>
+                <AppText style={styles.description}>
+                    {listing.description}
+                </AppText>
                 <AppText style={styles.price}>${listing.price}</AppText>
 
                 <ListItem
@@ -40,6 +43,10 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 24,
         fontWeight: "500",
+    },
+    description: {
+        fontSize: 14,
+        fontWeight: "300",
     },
     price: {
         color: colors.secondary,

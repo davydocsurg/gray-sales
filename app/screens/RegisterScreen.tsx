@@ -18,7 +18,10 @@ const validationSchema = Yup.object().shape({
     // lastName: Yup.string().required().min(3).label("Last Name"),
     email: Yup.string().required().email().label("Email"),
     password: Yup.string().required().min(8).label("Password"),
-    confirmPassword: Yup.string().required().min(8).label("Confirm Password"),
+    passwordConfirmation: Yup.string()
+        .required()
+        .min(8)
+        .label("Confirm Password"),
 });
 
 const RegisterScreen = ({ navigation }: any) => {
@@ -51,7 +54,7 @@ const RegisterScreen = ({ navigation }: any) => {
                         name: "",
                         email: "",
                         password: "",
-                        confirmPassword: "",
+                        passwordConfirmation: "",
                     }}
                     validationSchema={validationSchema}
                     onSubmit={(values: Object, formikBag: Object) =>
@@ -100,7 +103,7 @@ const RegisterScreen = ({ navigation }: any) => {
                         autoCapitalize="none"
                         autoCorrect={false}
                         icon="lock"
-                        name="confirmPassword"
+                        name="passwordConfirmation"
                         placeholder="Confirm Password"
                         secureTextEntry
                         textContentType="password"
