@@ -13,6 +13,7 @@ export const fetchStocks = async (dispatch: Dispatch<any>) => {
     try {
         dispatch({
             type: LOADING_STOCK_DATA,
+            payload: true,
         });
 
         const response = await api.get(endPoints.stocks);
@@ -30,12 +31,27 @@ export const fetchStocks = async (dispatch: Dispatch<any>) => {
     }
 };
 
+export const fetchStockOwner = async (dispatch: Dispatch<any>, id: any) => {
+    try {
+        const response = await api.get(endPoints.stockOwner + id, id);
+        // console.log(response.data);
+
+        return response.data;
+    } catch (error: unknown) {
+        console.error(error);
+    }
+};
+
 export const createStock = async (
     dispatch: Dispatch<any>,
     values: any
     // onUploadProgress: Function
 ) => {
     try {
+        dispatch({
+            type: LOADING_STOCK_DATA,
+            payload: true,
+        });
         const data = new FormData();
         const photo: any = {
             uri: values.images[0].uri,

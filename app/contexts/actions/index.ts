@@ -1,4 +1,4 @@
-import { fetchStocks, createStock } from "./stocks";
+import { fetchStocks, createStock, fetchStockOwner } from "./stocks";
 import { fetchCategories } from "./categories";
 import { registerUser, login, checkAuthUser } from "./auth";
 
@@ -9,4 +9,5 @@ export {
     registerUser,
     login,
     checkAuthUser,
+    fetchStockOwner,
 };

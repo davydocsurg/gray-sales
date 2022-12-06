@@ -23,7 +23,7 @@ const stockReducer = (state: Object, { payload, type }: any) => {
 
         case LOADING_STOCK_DATA:
             return {
-                loading: true,
+                loading: payload,
             };
 
         case SET_STOCK_SUCCESS:

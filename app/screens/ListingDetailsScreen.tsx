@@ -1,13 +1,29 @@
-import React, { useEffect } from "react";
+import { useIsFocused } from "@react-navigation/native";
+import React, { useEffect, useState } from "react";
 import { View, Text, Image, StyleSheet } from "react-native";
 import { BASE_URL } from "../api/constants";
 import AppText from "../commons/AppText";
 import ListItem from "../components/lists/ListItem";
 import { APIUtils } from "../constants/ApiUtils";
+import { fetchStockOwner } from "../contexts/actions";
+import { useStockContext } from "../contexts/StockContext";
+import { AuthUserDetails } from "../types";
 import colors from "../utils/colors";
 
 export default function ListingDetailsScreen({ route }: any) {
     const listing = route.params;
+    const { stockDispatch } = useStockContext();
+    const isFocused = useIsFocused();
+    const [stockOwner, setstockOwner] = useState<AuthUserDetails>();
+
+    useEffect(() => {
+        getOwner();
+    }, [isFocused === true]);
+
+    const getOwner = async () => {
+        const stockOwner = await fetchStockOwner(stockDispatch, listing.user);
+        setstockOwner(stockOwner?.data?.user);
+    };
 
     return (
         <View>
@@ -23,8 +39,8 @@ export default function ListingDetailsScreen({ route }: any) {
                 <AppText style={styles.price}>${listing.price}</AppText>
 
                 <ListItem
-                    image={require("../assets/images/avatar.jpg")}
-                    title="David Avas"
+                    image={{ uri: BASE_URL + stockOwner?.photo }}
+                    title={stockOwner?.name!}
                     subTitle="5 Listings"
                 />
             </View>
