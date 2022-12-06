@@ -1,3 +1,4 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import cache from "./cache";
 import {
@@ -16,6 +17,16 @@ interface apiConfig {
     params: any;
     axiosConfig: any;
 }
+
+api.interceptors.request.use(async (request) => {
+    const token = await AsyncStorage.getItem("authToken");
+
+    if (token && request.headers) {
+        request.headers!.Authorization = `Bearer ${token}`;
+    }
+
+    return request;
+});
 
 // cache
 // const get = api.get;
