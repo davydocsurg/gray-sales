@@ -9,7 +9,7 @@ import Icon from "../components/Icon";
 import ListItem from "../components/lists/ListItem";
 import ListItemSeparator from "../components/lists/ListItemSeparator";
 import Screen from "../components/Screen";
-import { logout } from "../contexts/actions/auth";
+import { getAuthUser, logout } from "../contexts/actions/auth";
 import { useAuthContext } from "../contexts/AuthContext";
 import { AuthUserDetails } from "../types";
 import colors from "../utils/colors";
@@ -37,29 +37,41 @@ export default function AccountScreen({ navigation }: any) {
     const { authDispatch } = useAuthContext();
     const isFocused = useIsFocused();
     const [authUserDetails, setAuthUserDetails] = useState<AuthUserDetails>();
+    const [refreshing, setRefreshing] = useState<boolean>(false);
 
     useEffect(() => {
-        getAuthUser();
+        storeAuthUser();
     }, [isFocused === true]);
 
     const handleLogout = () => {
         logout(authDispatch);
     };
 
-    const getAuthUser = async () => {
+    const storeAuthUser = async () => {
         const authUser = await AsyncStorage.getItem("authUser");
-        // if (authUser) {
         setAuthUserDetails(JSON.parse(authUser!));
-        // }
+    };
+
+    const refreshAuthUser = async () => {
+        await getAuthUser(authDispatch);
+        storeAuthUser();
     };
 
     return (
         <Screen style={styles.screen}>
             <View style={styles.container}>
+                {/* <FlatList
+                    refreshing={refreshing}
+                    onRefresh={() => console.log("ndfkn")}
+                /> */}
                 <ListItem
                     title={authUserDetails?.name!}
                     subTitle={authUserDetails?.email!}
-                    image={{ uri: BASE_URL + authUserDetails?.photo }}
+                    image={{
+                        uri:
+                            BASE_URL +
+                            authUserDetails?.photo.replace("public", ""),
+                    }}
                 />
             </View>
             <View style={styles.container}>
@@ -67,6 +79,8 @@ export default function AccountScreen({ navigation }: any) {
                     data={menuItems}
                     keyExtractor={(menuItem) => menuItem.title}
                     ItemSeparatorComponent={ListItemSeparator}
+                    refreshing={refreshing}
+                    onRefresh={refreshAuthUser}
                     renderItem={({ item }) => (
                         <ListItem
                             title={item.title}

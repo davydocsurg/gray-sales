@@ -4,7 +4,6 @@ import { View, Text, Image, StyleSheet } from "react-native";
 import { BASE_URL } from "../api/constants";
 import AppText from "../commons/AppText";
 import ListItem from "../components/lists/ListItem";
-import { APIUtils } from "../constants/ApiUtils";
 import { fetchStockOwner } from "../contexts/actions";
 import { useStockContext } from "../contexts/StockContext";
 import { AuthUserDetails } from "../types";
@@ -15,14 +14,17 @@ export default function ListingDetailsScreen({ route }: any) {
     const { stockDispatch } = useStockContext();
     const isFocused = useIsFocused();
     const [stockOwner, setstockOwner] = useState<AuthUserDetails>();
+    const [stocksCount, setStocksCount] = useState<string>();
 
     useEffect(() => {
         getOwner();
+        console.log(stockOwner);
     }, [isFocused === true]);
 
     const getOwner = async () => {
         const stockOwner = await fetchStockOwner(stockDispatch, listing.user);
         setstockOwner(stockOwner?.data?.user);
+        setStocksCount(stockOwner?.data?.userStocksCount);
     };
 
     return (
@@ -39,9 +41,13 @@ export default function ListingDetailsScreen({ route }: any) {
                 <AppText style={styles.price}>${listing.price}</AppText>
 
                 <ListItem
-                    image={{ uri: BASE_URL + stockOwner?.photo }}
+                    image={{
+                        uri: BASE_URL + stockOwner?.photo.replace("public", ""),
+                    }}
                     title={stockOwner?.name!}
-                    subTitle="5 Listings"
+                    subTitle={`${stocksCount!} ${
+                        +stocksCount! > 1 ? "listings" : "listing"
+                    }`}
                 />
             </View>
         </View>

@@ -103,8 +103,11 @@ const storeAuthUserToken = async (token: string) => {
 
 const storeAuthUser = async (authUser: Object) => {
     try {
+        console.log(authUser);
+
         const data = JSON.stringify(authUser);
-        await AsyncStorage.setItem("authUser", data);
+
+        await AsyncStorage.mergeItem("authUser", data);
     } catch (error: unknown) {
         console.error(error);
     }
@@ -117,6 +120,8 @@ export const getAuthUser = async (dispatch: Dispatch<any>) => {
             payload: true,
         });
         const response = await api.get(endPoints.authUser);
+
+        storeAuthUser(response.data?.data?.user);
         dispatch({
             type: SET_AUTH_USER,
             payload: response.data,
