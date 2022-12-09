@@ -66,19 +66,20 @@ export default function AccountScreen({ navigation }: any) {
                     refreshing={refreshing}
                     onRefresh={() => console.log("ndfkn")}
                 /> */}
-                <Pressable
+                {/* <Pressable
                     onPress={() => navigation.navigate(routes.USER_PROFILE)}
-                >
-                    <ListItem
-                        title={authState.user?.name!}
-                        subTitle={authState.user?.email!}
-                        image={{
-                            uri:
-                                BASE_URL +
-                                authState.user?.photo.replace("public", ""),
-                        }}
-                    />
-                </Pressable>
+                > */}
+                <ListItem
+                    title={authState.user?.name!}
+                    subTitle={authState.user?.email!}
+                    image={{
+                        uri:
+                            BASE_URL +
+                            authState.user?.photo.replace("public", ""),
+                    }}
+                    listAction={() => navigation.navigate(routes.USER_PROFILE)}
+                />
+                {/* </Pressable> */}
             </View>
 
             <View style={styles.container}>
