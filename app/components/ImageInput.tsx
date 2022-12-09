@@ -15,16 +15,17 @@ interface ImageInputProps {
     imageUri?: any;
     onChangeImage: Function;
     imageRadius: number;
+    size: number;
 }
 
 const ImageInput = ({
     imageUri,
     onChangeImage,
     imageRadius,
+    size,
 }: ImageInputProps) => {
     useEffect(() => {
         requestPermission();
-        console.log(imageRadius);
     }, []);
 
     const requestPermission = async () => {
@@ -65,7 +66,12 @@ const ImageInput = ({
 
     return (
         <TouchableWithoutFeedback onPress={handlePress}>
-            <View style={[styles.container, { borderRadius: imageRadius }]}>
+            <View
+                style={[
+                    styles.container,
+                    { borderRadius: imageRadius, height: size, width: size },
+                ]}
+            >
                 {!imageUri && (
                     <MaterialCommunityIcons
                         color={colors.medium}
@@ -74,7 +80,10 @@ const ImageInput = ({
                     />
                 )}
                 {imageUri && (
-                    <Image source={{ uri: imageUri }} style={styles.image} />
+                    <Image
+                        source={{ uri: imageUri }}
+                        style={{ height: size, width: size }}
+                    />
                 )}
             </View>
         </TouchableWithoutFeedback>
@@ -86,11 +95,11 @@ const styles = StyleSheet.create({
         alignItems: "center",
         backgroundColor: colors.light,
         // borderRadius: ,
-        height: 100,
+        // height: 100,
         justifyContent: "center",
         marginVertical: 10,
         overflow: "hidden",
-        width: 100,
+        // width: 100,
     },
     image: {
         height: "100%",

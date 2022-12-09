@@ -7,6 +7,8 @@ interface ImageInputListProps {
     onRemoveImage: Function;
     onAddImage: any;
     imageRadius?: number;
+    size: number;
+    hideImageUploader?: boolean;
 }
 
 function ImageInputList({
@@ -14,6 +16,8 @@ function ImageInputList({
     onRemoveImage,
     onAddImage,
     imageRadius,
+    size,
+    hideImageUploader = true,
 }: ImageInputListProps) {
     const scrollView = useRef();
 
@@ -28,16 +32,20 @@ function ImageInputList({
                     {imageUris?.map((item: any, index) => (
                         <View key={index} style={styles.image}>
                             <ImageInput
+                                size={size!}
                                 imageRadius={imageRadius!}
                                 imageUri={item.uri}
                                 onChangeImage={() => onRemoveImage(item.uri)}
                             />
                         </View>
                     ))}
-                    <ImageInput
-                        imageRadius={imageRadius!}
-                        onChangeImage={(uri: any) => onAddImage(uri)}
-                    />
+                    {hideImageUploader && (
+                        <ImageInput
+                            size={size!}
+                            imageRadius={imageRadius!}
+                            onChangeImage={(uri: any) => onAddImage(uri)}
+                        />
+                    )}
                 </View>
             </ScrollView>
         </View>

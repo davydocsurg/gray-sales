@@ -9,13 +9,15 @@ import {
     AppFormField as FormField,
     AppFormPicker as Picker,
     FormImagePicker,
+    ProfileImagePicker,
     SubmitButton,
 } from "../components/form";
+import colors from "../utils/colors";
 
 const validationSchema = Yup.object().shape({
     name: Yup.string().required().min(3).label("Name"),
     email: Yup.number().required().min(3).max(10000).label("Email"),
-    photo: Yup.array().min(1, "Please select at least one image."),
+    profilePhoto: Yup.array().min(1, "Please select at least one image."),
 });
 
 const UpdateProfileScreen = () => {
@@ -31,7 +33,7 @@ const UpdateProfileScreen = () => {
                     initialValues={{
                         name: "",
                         email: "",
-                        photo: [],
+                        profilePhoto: [],
                     }}
                     validationSchema={validationSchema}
                     onSubmit={() => console.log("")}
@@ -39,9 +41,23 @@ const UpdateProfileScreen = () => {
                     //     handleSubmit(values, formikBag)
                     // }
                 >
-                    <FormImagePicker imageRadius={50} fieldName="photo" />
+                    {/* <View style={{ alignItems: "center" }}> */}
+                    <ProfileImagePicker
+                        size={140}
+                        imageRadius={70}
+                        fieldName="profilePhoto"
+                    />
+                    {/* </View> */}
 
                     <FormField maxLength={255} name="name" placeholder="Name" />
+
+                    <FormField
+                        maxLength={255}
+                        name="email"
+                        placeholder="Email"
+                    />
+
+                    <SubmitButton color={colors.orange} title={"Update"} />
                 </Form>
             </Screen>
         </ScrollView>
@@ -51,6 +67,7 @@ const UpdateProfileScreen = () => {
 const styles = StyleSheet.create({
     container: {
         padding: 10,
+        flex: 1,
         // alignItems: "center",
     },
 });

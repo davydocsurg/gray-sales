@@ -18,7 +18,6 @@ export default function ListingDetailsScreen({ route }: any) {
 
     useEffect(() => {
         getOwner();
-        console.log(stockOwner);
     }, [isFocused === true]);
 
     const getOwner = async () => {

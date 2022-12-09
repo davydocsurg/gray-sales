@@ -7,10 +7,11 @@ import {
     AppFormField as FormField,
     AppFormPicker as Picker,
     SubmitButton,
+    FormImagePicker,
 } from "../components/form";
 import { Screen, CategoryPicker } from "../components";
 import colors from "../utils/colors";
-import { FormImagePicker } from "../components/form";
+// import { FormImagePicker } from "../components/form";
 import { useCategoryContext } from "../contexts/CategoryContext";
 import { createStock, fetchCategories } from "../contexts/actions";
 import UploadScreen from "./UploadScreen";
@@ -101,7 +102,7 @@ const ListingsEditScreen = ({ navigation }: any) => {
 
     const handleSubmit = async (values: Object, { resetForm }: any) => {
         // setProgress(0);
-        // setUploadVisible(true);
+        setUploadVisible(true);
 
         await createStock(stockDispatch, values);
         // (progress: number)
@@ -131,6 +132,8 @@ const ListingsEditScreen = ({ navigation }: any) => {
         resetForm({
             values: "",
         });
+        setUploadVisible(false);
+
         navigation.navigate(routes.FEED);
     };
 
@@ -162,7 +165,11 @@ const ListingsEditScreen = ({ navigation }: any) => {
                     }
                 >
                     {/* {({ handleBlur, values, errors }) => ( */}
-                    <FormImagePicker imageRadius={15} fieldName="images" />
+                    <FormImagePicker
+                        size={100}
+                        imageRadius={15}
+                        fieldName="images"
+                    />
 
                     <FormField
                         maxLength={255}
