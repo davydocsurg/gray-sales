@@ -7,4 +7,5 @@ export default Object.freeze({
     REGISTER: "Register",
     ACCOUNT: "Account",
     USER_PROFILE: "Profile",
+    UPDATE_PROFILE: "Update Profile",
 });

@@ -108,7 +108,7 @@ const ListingsEditScreen = ({ navigation }: any) => {
         //  =>
         // setProgress(progress)
 
-        if (!stockState?.success) {
+        if (stockState?.success === false) {
             setUploadVisible(false);
             setTimeout(() => {
                 return Alert.alert(
@@ -125,7 +125,7 @@ const ListingsEditScreen = ({ navigation }: any) => {
                         onDismiss: () => {},
                     }
                 );
-            }, 1000);
+            }, 1500);
         }
 
         resetForm({
@@ -162,7 +162,7 @@ const ListingsEditScreen = ({ navigation }: any) => {
                     }
                 >
                     {/* {({ handleBlur, values, errors }) => ( */}
-                    <FormImagePicker fieldName="images" />
+                    <FormImagePicker imageRadius={15} fieldName="images" />
 
                     <FormField
                         maxLength={255}

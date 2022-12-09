@@ -14,17 +14,23 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 interface ImageInputProps {
     imageUri?: any;
     onChangeImage: Function;
+    imageRadius: number;
 }
 
-const ImageInput = ({ imageUri, onChangeImage }: ImageInputProps) => {
+const ImageInput = ({
+    imageUri,
+    onChangeImage,
+    imageRadius,
+}: ImageInputProps) => {
     useEffect(() => {
         requestPermission();
+        console.log(imageRadius);
     }, []);
 
     const requestPermission = async () => {
         const { granted } = await ImagePicker.getMediaLibraryPermissionsAsync();
-        if (!granted)
-            alert("You need to enable permission to access the library.");
+        // if (!granted)
+        //     alert("You need to enable permission to access the library.");
     };
 
     const handlePress = () => {
@@ -59,7 +65,7 @@ const ImageInput = ({ imageUri, onChangeImage }: ImageInputProps) => {
 
     return (
         <TouchableWithoutFeedback onPress={handlePress}>
-            <View style={styles.container}>
+            <View style={[styles.container, { borderRadius: imageRadius }]}>
                 {!imageUri && (
                     <MaterialCommunityIcons
                         color={colors.medium}
@@ -79,7 +85,7 @@ const styles = StyleSheet.create({
     container: {
         alignItems: "center",
         backgroundColor: colors.light,
-        borderRadius: 15,
+        // borderRadius: ,
         height: 100,
         justifyContent: "center",
         marginVertical: 10,

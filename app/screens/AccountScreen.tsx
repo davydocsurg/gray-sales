@@ -87,8 +87,11 @@ export default function AccountScreen({ navigation }: any) {
 
                     <AppButton
                         color={colors.orange}
-                        onPress={() => console.log("kd")}
-                        title={"Edit Profile >"}
+                        onPress={() =>
+                            navigation.navigate(routes.UPDATE_PROFILE)
+                        }
+                        title={"Edit Profile"}
+                        icon={"chevron-right"}
                     />
                 </View>
             </View>

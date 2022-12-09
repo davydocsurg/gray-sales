@@ -6,9 +6,10 @@ import ErrorMessage from "./ErrorMessage";
 
 interface FieldName {
     fieldName: string;
+    imageRadius?: number;
 }
 
-const FormImagePicker = ({ fieldName = "" }: FieldName) => {
+const FormImagePicker = ({ fieldName = "", imageRadius }: FieldName) => {
     const { errors, setFieldValue, handleChange, values, handleBlur } =
         useFormikContext<FormikValues>();
 
@@ -35,6 +36,7 @@ const FormImagePicker = ({ fieldName = "" }: FieldName) => {
     return (
         <>
             <ImageInputList
+                imageRadius={imageRadius!}
                 imageUris={imageUris}
                 onAddImage={handleAdd}
                 onRemoveImage={handleRemove}

@@ -1,3 +1,4 @@
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import colors from "../utils/colors";
@@ -6,15 +7,30 @@ interface ButtonProps {
     title: string;
     color: string;
     onPress: any;
+    icon?: any;
 }
 
-export default function AppButton({ title, color, onPress }: ButtonProps) {
+export default function AppButton({
+    title,
+    color,
+    onPress,
+    icon,
+}: ButtonProps) {
     return (
         <TouchableOpacity
             style={[styles.button, { backgroundColor: color }]}
             onPress={onPress}
         >
-            <Text style={styles.text}>{title}</Text>
+            <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <Text style={styles.text}>{title}</Text>
+                {icon && (
+                    <MaterialCommunityIcons
+                        color={colors.white}
+                        name={icon}
+                        size={25}
+                    />
+                )}
+            </View>
         </TouchableOpacity>
     );
 }
