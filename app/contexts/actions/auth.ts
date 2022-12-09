@@ -11,6 +11,7 @@ import {
     SET_AUTH_ERRORS,
     SET_AUTH_USER,
     STOP_LOADING_AUTH,
+    UPDATE_PROFILE_SUCCESS,
 } from "../types";
 
 interface Fields {
@@ -160,7 +161,7 @@ export const checkAuthUser = async (dispatch: Dispatch<any>) => {
     }
 };
 
-export const storeAuthUser = async (dispatch: Dispatch<any>) => {
+export const fetchAuthUser = async (dispatch: Dispatch<any>) => {
     let authUser = await AsyncStorage.getItem("authUser");
     // setAuthUserDetails(JSON.parse(authUser!));
     authUser = JSON.parse(authUser!);
@@ -170,4 +171,43 @@ export const storeAuthUser = async (dispatch: Dispatch<any>) => {
         type: SET_AUTH_USER,
         payload: authUser,
     });
+};
+
+export const updateProfileInfo = async (
+    dispatch: Dispatch<any>,
+    values: any
+) => {
+    try {
+        const data = new FormData();
+        const photo: any = {
+            uri: values.profilePhoto[0].uri,
+            name: values.profilePhoto[0].name,
+            type: values.profilePhoto[0].type,
+        };
+        data.append("name", values.name);
+        data.append("email", values.email);
+        data.append("photo", photo);
+
+        let authUser = await AsyncStorage.getItem("authUser");
+        authUser = JSON.parse(authUser!);
+
+        const response = await api.put(
+            endPoints.updateProfile + authUser?._id,
+            data,
+            {
+                headers: { "Content-Type": "multipart/form-data" },
+            }
+        );
+
+        if (response.data.success) {
+            // restoreAuthUser(response.data.data);
+            logout(dispatch);
+            // dispatch({
+            //     type: UPDATE_PROFILE_SUCCESS,
+            //     payload: "updated",
+            // });
+        }
+    } catch (error: unknown) {
+        console.error(error);
+    }
 };

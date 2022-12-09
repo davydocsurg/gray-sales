@@ -42,6 +42,7 @@ const ProfileImagePicker = ({
         let arr = [...imageUris];
         let filter = arr.filter((item) => item.uri !== uri);
         setFieldValue(fieldName, filter);
+        setShowImageUploader(true);
     };
 
     return (

@@ -5,6 +5,7 @@ interface initialAuthType {
     errors: [];
     user: AuthUserDetails;
     loading: boolean;
+    profileUpdateSuccess: string;
 }
 
 export interface AuthContextType {

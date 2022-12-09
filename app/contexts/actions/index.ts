@@ -5,8 +5,9 @@ import {
     login,
     checkAuthUser,
     getAuthUser,
-    storeAuthUser,
+    fetchAuthUser,
     logout,
+    updateProfileInfo,
 } from "./auth";
 
 export {
@@ -18,6 +19,7 @@ export {
     checkAuthUser,
     fetchStockOwner,
     getAuthUser,
-    storeAuthUser,
+    fetchAuthUser,
     logout,
+    updateProfileInfo,
 };

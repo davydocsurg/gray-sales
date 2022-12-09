@@ -45,6 +45,10 @@ const authReducer = (state: Object, { payload, type }: any) => {
                 user: payload,
             };
 
+        case SET_AUTH_USER:
+            return {
+                profileUpdateSuccess: payload,
+            };
         default:
             break;
     }

@@ -19,7 +19,7 @@ import Icon from "../components/Icon";
 import ListItem from "../components/lists/ListItem";
 import ListItemSeparator from "../components/lists/ListItemSeparator";
 import Screen from "../components/Screen";
-import { getAuthUser, logout, storeAuthUser } from "../contexts/actions";
+import { getAuthUser, logout, fetchAuthUser } from "../contexts/actions";
 import { useAuthContext } from "../contexts/AuthContext";
 import routes from "../navigation/routes";
 import { AuthUserDetails } from "../types";
@@ -54,6 +54,10 @@ export default function AccountScreen({ navigation }: any) {
         handleStoreAuthUser();
     }, [isFocused === true]);
 
+    // useEffect(() => {
+    //     refreshAuthUser();
+    // }, [authState.profileUpdateSuccess == "updated"]);
+
     const handleLogout = () => {
         logout(authDispatch);
     };
@@ -61,7 +65,8 @@ export default function AccountScreen({ navigation }: any) {
     const handleStoreAuthUser = async () => {
         // const authUser = await AsyncStorage.getItem("authUser");
         // setAuthUserDetails(JSON.parse(authUser!));
-        storeAuthUser(authDispatch);
+        // getAuthUser(authDispatch);
+        fetchAuthUser(authDispatch);
     };
 
     const refreshAuthUser = async () => {

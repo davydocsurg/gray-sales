@@ -21,6 +21,7 @@ const AuthContext = createContext<AuthContextType>({
             updatedAt: "",
             verificationStatus: "",
         },
+        profileUpdateSuccess: "",
     },
     authDispatch: () => {},
 });
