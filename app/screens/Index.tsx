@@ -8,6 +8,7 @@ import RegisterScreen from "./RegisterScreen";
 import MessagesScreen from "./MessagesScreen";
 import AccountScreen from "./AccountScreen";
 import UploadScreen from "./UploadScreen";
+import UserProfileScreen from "./UserProfileScreen";
 
 export {
     WelcomeScreen,
@@ -20,4 +21,5 @@ export {
     AccountScreen,
     ListingsEditScreen,
     UploadScreen,
+    UserProfileScreen,
 };

@@ -1,6 +1,13 @@
 import { fetchStocks, createStock, fetchStockOwner } from "./stocks";
 import { fetchCategories } from "./categories";
-import { registerUser, login, checkAuthUser } from "./auth";
+import {
+    registerUser,
+    login,
+    checkAuthUser,
+    getAuthUser,
+    storeAuthUser,
+    logout,
+} from "./auth";
 
 export {
     fetchStocks,
@@ -10,4 +17,7 @@ export {
     login,
     checkAuthUser,
     fetchStockOwner,
+    getAuthUser,
+    storeAuthUser,
+    logout,
 };

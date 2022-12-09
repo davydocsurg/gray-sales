@@ -1,16 +1,17 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useIsFocused } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
-import { View, StyleSheet, FlatList } from "react-native";
-import { BASE_URL } from "../api/constants";
+import { View, StyleSheet, FlatList, Pressable } from "react-native";
 
 // locals
+import { BASE_URL } from "../api/constants";
 import Icon from "../components/Icon";
 import ListItem from "../components/lists/ListItem";
 import ListItemSeparator from "../components/lists/ListItemSeparator";
 import Screen from "../components/Screen";
-import { getAuthUser, logout } from "../contexts/actions/auth";
+import { getAuthUser, logout, storeAuthUser } from "../contexts/actions";
 import { useAuthContext } from "../contexts/AuthContext";
+import routes from "../navigation/routes";
 import { AuthUserDetails } from "../types";
 import colors from "../utils/colors";
 
@@ -34,27 +35,28 @@ const menuItems = [
 ];
 
 export default function AccountScreen({ navigation }: any) {
-    const { authDispatch } = useAuthContext();
+    const { authState, authDispatch } = useAuthContext();
     const isFocused = useIsFocused();
     const [authUserDetails, setAuthUserDetails] = useState<AuthUserDetails>();
     const [refreshing, setRefreshing] = useState<boolean>(false);
 
     useEffect(() => {
-        storeAuthUser();
+        handleStoreAuthUser();
     }, [isFocused === true]);
 
     const handleLogout = () => {
         logout(authDispatch);
     };
 
-    const storeAuthUser = async () => {
-        const authUser = await AsyncStorage.getItem("authUser");
-        setAuthUserDetails(JSON.parse(authUser!));
+    const handleStoreAuthUser = async () => {
+        // const authUser = await AsyncStorage.getItem("authUser");
+        // setAuthUserDetails(JSON.parse(authUser!));
+        storeAuthUser(authDispatch);
     };
 
     const refreshAuthUser = async () => {
         await getAuthUser(authDispatch);
-        storeAuthUser();
+        handleStoreAuthUser();
     };
 
     return (
@@ -64,16 +66,21 @@ export default function AccountScreen({ navigation }: any) {
                     refreshing={refreshing}
                     onRefresh={() => console.log("ndfkn")}
                 /> */}
-                <ListItem
-                    title={authUserDetails?.name!}
-                    subTitle={authUserDetails?.email!}
-                    image={{
-                        uri:
-                            BASE_URL +
-                            authUserDetails?.photo.replace("public", ""),
-                    }}
-                />
+                <Pressable
+                    onPress={() => navigation.navigate(routes.USER_PROFILE)}
+                >
+                    <ListItem
+                        title={authState.user?.name!}
+                        subTitle={authState.user?.email!}
+                        image={{
+                            uri:
+                                BASE_URL +
+                                authState.user?.photo.replace("public", ""),
+                        }}
+                    />
+                </Pressable>
             </View>
+
             <View style={styles.container}>
                 <FlatList
                     data={menuItems}

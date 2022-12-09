@@ -76,7 +76,7 @@ export const login = async (
         }
 
         await storeAuthUserToken(response.data?.token);
-        await storeAuthUser(response.data?.user);
+        await restoreAuthUser(response.data?.user);
         dispatch({
             type: IS_AUTHENTICATED,
             payload: true,
@@ -101,10 +101,8 @@ const storeAuthUserToken = async (token: string) => {
     }
 };
 
-const storeAuthUser = async (authUser: Object) => {
+const restoreAuthUser = async (authUser: Object) => {
     try {
-        console.log(authUser);
-
         const data = JSON.stringify(authUser);
 
         await AsyncStorage.mergeItem("authUser", data);
@@ -121,7 +119,7 @@ export const getAuthUser = async (dispatch: Dispatch<any>) => {
         });
         const response = await api.get(endPoints.authUser);
 
-        storeAuthUser(response.data?.data?.user);
+        restoreAuthUser(response.data?.data?.user);
         dispatch({
             type: SET_AUTH_USER,
             payload: response.data,
@@ -160,4 +158,16 @@ export const checkAuthUser = async (dispatch: Dispatch<any>) => {
     } catch (error: unknown) {
         console.error(error);
     }
+};
+
+export const storeAuthUser = async (dispatch: Dispatch<any>) => {
+    let authUser = await AsyncStorage.getItem("authUser");
+    // setAuthUserDetails(JSON.parse(authUser!));
+    authUser = JSON.parse(authUser!);
+    // console.log(authUser);
+
+    dispatch({
+        type: SET_AUTH_USER,
+        payload: authUser,
+    });
 };
