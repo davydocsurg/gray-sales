@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     text: {
         color: colors.white,
         fontSize: 17,
-        textTransform: "uppercase",
+        textTransform: "capitalize",
         fontWeight: "bold",
     },
 });
