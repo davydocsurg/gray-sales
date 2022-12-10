@@ -8,6 +8,7 @@ interface ButtonProps {
     color: string;
     onPress: any;
     icon?: any;
+    width?: string;
 }
 
 export default function AppButton({
@@ -15,10 +16,11 @@ export default function AppButton({
     color,
     onPress,
     icon,
+    width = "100%",
 }: ButtonProps) {
     return (
         <TouchableOpacity
-            style={[styles.button, { backgroundColor: color }]}
+            style={[styles.button, { backgroundColor: color, width: width }]}
             onPress={onPress}
         >
             <View style={{ flexDirection: "row", alignItems: "center" }}>
@@ -39,10 +41,8 @@ const styles = StyleSheet.create({
     button: {
         backgroundColor: colors.orange,
         borderRadius: 25,
-        justifyContent: "center",
         alignItems: "center",
         padding: 15,
-        width: "100%",
         marginVertical: 10,
     },
 

@@ -3,7 +3,7 @@ import { View, StyleSheet, ScrollView, Platform, Alert } from "react-native";
 import * as Yup from "yup";
 
 // locals
-import { Screen } from "../components";
+import { LoadingIndicator, Screen } from "../components";
 import {
     AppForm as Form,
     AppFormField as FormField,
@@ -24,13 +24,11 @@ const validationSchema = Yup.object().shape({
 });
 
 const UpdateProfileScreen = ({ navigation }: any) => {
-    const [uploadVisible, setUploadVisible] = useState(false);
     const [progress, setProgress] = useState(0);
     const { authState, authDispatch } = useAuthContext();
 
     const handleSubmit = async (values: Object, { resetForm }: any) => {
         // setProgress(0);
-        setUploadVisible(true);
 
         await updateProfileInfo(authDispatch, values);
         // (progress: number)
@@ -38,7 +36,6 @@ const UpdateProfileScreen = ({ navigation }: any) => {
         // setProgress(progress)
 
         if (authState.profileUpdateSuccess !== "updated") {
-            setUploadVisible(false);
             setTimeout(() => {
                 return Alert.alert(
                     "Something Went Wrong",
@@ -54,23 +51,27 @@ const UpdateProfileScreen = ({ navigation }: any) => {
                         onDismiss: () => {},
                     }
                 );
-            }, 1500);
+            }, 3500);
         }
 
         resetForm({
             values: "",
         });
-        setUploadVisible(false);
 
         navigation.navigate(routes.USER_PROFILE);
     };
 
     return (
         <ScrollView style={styles.container}>
+            <LoadingIndicator visible={authState.loading} />
+
             <Screen
                 style={[
                     // styles.container,
-                    { marginBottom: Platform.OS === "android" ? 120 : 0 },
+                    {
+                        marginBottom: Platform.OS === "android" ? 120 : 0,
+                        // alignItems: "center",
+                    },
                 ]}
             >
                 <Form
@@ -100,7 +101,13 @@ const UpdateProfileScreen = ({ navigation }: any) => {
                         placeholder="Email"
                     />
 
-                    <SubmitButton color={colors.orange} title={"Update"} />
+                    <View style={{ alignItems: "center" }}>
+                        <SubmitButton
+                            width="50%"
+                            color={colors.orange}
+                            title={"Update"}
+                        />
+                    </View>
                 </Form>
             </Screen>
         </ScrollView>

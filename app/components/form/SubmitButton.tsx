@@ -8,12 +8,18 @@ interface SubmitButtonProps {
     // handleSubmit: Function;
     color: string;
     title: string;
+    width?: string;
 }
 
-const SubmitButton = ({ color, title }: SubmitButtonProps) => {
+const SubmitButton = ({ color, title, width }: SubmitButtonProps) => {
     const { handleSubmit } = useFormikContext<FormikValues>();
     return (
-        <AppButton color={color} onPress={() => handleSubmit()} title={title} />
+        <AppButton
+            width={width}
+            color={color}
+            onPress={() => handleSubmit()}
+            title={title}
+        />
     );
 };
 

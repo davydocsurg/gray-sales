@@ -151,7 +151,8 @@ export const checkAuthUser = async (dispatch: Dispatch<any>) => {
         const authToken = await AsyncStorage.getItem("authToken");
 
         if (authToken !== null) {
-            dispatch({
+            return authToken;
+            return dispatch({
                 type: IS_AUTHENTICATED,
                 payload: true,
             });
@@ -178,6 +179,10 @@ export const updateProfileInfo = async (
     values: any
 ) => {
     try {
+        dispatch({
+            type: LOADING_AUTH,
+            payload: true,
+        });
         const data = new FormData();
         const photo: any = {
             uri: values.profilePhoto[0].uri,
@@ -200,14 +205,22 @@ export const updateProfileInfo = async (
         );
 
         if (response.data.success) {
-            // restoreAuthUser(response.data.data);
-            logout(dispatch);
-            // dispatch({
-            //     type: UPDATE_PROFILE_SUCCESS,
-            //     payload: "updated",
-            // });
+            await restoreAuthUser(response.data.data);
+            // logout(dispatch);
+            dispatch({
+                type: UPDATE_PROFILE_SUCCESS,
+                payload: "updated",
+            });
         }
+        dispatch({
+            type: LOADING_AUTH,
+            payload: false,
+        });
     } catch (error: unknown) {
         console.error(error);
+        dispatch({
+            type: LOADING_AUTH,
+            payload: false,
+        });
     }
 };

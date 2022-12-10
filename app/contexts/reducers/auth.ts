@@ -5,21 +5,25 @@ import {
     SET_AUTH_ERRORS,
     SET_AUTH_USER,
     STOP_LOADING_AUTH,
+    UPDATE_PROFILE_SUCCESS,
 } from "../types";
 
 const authReducer = (state: Object, { payload, type }: any) => {
     switch (type) {
         case LOADING_AUTH:
+            console.log("====================================");
+            console.log(state, "state");
+            console.log("====================================");
             return {
                 ...state,
-                isLoggedIn: false,
+                // isLoggedIn: false,
                 errors: [],
-                loading: true,
+                loading: payload,
             };
 
         case STOP_LOADING_AUTH:
             return {
-                loading: false,
+                loading: payload,
             };
 
         case IS_AUTHENTICATED:
@@ -34,7 +38,7 @@ const authReducer = (state: Object, { payload, type }: any) => {
 
         case SET_AUTH_ERRORS:
             return {
-                ...state,
+                // ...state,
                 errors: payload,
                 loading: false,
             };
@@ -45,7 +49,7 @@ const authReducer = (state: Object, { payload, type }: any) => {
                 user: payload,
             };
 
-        case SET_AUTH_USER:
+        case UPDATE_PROFILE_SUCCESS:
             return {
                 profileUpdateSuccess: payload,
             };

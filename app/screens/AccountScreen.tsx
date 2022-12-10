@@ -54,9 +54,9 @@ export default function AccountScreen({ navigation }: any) {
         handleStoreAuthUser();
     }, [isFocused === true]);
 
-    // useEffect(() => {
-    //     refreshAuthUser();
-    // }, [authState.profileUpdateSuccess == "updated"]);
+    useEffect(() => {
+        refreshAuthUser();
+    }, [authState.profileUpdateSuccess == "updated"]);
 
     const handleLogout = () => {
         logout(authDispatch);
@@ -83,7 +83,7 @@ export default function AccountScreen({ navigation }: any) {
                     source={{
                         uri:
                             BASE_URL +
-                            authState.user?.photo.replace("public", ""),
+                            authState.user?.photo?.replace("public", ""),
                     }}
                 />
                 <View style={styles.profInfo}>

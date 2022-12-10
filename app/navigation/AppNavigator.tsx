@@ -25,7 +25,7 @@ const AppNavigator = () => {
 
     useEffect(() => {
         checkAuthUser(authDispatch);
-    }, []);
+    }, [authState.isLoggedIn]);
 
     if (!authState.isLoggedIn) {
         return <AuthNavigator />;
