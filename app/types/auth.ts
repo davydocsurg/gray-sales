@@ -1,6 +1,6 @@
 import { Dispatch } from "react";
 
-interface initialAuthType {
+export interface initialAuthType {
     isLoggedIn: boolean;
     errors: [];
     user: AuthUserDetails;
@@ -8,9 +8,8 @@ interface initialAuthType {
     profileUpdateSuccess: string;
 }
 
-export interface AuthContextType {
-    authState: initialAuthType;
-    authDispatch: Dispatch<any>;
+export interface AuthStateType {
+    authUser: initialAuthType;
 }
 
 export interface AuthUserDetails {

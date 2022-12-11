@@ -1,4 +1,4 @@
-import { Dispatch } from "react";
+import { Dispatch, useCallback } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // locals
@@ -151,7 +151,7 @@ export const checkAuthUser = async (dispatch: Dispatch<any>) => {
         const authToken = await AsyncStorage.getItem("authToken");
 
         if (authToken !== null) {
-            return authToken;
+            // return authToken;
             return dispatch({
                 type: IS_AUTHENTICATED,
                 payload: true,
