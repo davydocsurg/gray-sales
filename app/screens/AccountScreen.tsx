@@ -53,6 +53,9 @@ export default function AccountScreen({ navigation }: any) {
 
     useEffect(() => {
         handleFetchAuthUserData();
+        setTimeout(() => {
+            handleFetchAuthUserData();
+        }, 15000);
     }, [isFocused === true]);
 
     // useEffect(() => {
@@ -69,6 +72,7 @@ export default function AccountScreen({ navigation }: any) {
                 <View style={styles.bgImage}>{/* <Text>hello</Text> */}</View>
                 <Image
                     style={styles.image}
+                    defaultSource={require("../assets/images/avatar.jpg")}
                     source={{
                         uri:
                             BASE_URL +

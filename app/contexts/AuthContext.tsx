@@ -14,6 +14,7 @@ import type {
     AuthUserDetails,
     initialAuthType,
     LoginFields,
+    ProfileUpdateFields,
 } from "../types";
 import authReducer from "./reducers/auth";
 import { AuthState } from "./state";
@@ -23,6 +24,7 @@ type AuthContextType = {
     handleLogin: (fields: LoginFields) => void;
     handleLogout: () => void;
     handleFetchAuthUserData: () => void;
+    handleProfileUpdate: (fields: ProfileUpdateFields) => void;
     // handleDeleteMood: (mood: MoodOptionWithTimestamp) => void;
 };
 
@@ -99,6 +101,7 @@ const AuthContext = createContext<AuthContextType>({
     handleLogin: () => {},
     handleLogout: () => {},
     handleFetchAuthUserData: () => {},
+    handleProfileUpdate: () => {},
 });
 
 export const AuthProvider: React.FC = ({
@@ -114,13 +117,13 @@ export const AuthProvider: React.FC = ({
 
     useEffect(() => {
         getAuthTokenFromStorage();
-        // handleFetchAuthUserData();
+        // console.log(authUser.isLoggedIn);
     }, []);
 
     const handleLogin = useCallback(async (fields: LoginFields) => {
         try {
             setLoading(true);
-            setErrors(null);
+            setErrors([]);
             const response = await api.post(endPoints.login, {
                 email: fields.email,
                 password: fields.password,
@@ -141,7 +144,7 @@ export const AuthProvider: React.FC = ({
 
     const handleLogout = useCallback(async () => {
         try {
-            await AsyncStorage.removeItem("authToken");
+            await AsyncStorage.removeItem(authTokenKey);
             setIsLoggedIn(false);
         } catch (error: Object | any) {
             console.error(error);
@@ -184,11 +187,64 @@ export const AuthProvider: React.FC = ({
 
     const handleFetchAuthUserData = async () => {
         const authUserData = await getAuthUserData();
+        // console.log(authUserData);
+
         setAuthUser({
             ...authUser,
             user: authUserData,
         });
     };
+
+    const setProfileUpdate = (payload: string) => {
+        setAuthUser({
+            ...authUser,
+            profileUpdateSuccess: payload,
+        });
+    };
+
+    const handleProfileUpdate = useCallback(
+        async (values: ProfileUpdateFields) => {
+            try {
+                setLoading(true);
+                setErrors(null);
+                const data = new FormData();
+                // console.log(values.profilePhoto, "log");
+
+                const photo: any = {
+                    uri: values.profilePhoto[0].uri,
+                    name: values.profilePhoto[0].name,
+                    type: values.profilePhoto[0].type,
+                };
+                data.append("name", values.name);
+                data.append("email", values.email);
+                data.append("photo", photo);
+
+                // let authUserLocal = await AsyncStorage.getItem(authUserKey);
+                // console.log(authUserLocal);
+                // authUserLocal = JSON.parse(authUserLocal!);
+                handleFetchAuthUserData();
+                console.log(authUser.user._id, "id");
+
+                const response = await api.put(
+                    endPoints.updateProfile + authUser.user._id,
+                    data,
+                    {
+                        headers: { "Content-Type": "multipart/form-data" },
+                    }
+                );
+
+                if (response.data?.success) {
+                    setAuthUserData(response.data?.data?.updatedData);
+                    setProfileUpdate("updated");
+                }
+                setLoading(false);
+            } catch (error: unknown) {
+                setErrors(error);
+                console.error(authUser.errors);
+            }
+        },
+        []
+    );
 
     return (
         <AuthContext.Provider
@@ -197,6 +253,7 @@ export const AuthProvider: React.FC = ({
                 handleLogin,
                 handleLogout,
                 handleFetchAuthUserData,
+                handleProfileUpdate,
             }}
         >
             {children}

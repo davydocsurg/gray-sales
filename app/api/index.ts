@@ -19,7 +19,7 @@ interface apiConfig {
 }
 
 api.interceptors.request.use(async (request) => {
-    const token = await AsyncStorage.getItem("authToken");
+    const token = await AsyncStorage.getItem("auth-token");
 
     if (token && request.headers) {
         request.headers!.Authorization = `Bearer ${token}`;

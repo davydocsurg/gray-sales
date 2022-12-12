@@ -15,6 +15,7 @@ import {
 import { updateProfileInfo } from "../contexts/actions";
 import { useAuthContext } from "../contexts/AuthContext";
 import routes from "../navigation/routes";
+import { ProfileUpdateFields } from "../types";
 import colors from "../utils/colors";
 
 const validationSchema = Yup.object().shape({
@@ -25,45 +26,63 @@ const validationSchema = Yup.object().shape({
 
 const UpdateProfileScreen = ({ navigation }: any) => {
     const [progress, setProgress] = useState(0);
-    const { authState, authDispatch } = useAuthContext();
+    const { authUser, handleProfileUpdate } = useAuthContext();
 
-    const handleSubmit = async (values: Object, { resetForm }: any) => {
-        // setProgress(0);
+    const handleSubmit = (values: ProfileUpdateFields, { resetForm }: any) => {
+        handleProfileUpdate(values);
 
-        await updateProfileInfo(authDispatch, values);
-        // (progress: number)
-        //  =>
-        // setProgress(progress)
-
-        if (authState.profileUpdateSuccess !== "updated") {
-            setTimeout(() => {
-                return Alert.alert(
-                    "Something Went Wrong",
-                    "Couldn't update profile",
-                    [
-                        {
-                            text: "Close",
-                            style: "cancel",
-                        },
-                    ],
+        if (authUser.profileUpdateSuccess !== "updated") {
+            return Alert.alert(
+                "Something Went Wrong",
+                "Couldn't update profile",
+                [
                     {
-                        cancelable: true,
-                        onDismiss: () => {},
-                    }
-                );
-            }, 3500);
+                        text: "Close",
+                        style: "cancel",
+                    },
+                ],
+                {
+                    cancelable: true,
+                    onDismiss: () => {},
+                }
+            );
         }
 
-        resetForm({
-            values: "",
-        });
-
         navigation.navigate(routes.USER_PROFILE);
+        return Alert.alert("Profile Updated Successfully!");
+
+        // setProgress(0);
+        // await updateProfileInfo(authDispatch, values);
+        // // (progress: number)
+        // //  =>
+        // // setProgress(progress)
+        // if (authState.profileUpdateSuccess !== "updated") {
+        //     setTimeout(() => {
+        // return Alert.alert(
+        //     "Something Went Wrong",
+        //     "Couldn't update profile",
+        //     [
+        //         {
+        //             text: "Close",
+        //             style: "cancel",
+        //         },
+        //     ],
+        //     {
+        //         cancelable: true,
+        //         onDismiss: () => {},
+        //     }
+        // );
+        //     }, 3500);
+        // }
+        // resetForm({
+        //     values: "",
+        // });
+        // navigation.navigate(routes.USER_PROFILE);
     };
 
     return (
         <ScrollView style={styles.container}>
-            <LoadingIndicator visible={authState.loading} />
+            <LoadingIndicator visible={authUser.loading} />
 
             <Screen
                 style={[
@@ -80,10 +99,12 @@ const UpdateProfileScreen = ({ navigation }: any) => {
                         email: "",
                         profilePhoto: [],
                     }}
+                    // enableReinitialize={true}
                     validationSchema={validationSchema}
-                    onSubmit={(values: Object, formikBag: Object) =>
-                        handleSubmit(values, formikBag)
-                    }
+                    onSubmit={(
+                        values: ProfileUpdateFields,
+                        formikBag: Object
+                    ) => handleSubmit(values, formikBag)}
                 >
                     {/* <View style={{ alignItems: "center" }}> */}
                     <ProfileImagePicker
@@ -93,12 +114,18 @@ const UpdateProfileScreen = ({ navigation }: any) => {
                     />
                     {/* </View> */}
 
-                    <FormField maxLength={255} name="name" placeholder="Name" />
+                    <FormField
+                        maxLength={255}
+                        name="name"
+                        placeholder="Name"
+                        // value={authUser.user.name}
+                    />
 
                     <FormField
                         maxLength={255}
                         name="email"
                         placeholder="Email"
+                        // value={authUser.user.email}
                     />
 
                     <View style={{ alignItems: "center" }}>

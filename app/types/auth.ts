@@ -17,6 +17,21 @@ export type LoginFields = {
     password: string;
 };
 
+export type ProfileUpdateFields = {
+    name: string;
+    email: string;
+    profilePhoto: photoDetails | any;
+    // photo: {
+    //     profilePhoto: photoDetails;
+    // };
+};
+
+type photoDetails = {
+    uri: string;
+    name: string;
+    type: string;
+};
+
 export interface AuthUserDetails {
     _v: Number;
     _id: string;
