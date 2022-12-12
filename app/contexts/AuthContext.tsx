@@ -219,14 +219,14 @@ export const AuthProvider: React.FC = ({
                 data.append("email", values.email);
                 data.append("photo", photo);
 
-                // let authUserLocal = await AsyncStorage.getItem(authUserKey);
-                // console.log(authUserLocal);
-                // authUserLocal = JSON.parse(authUserLocal!);
-                handleFetchAuthUserData();
-                console.log(authUser.user._id, "id");
+                let authUserLocal = await AsyncStorage.getItem(authUserKey);
+                authUserLocal = JSON.parse(authUserLocal!);
+                console.log(authUserLocal?._id, "direct");
+                // handleFetchAuthUserData();
+                // console.log(authUser.user._id, "id");
 
                 const response = await api.put(
-                    endPoints.updateProfile + authUser.user._id,
+                    endPoints.updateProfile + authUserLocal?._id,
                     data,
                     {
                         headers: { "Content-Type": "multipart/form-data" },
@@ -234,8 +234,11 @@ export const AuthProvider: React.FC = ({
                 );
 
                 if (response.data?.success) {
-                    setAuthUserData(response.data?.data?.updatedData);
-                    setProfileUpdate("updated");
+                    await setAuthUserData(response.data?.data?.updatedData);
+                    // setProfileUpdate("updated");
+                    console.log(authUser);
+
+                    return response.data?.success;
                 }
                 setLoading(false);
             } catch (error: unknown) {

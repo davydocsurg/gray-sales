@@ -28,10 +28,15 @@ const UpdateProfileScreen = ({ navigation }: any) => {
     const [progress, setProgress] = useState(0);
     const { authUser, handleProfileUpdate } = useAuthContext();
 
-    const handleSubmit = (values: ProfileUpdateFields, { resetForm }: any) => {
-        handleProfileUpdate(values);
+    const handleSubmit = async (
+        values: ProfileUpdateFields,
+        { resetForm }: any
+    ) => {
+        const stats = await handleProfileUpdate(values);
 
-        if (authUser.profileUpdateSuccess !== "updated") {
+        // if (authUser.profileUpdateSuccess !== "updated") {
+        if (stats !== true) {
+            console.log(stats);
             return Alert.alert(
                 "Something Went Wrong",
                 "Couldn't update profile",
@@ -48,8 +53,8 @@ const UpdateProfileScreen = ({ navigation }: any) => {
             );
         }
 
-        navigation.navigate(routes.USER_PROFILE);
-        return Alert.alert("Profile Updated Successfully!");
+        Alert.alert("Profile Updated Successfully!");
+        return navigation.navigate(routes.ACCOUNT);
 
         // setProgress(0);
         // await updateProfileInfo(authDispatch, values);
