@@ -11,23 +11,16 @@ import routes from "./routes";
 import AccountNavigator from "./AccountNavigator";
 import { ListingsEditScreen, ListingsScreen } from "../screens";
 import { createStackNavigator } from "@react-navigation/stack";
-import colors from "../utils/colors";
 import { useAuthContext } from "../contexts/AuthContext";
 import AuthNavigator from "./AuthNavigator";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { checkAuthUser } from "../contexts/actions";
 
 const Tab = createBottomTabNavigator<RootTabParamList>();
 const Stack = createStackNavigator();
 
 const AppNavigator = () => {
-    const { authState, authDispatch } = useAuthContext();
+    const { authUser } = useAuthContext();
 
-    useEffect(() => {
-        checkAuthUser(authDispatch);
-    }, [authState.isLoggedIn]);
-
-    if (!authState.isLoggedIn) {
+    if (!authUser.isLoggedIn) {
         return <AuthNavigator />;
     } else
         return (

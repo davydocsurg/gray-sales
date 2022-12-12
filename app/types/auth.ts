@@ -12,6 +12,11 @@ export interface AuthStateType {
     authUser: initialAuthType;
 }
 
+export type LoginFields = {
+    email: string;
+    password: string;
+};
+
 export interface AuthUserDetails {
     _v: Number;
     _id: string;

@@ -45,33 +45,22 @@ const menuItems = [
 ];
 
 export default function AccountScreen({ navigation }: any) {
-    const { authState, authDispatch } = useAuthContext();
+    const { authUser, handleLogout, handleFetchAuthUserData } =
+        useAuthContext();
     const isFocused = useIsFocused();
     const [authUserDetails, setAuthUserDetails] = useState<AuthUserDetails>();
     const [refreshing, setRefreshing] = useState<boolean>(false);
 
     useEffect(() => {
-        handleStoreAuthUser();
+        handleFetchAuthUserData();
     }, [isFocused === true]);
 
-    useEffect(() => {
-        refreshAuthUser();
-    }, [authState.profileUpdateSuccess == "updated"]);
+    // useEffect(() => {
+    //     refreshAuthUser();
+    // }, [authUser.profileUpdateSuccess == "updated"]);
 
-    const handleLogout = () => {
-        logout(authDispatch);
-    };
-
-    const handleStoreAuthUser = async () => {
-        // const authUser = await AsyncStorage.getItem("authUser");
-        // setAuthUserDetails(JSON.parse(authUser!));
-        // getAuthUser(authDispatch);
-        fetchAuthUser(authDispatch);
-    };
-
-    const refreshAuthUser = async () => {
-        await getAuthUser(authDispatch);
-        handleStoreAuthUser();
+    const handleUserLogout = () => {
+        handleLogout();
     };
 
     return (
@@ -83,12 +72,12 @@ export default function AccountScreen({ navigation }: any) {
                     source={{
                         uri:
                             BASE_URL +
-                            authState.user?.photo?.replace("public", ""),
+                            authUser.user?.photo?.replace("public", ""),
                     }}
                 />
                 <View style={styles.profInfo}>
-                    <Text style={styles.name}>{authState.user?.name}</Text>
-                    <Text style={styles.email}>{authState.user?.email}</Text>
+                    <Text style={styles.name}>{authUser.user?.name}</Text>
+                    <Text style={styles.email}>{authUser.user?.email}</Text>
 
                     <AppButton
                         color={colors.orange}
@@ -103,12 +92,12 @@ export default function AccountScreen({ navigation }: any) {
             {/* <UserProfileScreen /> */}
             {/* <View style={styles.container}>
                 <ListItem
-                    title={authState.user?.name!}
-                    subTitle={authState.user?.email!}
+                    title={authUser.user?.name!}
+                    subTitle={authUser.user?.email!}
                     image={{
                         uri:
                             BASE_URL +
-                            authState.user?.photo.replace("public", ""),
+                            authUser.user?.photo.replace("public", ""),
                     }}
                     listAction={() => navigation.navigate(routes.USER_PROFILE)}
                 />
@@ -121,7 +110,7 @@ export default function AccountScreen({ navigation }: any) {
                     keyExtractor={(menuItem) => menuItem.title}
                     ItemSeparatorComponent={ListItemSeparator}
                     refreshing={refreshing}
-                    onRefresh={refreshAuthUser}
+                    // onRefresh={refreshAuthUser}
                     renderItem={({ item }) => (
                         <ListItem
                             title={item.title}
@@ -144,7 +133,7 @@ export default function AccountScreen({ navigation }: any) {
                 IconComponent={
                     <Icon name="logout" backgroundColor={colors.danger} />
                 }
-                listAction={handleLogout}
+                listAction={handleUserLogout}
             />
             {/* </Screen> */}
         </View>

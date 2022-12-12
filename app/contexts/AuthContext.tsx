@@ -1,12 +1,28 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { createContext, useContext, useReducer, useState } from "react";
-import { AuthStateType, initialAuthType } from "../types";
+import {
+    createContext,
+    useCallback,
+    useContext,
+    useEffect,
+    useReducer,
+    useState,
+} from "react";
+import api from "../api";
+import { endPoints } from "../api/endPoints";
+import type {
+    AuthStateType,
+    AuthUserDetails,
+    initialAuthType,
+    LoginFields,
+} from "../types";
 import authReducer from "./reducers/auth";
 import { AuthState } from "./state";
 
 type AuthContextType = {
     authUser: initialAuthType;
-    // handleMoodSelect: (mood: MoodOptionType) => void;
+    handleLogin: (fields: LoginFields) => void;
+    handleLogout: () => void;
+    handleFetchAuthUserData: () => void;
     // handleDeleteMood: (mood: MoodOptionWithTimestamp) => void;
 };
 
@@ -15,7 +31,7 @@ type AuthUserType = {
 };
 
 const authUserKey = "auth-user";
-const authToken = "auth-token";
+const authTokenKey = "auth-token";
 
 const userFields = {
     _id: "",
@@ -40,7 +56,7 @@ const setAuthUserData = async (authUser: initialAuthType): Promise<void> => {
     }
 };
 
-const getAuthUserData = async (): Promise<AuthUserType | null> => {
+const getAuthUserData = async (): Promise<AuthUserDetails> => {
     try {
         const result = await AsyncStorage.getItem(authUserKey);
         if (result) {
@@ -49,12 +65,20 @@ const getAuthUserData = async (): Promise<AuthUserType | null> => {
     } catch (error: unknown) {
         console.error(error);
     }
-    return null;
+    return userFields;
+};
+
+const setAuthToken = async (token: string): Promise<void> => {
+    try {
+        await AsyncStorage.setItem(authTokenKey, token);
+    } catch (error: unknown) {
+        console.error(error);
+    }
 };
 
 const getAuthToken = async (): Promise<string | null> => {
     try {
-        const result = await AsyncStorage.getItem(authToken);
+        const result = await AsyncStorage.getItem(authTokenKey);
         if (result) {
             return result;
         }
@@ -72,6 +96,9 @@ const AuthContext = createContext<AuthContextType>({
         profileUpdateSuccess: "",
         user: userFields,
     },
+    handleLogin: () => {},
+    handleLogout: () => {},
+    handleFetchAuthUserData: () => {},
 });
 
 export const AuthProvider: React.FC = ({
@@ -85,9 +112,69 @@ export const AuthProvider: React.FC = ({
         user: userFields,
     });
 
+    useEffect(() => {
+        getAuthTokenFromStorage();
+        // handleFetchAuthUserData();
+    }, []);
+
+    const handleLogin = useCallback(async (fields: LoginFields) => {
+        try {
+            setLoading(true);
+            setErrors(null);
+            const response = await api.post(endPoints.login, {
+                email: fields.email,
+                password: fields.password,
+            });
+
+            if (response.data?.success === false) {
+                return setErrors(response.data?.message);
+            }
+
+            await setAuthToken(response.data?.token);
+            await setAuthUserData(response.data?.user);
+            setIsLoggedIn(true);
+        } catch (error: Object | any) {
+            console.error(error?.content);
+            setErrors(error?.content);
+        }
+    }, []);
+
+    const handleLogout = useCallback(async () => {
+        try {
+            await AsyncStorage.removeItem("authToken");
+            setIsLoggedIn(false);
+        } catch (error: Object | any) {
+            console.error(error);
+            setErrors(error);
+        }
+    }, []);
+
+    const setLoading = (payload: boolean) => {
+        setAuthUser({
+            ...authUser,
+            loading: payload,
+        });
+    };
+
+    const setErrors = (payload: any) => {
+        setAuthUser({
+            ...authUser,
+            errors: payload,
+        });
+    };
+
+    const setIsLoggedIn = (payload: boolean) => {
+        setAuthUser({
+            ...authUser,
+            isLoggedIn: payload,
+        });
+    };
+
     const getAuthTokenFromStorage = async () => {
         const token = await getAuthToken();
         if (token) {
+            setIsLoggedIn(true);
+
             setAuthUser({
                 ...authUser,
                 isLoggedIn: true,
@@ -95,9 +182,26 @@ export const AuthProvider: React.FC = ({
         }
     };
 
+    const handleFetchAuthUserData = async () => {
+        const authUserData = await getAuthUserData();
+        setAuthUser({
+            ...authUser,
+            user: authUserData,
+        });
+    };
+
     return (
-        <AuthContext.Provider value={{ authUser }}>
+        <AuthContext.Provider
+            value={{
+                authUser,
+                handleLogin,
+                handleLogout,
+                handleFetchAuthUserData,
+            }}
+        >
             {children}
         </AuthContext.Provider>
     );
 };
+
+export const useAuthContext = () => useContext(AuthContext);

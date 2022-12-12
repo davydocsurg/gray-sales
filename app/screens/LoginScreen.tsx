@@ -9,6 +9,7 @@ import Screen from "../components/Screen";
 import { login } from "../contexts/actions";
 import { useAuthContext } from "../contexts/AuthContext";
 import routes from "../navigation/routes";
+import { LoginFields } from "../types";
 import colors from "../utils/colors";
 import UploadScreen from "./UploadScreen";
 
@@ -18,22 +19,20 @@ const validationSchema = Yup.object().shape({
 });
 
 export default function LoginScreen({ navigation }: any) {
-    const { authState, authDispatch } = useAuthContext();
+    const { authUser, handleLogin } = useAuthContext();
     const [uploadVisible, setUploadVisible] = useState(false);
     const [progress, setProgress] = useState(0);
     const isFocused = useIsFocused();
 
-    const handleSubmit = async (values: Object, { resetForm }: any) => {
+    const handleSubmit = async (values: LoginFields, { resetForm }: any) => {
         setProgress(1);
-        await login(authDispatch, values, (progress: number) =>
-            setProgress(progress)
-        );
+        handleLogin(values);
 
-        if (authState.errors?.length > 0) {
-            return Alert.alert(`${authState?.errors}`);
+        if (authUser.errors) {
+            return Alert.alert(`${authUser?.errors}`);
         }
 
-        if (authState.isLoggedIn) {
+        if (authUser.isLoggedIn) {
             setUploadVisible(true);
             // setTimeout(() => {
             //     navigation.navigate(routes.FEED);
@@ -44,7 +43,7 @@ export default function LoginScreen({ navigation }: any) {
 
     return (
         <Screen style={styles.container}>
-            <LoadingIndicator visible={authState.loading} />
+            <LoadingIndicator visible={authUser.loading} />
 
             <UploadScreen
                 onDone={() => setUploadVisible(false)}
@@ -58,7 +57,7 @@ export default function LoginScreen({ navigation }: any) {
             />
             <AppForm
                 initialValues={{ email: "", password: "" }}
-                onSubmit={(values: Object, formikBag: Object) =>
+                onSubmit={(values: LoginFields, formikBag: Object) =>
                     handleSubmit(values, formikBag)
                 }
                 validationSchema={validationSchema}
