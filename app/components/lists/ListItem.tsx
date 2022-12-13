@@ -12,6 +12,7 @@ export default function ListItem({
     listAction,
     renderActions,
     IconComponent,
+    borderRadius,
 }: {
     image?: any;
     title: string;
@@ -19,6 +20,7 @@ export default function ListItem({
     listAction?: any;
     renderActions?: any;
     IconComponent?: any;
+    borderRadius?: number;
 }) {
     return (
         <Swipeable renderRightActions={renderActions}>
@@ -28,7 +30,15 @@ export default function ListItem({
             >
                 <View style={styles.container}>
                     {IconComponent}
-                    {image && <Image style={styles.image} source={image} />}
+                    {image && (
+                        <Image
+                            style={[
+                                styles.image,
+                                { borderRadius: borderRadius },
+                            ]}
+                            source={image}
+                        />
+                    )}
                     <View style={styles.detailsContainer}>
                         <AppText style={styles.title} numberOfLines={1}>
                             {title}
@@ -65,7 +75,6 @@ const styles = StyleSheet.create({
     image: {
         width: 70,
         height: 70,
-        borderRadius: 35,
     },
     subTitle: {
         color: colors.medium,

@@ -4,7 +4,7 @@ export interface initialAuthType {
     isLoggedIn: boolean;
     errors: [];
     user: AuthUserDetails;
-    stocks: AuthStockDetails[];
+    stocks: [];
     loading: boolean;
     profileUpdateSuccess: string;
 }

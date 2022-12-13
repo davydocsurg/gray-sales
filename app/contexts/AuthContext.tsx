@@ -11,6 +11,7 @@ import api from "../api";
 import { endPoints } from "../api/endPoints";
 import type {
     AuthStateType,
+    AuthStockDetails,
     AuthUserDetails,
     initialAuthType,
     LoginFields,
@@ -19,6 +20,7 @@ import type {
 
 type AuthContextType = {
     authUser: initialAuthType;
+    authUserStocks: any[];
     handleLogin: (fields: LoginFields) => void;
     handleLogout: () => void;
     handleFetchAuthUserData: () => void;
@@ -113,6 +115,7 @@ const AuthContext = createContext<AuthContextType>({
         user: userFields,
         stocks: [],
     },
+    authUserStocks: [],
     handleLogin: () => {},
     handleLogout: () => {},
     handleFetchAuthUserData: () => {},
@@ -131,6 +134,8 @@ export const AuthProvider: React.FC = ({
         user: userFields,
         stocks: [],
     });
+
+    const [authUserStocks, setAuthUserStocks] = useState([]);
 
     useEffect(() => {
         getAuthTokenFromStorage();
@@ -221,6 +226,13 @@ export const AuthProvider: React.FC = ({
         });
     };
 
+    const handleSetAuthUserStocks = (payload: []) => {
+        setAuthUser({
+            ...authUser,
+            stocks: payload,
+        });
+    };
+
     const handleProfileUpdate = useCallback(
         async (values: ProfileUpdateFields) => {
             try {
@@ -274,14 +286,7 @@ export const AuthProvider: React.FC = ({
             const response = await api.get(endPoints.authUser);
             // console.log(response.data.data.authUserStocks);
 
-            setAuthUser({
-                ...authUser,
-                stocks: response.data?.data?.authUserStocks,
-            });
-            console.log(
-                authUser.stocks
-                // response.data?.data?.authUserStocks[0]
-            );
+            setAuthUserStocks(response.data.data.authUserStocks);
 
             setLoading(false);
         } catch (error: unknown) {
@@ -295,6 +300,7 @@ export const AuthProvider: React.FC = ({
         <AuthContext.Provider
             value={{
                 authUser,
+                authUserStocks,
                 handleLogin,
                 handleLogout,
                 handleFetchAuthUserData,

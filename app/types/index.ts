@@ -8,6 +8,7 @@ import {
     initialAuthType,
     LoginFields,
     ProfileUpdateFields,
+    AuthStockDetails,
 } from "./auth";
 
 export {
@@ -22,4 +23,5 @@ export {
     initialAuthType,
     LoginFields,
     ProfileUpdateFields,
+    AuthStockDetails,
 };

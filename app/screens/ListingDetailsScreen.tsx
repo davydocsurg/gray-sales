@@ -47,6 +47,7 @@ export default function ListingDetailsScreen({ route }: any) {
                     subTitle={`${stocksCount!} ${
                         +stocksCount! > 1 ? "listings" : "listing"
                     }`}
+                    borderRadius={22}
                 />
             </View>
         </View>

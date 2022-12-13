@@ -8,35 +8,17 @@ import ListItemDeleteAction from "../components/lists/ListItemDeleteAction";
 import ListItemSeparator from "../components/lists/ListItemSeparator";
 import Screen from "../components/Screen";
 import { useAuthContext } from "../contexts/AuthContext";
-import { Message } from "../types";
-
-const initialMessages = [
-    {
-        id: 1,
-        title: "Lorem Ipsum dolor",
-        description:
-            "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Optio suscipit veritatis dolorem, magni at fugit iusto vitae aut. Quo ducimus, accusamus expedita ratione nesciunt inventore magni maiores enim! Provident, repellendus.",
-        image: require("../assets/images/avatar.jpg"),
-    },
-    {
-        id: 2,
-        title: "Dolor Qaecum",
-        description:
-            "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Optio suscipit veritatis dolorem, magni at fugit iusto vitae aut. Quo ducimus, accusamus expedita ratione nesciunt inventore magni maiores enim! Provident, repellendus.",
-        image: require("../assets/images/avatar.jpg"),
-    },
-];
 
 export default function MyStocksScreen() {
-    const [messages, setMessages] = useState(initialMessages);
     const [refreshing, setRefreshing] = useState(false);
-    const { authUser, handleFetchAuthUserStocks } = useAuthContext();
+    const { authUser, authUserStocks, handleFetchAuthUserStocks } =
+        useAuthContext();
     const isFocused = useIsFocused();
 
     useEffect(() => {
         handleFetchAuthUserStocks();
         //     setTimeout(() => {
-        //         console.log(authUser.stocks);
+        // console.log(authUserStocks);
         //     }, 2500);
     }, [isFocused === true]);
 
@@ -49,19 +31,20 @@ export default function MyStocksScreen() {
         <Screen>
             <LoadingIndicator visible={authUser.loading} />
             <FlatList
-                data={authUser.stocks!}
-                keyExtractor={(stock) => stock._id.toString()}
+                data={authUserStocks}
+                keyExtractor={(stock) => stock?._id.toString()}
                 renderItem={({ item }) => (
                     <ListItem
-                        title={item.title}
-                        subTitle={item.description}
-                        image={{ uri: BASE_URL + item.images }}
+                        borderRadius={15}
+                        title={item?.title}
+                        subTitle={item?.description}
+                        image={{ uri: BASE_URL + item?.images[0].path }}
                         listAction={() => {
                             return;
                         }}
                         renderActions={() => (
                             <ListItemDeleteAction
-                                deleteAction={() => handleDelete(item._id)}
+                                deleteAction={() => handleDelete(item?._id)}
                             />
                         )}
                     />
@@ -69,14 +52,7 @@ export default function MyStocksScreen() {
                 ItemSeparatorComponent={ListItemSeparator}
                 refreshing={refreshing}
                 onRefresh={() => {
-                    setMessages([
-                        {
-                            id: 2,
-                            title: "T2",
-                            description: "D5",
-                            image: require("../assets/images/avatar.jpg"),
-                        },
-                    ]);
+                    handleFetchAuthUserStocks();
                 }}
             />
         </Screen>
