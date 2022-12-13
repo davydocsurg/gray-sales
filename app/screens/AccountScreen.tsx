@@ -32,7 +32,7 @@ const menuItems = [
             name: "format-list-bulleted",
             backgroundColor: colors.orange,
         },
-        targetScreen: "Messages",
+        targetScreen: "My Stocks",
     },
     {
         title: "My Messages",
@@ -48,7 +48,7 @@ export default function AccountScreen({ navigation }: any) {
     const { authUser, handleLogout, handleFetchAuthUserData } =
         useAuthContext();
     const isFocused = useIsFocused();
-    const [authUserDetails, setAuthUserDetails] = useState<AuthUserDetails>();
+    // const [authUserDetails, setAuthUserDetails] = useState<AuthUserDetails>();
     const [refreshing, setRefreshing] = useState<boolean>(false);
 
     useEffect(() => {
@@ -57,10 +57,6 @@ export default function AccountScreen({ navigation }: any) {
             handleFetchAuthUserData();
         }, 15000);
     }, [isFocused === true]);
-
-    // useEffect(() => {
-    //     refreshAuthUser();
-    // }, [authUser.profileUpdateSuccess == "updated"]);
 
     const handleUserLogout = () => {
         handleLogout();

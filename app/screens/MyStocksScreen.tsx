@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import { useIsFocused } from "@react-navigation/native";
+import React, { useEffect, useState } from "react";
 import { View, Text, FlatList } from "react-native";
+import { BASE_URL } from "../api/constants";
 import { LoadingIndicator } from "../components";
 import ListItem from "../components/lists/ListItem";
 import ListItemDeleteAction from "../components/lists/ListItemDeleteAction";
@@ -25,33 +27,41 @@ const initialMessages = [
     },
 ];
 
-export default function MessagesScreen() {
+export default function MyStocksScreen() {
     const [messages, setMessages] = useState(initialMessages);
     const [refreshing, setRefreshing] = useState(false);
-    const { authUser } = useAuthContext();
+    const { authUser, handleFetchAuthUserStocks } = useAuthContext();
+    const isFocused = useIsFocused();
 
-    const handleDelete = (message: Message) => {
+    useEffect(() => {
+        handleFetchAuthUserStocks();
+        //     setTimeout(() => {
+        //         console.log(authUser.stocks);
+        //     }, 2500);
+    }, [isFocused === true]);
+
+    const handleDelete = (stock: string) => {
         // Delete the message from messages
-        setMessages(messages.filter((m) => m.id !== message.id));
+        // setMessages(messages.filter((m) => m.id !== message.id));
     };
 
     return (
         <Screen>
             <LoadingIndicator visible={authUser.loading} />
             <FlatList
-                data={messages}
-                keyExtractor={(msg) => msg.id.toString()}
+                data={authUser.stocks!}
+                keyExtractor={(stock) => stock._id.toString()}
                 renderItem={({ item }) => (
                     <ListItem
                         title={item.title}
                         subTitle={item.description}
-                        image={item.image}
+                        image={{ uri: BASE_URL + item.images }}
                         listAction={() => {
                             return;
                         }}
                         renderActions={() => (
                             <ListItemDeleteAction
-                                deleteAction={() => handleDelete(item)}
+                                deleteAction={() => handleDelete(item._id)}
                             />
                         )}
                     />

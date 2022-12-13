@@ -3,6 +3,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import {
     AccountScreen,
     MessagesScreen,
+    MyStocksScreen,
     UpdateProfileScreen,
     UserProfileScreen,
 } from "../screens";
@@ -20,6 +21,7 @@ const AccountNavigator = () => {
                 name="Update Profile"
                 component={UpdateProfileScreen}
             />
+            <Stack.Screen name="My Stocks" component={MyStocksScreen} />
             {/* </Stack.Group> */}
         </Stack.Navigator>
     );

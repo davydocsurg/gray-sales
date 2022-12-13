@@ -16,14 +16,13 @@ import type {
     LoginFields,
     ProfileUpdateFields,
 } from "../types";
-import authReducer from "./reducers/auth";
-import { AuthState } from "./state";
 
 type AuthContextType = {
     authUser: initialAuthType;
     handleLogin: (fields: LoginFields) => void;
     handleLogout: () => void;
     handleFetchAuthUserData: () => void;
+    handleFetchAuthUserStocks: () => void;
     handleProfileUpdate: (fields: ProfileUpdateFields) => void;
     // handleDeleteMood: (mood: MoodOptionWithTimestamp) => void;
 };
@@ -48,6 +47,21 @@ const userFields = {
     updatedAt: "",
     verificationStatus: "",
 };
+
+const stockFields = [
+    {
+        _id: "",
+        _v: 0,
+        createdAt: "",
+        updatedAt: "",
+        price: 0,
+        title: "",
+        description: "",
+        images: [],
+        categoryId: "",
+        user: "string",
+    },
+];
 
 const setAuthUserData = async (authUser: initialAuthType): Promise<void> => {
     try {
@@ -97,11 +111,13 @@ const AuthContext = createContext<AuthContextType>({
         loading: false,
         profileUpdateSuccess: "",
         user: userFields,
+        stocks: [],
     },
     handleLogin: () => {},
     handleLogout: () => {},
     handleFetchAuthUserData: () => {},
     handleProfileUpdate: () => {},
+    handleFetchAuthUserStocks: () => {},
 });
 
 export const AuthProvider: React.FC = ({
@@ -113,6 +129,7 @@ export const AuthProvider: React.FC = ({
         loading: false,
         profileUpdateSuccess: "",
         user: userFields,
+        stocks: [],
     });
 
     useEffect(() => {
@@ -134,15 +151,18 @@ export const AuthProvider: React.FC = ({
             }
 
             await setAuthToken(response.data?.token);
+            // console.log(response.data);
+
             await setAuthUserData(response.data?.user);
             setIsLoggedIn(true);
+            setLoading(false);
         } catch (error: Object | any) {
             console.error(error?.content);
             setErrors(error?.content);
         }
     }, []);
 
-    const handleLogout = useCallback(async () => {
+    const handleLogout = async () => {
         try {
             await AsyncStorage.removeItem(authTokenKey);
             setIsLoggedIn(false);
@@ -150,7 +170,7 @@ export const AuthProvider: React.FC = ({
             console.error(error);
             setErrors(error);
         }
-    }, []);
+    };
 
     const setLoading = (payload: boolean) => {
         setAuthUser({
@@ -187,7 +207,6 @@ export const AuthProvider: React.FC = ({
 
     const handleFetchAuthUserData = async () => {
         const authUserData = await getAuthUserData();
-        // console.log(authUserData);
 
         setAuthUser({
             ...authUser,
@@ -249,6 +268,29 @@ export const AuthProvider: React.FC = ({
         []
     );
 
+    const handleFetchAuthUserStocks = async () => {
+        try {
+            setLoading(true);
+            const response = await api.get(endPoints.authUser);
+            // console.log(response.data.data.authUserStocks);
+
+            setAuthUser({
+                ...authUser,
+                stocks: response.data?.data?.authUserStocks,
+            });
+            console.log(
+                authUser.stocks
+                // response.data?.data?.authUserStocks[0]
+            );
+
+            setLoading(false);
+        } catch (error: unknown) {
+            setLoading(false);
+            setErrors(error);
+            console.error(error);
+        }
+    };
+
     return (
         <AuthContext.Provider
             value={{
@@ -257,6 +299,7 @@ export const AuthProvider: React.FC = ({
                 handleLogout,
                 handleFetchAuthUserData,
                 handleProfileUpdate,
+                handleFetchAuthUserStocks,
             }}
         >
             {children}
