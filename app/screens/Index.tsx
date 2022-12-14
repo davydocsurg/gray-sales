@@ -11,6 +11,7 @@ import UploadScreen from "./UploadScreen";
 import UserProfileScreen from "./UserProfileScreen";
 import UpdateProfileScreen from "./UpdateProfileScreen";
 import MyStocksScreen from "./MyStocksScreen";
+import AuthUserStockDetails from "./AuthUserStockDetails";
 
 export {
     WelcomeScreen,
@@ -26,4 +27,5 @@ export {
     UserProfileScreen,
     UpdateProfileScreen,
     MyStocksScreen,
+    AuthUserStockDetails,
 };

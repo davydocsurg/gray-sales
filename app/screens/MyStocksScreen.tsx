@@ -8,8 +8,9 @@ import ListItemDeleteAction from "../components/lists/ListItemDeleteAction";
 import ListItemSeparator from "../components/lists/ListItemSeparator";
 import Screen from "../components/Screen";
 import { useAuthContext } from "../contexts/AuthContext";
+import routes from "../navigation/routes";
 
-export default function MyStocksScreen() {
+export default function MyStocksScreen({ navigation }: any) {
     const [refreshing, setRefreshing] = useState(false);
     const { authUser, authUserStocks, handleFetchAuthUserStocks } =
         useAuthContext();
@@ -39,8 +40,9 @@ export default function MyStocksScreen() {
                         title={item?.title}
                         subTitle={item?.description}
                         image={{ uri: BASE_URL + item?.images[0].path }}
+                        icon="chevron-down"
                         listAction={() => {
-                            return;
+                            navigation.navigate(routes.AUTH_USER_STOCKS, item);
                         }}
                         renderActions={() => (
                             <ListItemDeleteAction

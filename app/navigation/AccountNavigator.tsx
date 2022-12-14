@@ -2,6 +2,7 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import {
     AccountScreen,
+    AuthUserStockDetails,
     MessagesScreen,
     MyStocksScreen,
     UpdateProfileScreen,
@@ -13,7 +14,6 @@ const Stack = createStackNavigator();
 const AccountNavigator = () => {
     return (
         <Stack.Navigator>
-            {/* <Stack.Group screenOptions={{ headerShown: false }}> */}
             <Stack.Screen name="Account Settings" component={AccountScreen} />
             <Stack.Screen name="Messages" component={MessagesScreen} />
             <Stack.Screen name="Profile" component={UserProfileScreen} />
@@ -22,7 +22,14 @@ const AccountNavigator = () => {
                 component={UpdateProfileScreen}
             />
             <Stack.Screen name="My Stocks" component={MyStocksScreen} />
-            {/* </Stack.Group> */}
+            <Stack.Group
+                screenOptions={{ headerShown: false, presentation: "modal" }}
+            >
+                <Stack.Screen
+                    name="Stock Details"
+                    component={AuthUserStockDetails}
+                />
+            </Stack.Group>
         </Stack.Navigator>
     );
 };

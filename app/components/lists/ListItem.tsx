@@ -12,7 +12,8 @@ export default function ListItem({
     listAction,
     renderActions,
     IconComponent,
-    borderRadius,
+    borderRadius = 35,
+    icon = "chevron-right",
 }: {
     image?: any;
     title: string;
@@ -21,6 +22,7 @@ export default function ListItem({
     renderActions?: any;
     IconComponent?: any;
     borderRadius?: number;
+    icon?: symbol | Function | any;
 }) {
     return (
         <Swipeable renderRightActions={renderActions}>
@@ -51,7 +53,7 @@ export default function ListItem({
                     </View>
                     <MaterialCommunityIcons
                         color={colors.medium}
-                        name="chevron-right"
+                        name={icon}
                         size={25}
                     />
                 </View>

@@ -8,4 +8,5 @@ export default Object.freeze({
     ACCOUNT: "Account",
     USER_PROFILE: "Profile",
     UPDATE_PROFILE: "Update Profile",
+    AUTH_USER_STOCKS: "Stock Details",
 });
